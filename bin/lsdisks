@@ -1,0 +1,12 @@
+#!/bin/sh
+
+os=$(uname -s)
+
+case $os in
+	Darwin)	diskutil list		;;
+	Linux)	lsblk			;;
+	SunOS)	rmformat -l		;;
+	*BSD*)	camcontrol devlist	;;
+	*)	echo Unknown OS: $os	;;
+esac
+

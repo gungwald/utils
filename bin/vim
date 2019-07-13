@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# The ${OS_VER:0:1} substring operation does not work in dash, so specifying
+# bash above.
+
+OS_VER=$(uname -r)
+OS_MAJOR_VER=${OS_VER:0:1}
+OS_NAME=$(uname)
+
+if [ "$OS_NAME" = 'Darwin' -a "$OS_MAJOR_VER" = '8' ]
+then
+    # This script exists because the Mac location is weird.
+    # This is what it takes to get vim started from the command
+    # line on a Mac.
+    VIM_EXE=/Applications/Vim.app/Contents/MacOS/Vim
+else
+    VIM_EXE=/usr/bin/vim
+fi
+
+exec "$VIM_EXE" "$@"
+

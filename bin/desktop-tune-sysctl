@@ -1,0 +1,16 @@
+#!/bin/sh
+
+tee -a /etc/sysctl.d/99-sysctl.conf <<-EOF
+# http://www.akitaonrails.com/2017/01/17/optimizing-linux-for-slow-computers
+# Aggressively keep application state in RAM to avoid swapping.
+vm.swappiness=1
+vm.vfs_cache_pressure=50
+# Speed up slow storage devices like USB drives or SD cards.
+vm.dirty_background_bytes=16777216
+vm.dirty_bytes=50331648
+EOF
+
+sysctl -w vm.swappiness=1
+sysctl -w vm.vfs_cache_pressure=50
+sysctl -w vm.dirty_background_bytes=16777216
+sysctl -w vm.dirty_bytes=50331648

@@ -1,0 +1,40 @@
+#!/bin/sh
+
+#VER=1.8.2.3
+VER=2.9.5
+PKG=git-"$VER".tar.gz
+ON=YesPlease
+
+# These options must be consistent on all make commands or it will recompile
+# everything. Yea!!!
+DEFINES="NO_EXPAT=$ON NO_GETTEXT=$ON CURLDIR=/usr/local"
+
+
+if [ ! -f ~/storage/"$PKG" ]
+then
+	curl http://mirrors.edge.kernel.org/pub/software/scm/git/"$PKG" \
+		-o ~/storage/"$PKG" || exit $?
+fi
+
+pushd ~/src
+
+if [ ! -d git-"$VER" ]
+then
+	tar -xvzf ~/storage/"$PKG" || exit $?
+fi
+
+cd git-"$VER"
+
+make configure || exit $?
+
+./configure --prefix=/usr/local \
+	--with-openssl=/usr/local --with-curl=/usr/local || exit $?
+
+# Other make targets which we can't build: doc info
+make $DEFINES all || exit $?
+
+# Other install targets: install-doc install-html install-info
+# The NO_BLAH defines must match the above make command or it
+# will recompile everything. That is very helpful. NOT!!!!
+sudo make $DEFINES install || exit $?
+

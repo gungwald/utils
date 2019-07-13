@@ -1,0 +1,28 @@
+#!/bin/sh
+
+OS=$(uname -s)
+
+if [ $# -eq 0 ]
+then
+    printf "What file do you want to write? "
+    read FILE
+else
+    FILE="$1"
+fi
+
+if [ "$OS" = "Darwin" ]
+then
+    DISKUTIL=/usr/sbin/diskutil
+    DISK=/dev/disk1
+    EIGHT_MB=8388608
+    "$DISKUTIL" list
+    printf "Write to device %s? (y/n) " "$DISK"
+    read ANSWER
+    if [ "$ANSWER" = "y" ]
+    then
+        "$DISKUTIL" unmountDisk "$DISK"
+        printf "Writing %s to %s\n" "$FILE" "$DISK"
+        printf "This will take a very, very long time...\n"
+        dd if="$FILE" of="$DISK" bs="$EIGHT_MB"
+    fi
+fi

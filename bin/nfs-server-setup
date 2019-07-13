@@ -1,0 +1,21 @@
+#!/bin/sh
+
+MY_UID=$(id -u $LOGNAME)
+MY_GID=$(id -g $LOGNAME)
+
+grep -q '/home/bill/Dropbox' /etc/exports
+
+if [ $? -ne 0 ]
+then
+    sudo cat >> /etc/exports <<EOF
+/home/bill/Dropbox *.local(rw,async,root_squash,anonuid=$MY_UID,anongid=$MY_GID)
+EOF
+fi
+
+sudo dnf -y install nfs-utils
+sudo systemctl start rpcbind nfs-server
+sudo systemctl enable rpcbind nfs-server
+
+sudo firewall-cmd --add-service=nfs --permanent
+sudo firewall-cmd --reload
+

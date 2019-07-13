@@ -1,0 +1,51 @@
+#!/bin/sh
+
+OS=$(uname -s)
+
+case $OS in
+
+	Darwin)
+		if which port
+		then
+			port contents "$@"
+		elif which brew
+		then
+			brew list "$@"
+		else
+			echo Stupid Mac. Jobs is not as smart as you thought, huh?
+		fi
+		;;
+
+	Linux)
+		unset ID_LIKE
+		. /etc/os-release
+
+		case $ID_LIKE in
+
+			fedora | rhel | centos)
+				rpm -q -l "$@"
+				;;
+
+			debian)
+				dpkg-query --listfiles "$@"
+				;;
+
+			*)
+				echo Add code for $ID_LIKE Leenukes
+				;;
+		esac
+		;;
+
+	*BSD*)
+		echo Add code for $OS to this script.
+		;;
+
+	*Win* | *win*)
+		# Scoop could be used here.
+		echo $OS? Stop being a looser. Go to http://getfedora.org.
+		;;
+
+	*)
+		echo Unknown OS: $OS
+		;;
+esac

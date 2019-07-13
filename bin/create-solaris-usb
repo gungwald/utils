@@ -1,0 +1,10 @@
+#!/bin/sh
+
+BIN_DIR=$(dirname "$0")
+if [ "$BIN_DIR" = "." ]
+then
+    BIN_DIR=$(pwd)
+fi
+
+"$BIN_DIR"/create-openindiana-usb "$@"
+

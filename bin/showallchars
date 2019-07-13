@@ -1,0 +1,58 @@
+#!/bin/sh
+
+# Unfortunately, bold doesn't work when piping through less.
+BOLD=false
+
+# This function definition is compatible with all shells supporting
+# POSIX shell syntax: bash, dash, ksh, posh, pdksh, zsh, ash, mksh
+makeBold()
+{
+	local BOLD=$(tput bold) NORM=$(tput sgr0) SED_ARGS
+	for TEXT in "$@"
+	do
+		SED_ARGS="$SED_ARGS -e s/$TEXT/$BOLD$TEXT$NORM/g"
+	done
+	sed $SED_ARGS
+}
+
+convertControlChars()
+{
+	sed -e "s/cr/\\\r/g" -e "s/lf/\\\n/g" -e "s/ht/\\\t/g"
+}
+
+transform()
+{
+	if [ $BOLD = 'true' ]
+	then
+		convertControlChars | makeBold '\\r' '\\n'
+	else
+		convertControlChars
+	fi
+}
+
+error()
+{
+	echo $PROGRAM_NAME: $FILE: $* 1>&2
+}
+
+PROGRAM_NAME=$(basename "$0")
+
+for FILE in "$@"
+do
+	if [ -e "$FILE" ]
+	then
+		# Make sure it is some kind of text file and not binary data.
+		if file "$FILE" | grep -iq text
+		then
+			hexdump -v -e '20/1 "%-2_u  " "\n"' "$FILE" | transform
+		else
+			error Nadda text file
+		fi
+	elif [ "$FILE" = '-b' ]
+	then
+		BOLD=true
+	else
+		error File not found
+	fi 
+done
+

@@ -1,0 +1,19 @@
+#!/bin/sh
+
+if [ $# = 0 ]
+then
+	DEFAULT_INPUT_FILE=/dev/stdin
+else
+	DEFAULT_INPUT_FILE=
+fi
+
+# Iterates over all parameters or /dev/stdin
+for FILE in "$@" $DEFAULT_INPUT_FILE
+do
+	while IFS= read -r LINE
+	do
+		# Do whatever you want with LINE here.
+		echo $LINE
+	done < "$FILE"
+done
+

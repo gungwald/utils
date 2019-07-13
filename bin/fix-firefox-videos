@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# This information comes from here:
+# https://forums.fedoraforum.org/showthread.php?321233-fedora-30-and-firefox-video(h264-youtube-gstreamer1)
+
+if [ $(whoami) = 'root' ]
+then
+    unset sudo
+else
+    sudo=sudo
+fi
+
+#$sudo dnf upgrade
+
+# Add the necessary repos.
+$sudo dnf install https://download1.rpmfusion.org/{free/fedora/rpmfusion-free,nonfree/fedora/rpmfusion-nonfree}-release-$(rpm -E %fedora).noarch.rpm
+
+# These are the undocumented magic packages that make it work.
+$sudo dnf install gstreamer1-libav gstreamer1-plugins-ugly

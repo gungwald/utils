@@ -1,0 +1,27 @@
+#!/bin/sh
+
+if [ $# = 0 ]
+then
+	DEFAULT_INPUT_FILE=/dev/stdin
+else
+	DEFAULT_INPUT_FILE=
+fi
+
+# Initialize the variable to store the SQL "in list".
+SQL=''
+
+# Iterates over all parameters or /dev/stdin
+for FILE in "$@" $DEFAULT_INPUT_FILE
+do
+	while read LINE
+	do
+		if [ -z "$SQL" ]
+		then
+			SQL="'$LINE'"
+		else
+			SQL="$SQL, '$LINE'"
+		fi
+	done < "$FILE"
+done
+echo $SQL
+

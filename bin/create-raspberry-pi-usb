@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# Validate command line parameters.
+if [ $# -eq 2 ]; then
+	IMAGE="$1"
+	DEVICE="$2"
+else
+	echo usage: $0 image ouput-device \(/dev/sdb or /dev/mmcblk0\)
+	echo Use 'lslblk' to find the output device.
+	echo Make sure it is unmounted with 'umount'.
+	exit 1
+fi
+
+# Get extension from image file.
+EXT=${IMAGE##*.}
+
+# Determine decompression program from extension.
+if   [ "$EXT" = 'xz'  ]; then
+	ZCAT=xzcat
+elif [ "$EXT" = 'zip' ]; then
+	ZCAT='unzip -p'
+elif [ "$EXT" = 'gz'  ]; then
+	ZCAT=zcat
+elif [ "$EXT" = 'img' ]; then
+	ZCAT=cat
+fi
+
+$ZCAT "$IMAGE" | sudo dd status=progress bs=4M of="$DEVICE"

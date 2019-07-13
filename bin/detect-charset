@@ -1,0 +1,33 @@
+#!/bin/sh
+# To install the tika-app command:
+# Or download the jar: http://www.apache.org/dyn/closer.cgi/tika/tika-app-1.18.jar
+# Then the command would be: java -jar tika-app-1.18.jar --metadata filenames | findstr "Content-Encoding:"
+if which tika-app
+then
+    tika-app --metadata "$@" | grep Content-Encoding:
+else
+    binDir=$(dirname "$0")
+    if [ "$binDir" = "." ]
+    then
+        binDir=$(pwd)
+    fi
+    libDir=$(dirname "$binDir")/lib
+    unset tikaJar
+    for jar in tika-app-*.jar "$binDir"/tika-app-*.jar \
+        "$libDir"/tika-app-*.jar "$HOME"/lib/tika-app-*.jar \
+        "$HOME"/Downloads/tika-app-*.jar
+    do
+        tikaJar="$jar"
+        break
+    done
+    if [ -n "$tikaJar" ]
+    then
+        java -jar "$tikaJar" --metadata "$@" | grep Content-Encoding:
+    else
+        echo Can\'t find tika-app command or jar file to run.
+        echo On Fedora: sudo dnf install tika-*
+        echo Otherwise download: http://www.apache.org/dyn/closer.cgi/tika/tika-app-1.18.jar
+        echo And try again.
+    fi
+fi
+

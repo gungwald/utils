@@ -1,0 +1,291 @@
+" Vim configuration file
+" Author: Bill Chatfield
+"
+" This file should be sourced into $USERPROFILE\_vimrc and/or P:\_vimrc,
+" which are the actual files read by Vim.
+"
+" Actually, the P:\_vimrc causes delays in vim when there are network
+" problems. So, set the user env var HOME to %USERPROFILE% in System
+" Settings to force it to look on the C: drive for _vimrc which can then
+" source this file.
+"
+" Commenting out these and calling the default init file instead
+" set nocompatible
+" source $VIMRUNTIME/vimrc_example.vim
+" behave xterm
+
+" Detect the OS type
+if !exists("g:os")
+    if has("win64") || has("win32") || has("win16")
+        let g:os = "Windows"
+    else
+        let g:os = substitute(system('uname'), '\n', '', '')
+    endif
+endif
+
+" Defaulting to the P:\ directory is causing several things to fail, so
+" we need to force it somewhere else.
+if g:os == "Windows"
+    let $HOME = $USERPROFILE
+endif
+
+" Eval the system _vimrc
+let system_vimrc = "$VIM/_vimrc"
+if has('empty') && !empty(glob(system_vimrc))
+    execute 'source ' . fnameescape(system_vimrc)
+endif
+
+" Don't set these because they cause the 'Thanks for flying Vim' 
+" problem.
+"set title
+"set titlestring=%t
+
+set tabstop=8
+set softtabstop=4
+set expandtab
+set smarttab
+set shiftwidth=4
+set wrap
+set guioptions=eagimrtTb
+set shortmess=filnxtToOr
+set autoindent
+set smartindent
+if has("showtabline")
+    set showtabline=1   " Show tabs: 0=never, 1=ifneeded, 2=always
+endif
+set number          " Turn on line numbering. 'set nonumber' to turn off
+
+" All this is necessary at least on Darwin 8 (Mac OS X 10.4.11) with
+" https://sourceforge.net/projects/macosxvim/files/old_releases/Vim-7.4.242_universal_10.4.dmg/download
+set laststatus=2    " Always show the status bar/line...duh...
+if &statusline == ""
+    set statusline=%<%f%h%m%r%=%b\ 0x%B\ \ %l,%c%V\ %P
+endif
+if &backspace == ""
+    set backspace=indent,eol,start  " This is default for >= 8.0
+endif
+syntax on
+
+"  ------------------------------------------------------
+"
+"  Tag List
+"
+"  ------------------------------------------------------
+" This is the documented option but it causes an error.
+" Anyway I put it in the PATH so this isn't necessary.
+let Tlist_Ctags_Cmd='C:/opt/ctags58/ctags.exe'
+"echo "Use the TlistToggle command to show the tag list window."
+
+"  ------------------------------------------------------
+"
+"  Create/Setup Backup and Undo Directories
+"
+"  ------------------------------------------------------
+
+if g:os == "Windows"
+    " Don't use $HOME here because it is different depending on whether
+    " one does a network login or a local login: P:\ versus $USERPROFILE
+    " respectively. Actually I've hardwired $HOME to $USERPROFILE.
+    " The 'set' command can only take a single literal string as a value.
+    " So to use a variable to construct the value the 'let' command
+    " has to be used instead.
+    let &backupdir = fnameescape($USERPROFILE . '\_vimbackup')
+    let &undodir = fnameescape($USERPROFILE . '\_vimundo')
+else
+    " It must be a UNIX-like system such as Linux, Mac, or BSD.
+    if $HOME =~ '/$'
+        " If it ends with a slash, don't append another one.
+        let fileSeparator = ''
+    else
+        let fileSeparator = '/'
+    endif
+    if has("fnameescape")
+        let &backupdir = fnameescape($HOME . fileSeparator . '.vimbackup')
+        let &undodir = fnameescape($HOME . fileSeparator . '.vimundo')
+    else
+        let &backupdir = $HOME . fileSeparator . '.vimbackup'
+        if has("undodir")
+            let &undodir = $HOME . fileSeparator . '.vimundo'
+        endif
+    endif
+endif
+
+" Create &backupdir if it does not exist.
+if ! isdirectory(&backupdir)          " Reference options with '&'
+    if exists("*mkdir")               " Check availability of 'mkdir' command
+        call mkdir(&backupdir, "p")   " Create intermediate dirs via 'p'
+    else
+        echo "Please manually create backup directory: " . &backupdir
+    endif
+endif
+
+" Create &undodir if it does not exist.
+if has("undodir")
+    if ! isdirectory(&undodir)          " Reference options with '&'
+        if exists("*mkdir")             " Check availability of 'mkdir' command
+            call mkdir(&undodir, "p")   " Create intermediate dirs via 'p'
+        else
+            echo "Please manually create undo directory: " . &undodir
+        endif
+    endif
+endif
+
+" Turning on boolean properties for backups:
+set backup
+set writebackup
+
+"  ------------------------------------------------------
+"
+"  Perl Plugin
+"
+"  ------------------------------------------------------
+
+" This puts perl514.dll in the PATH.
+" let $PATH = 'C:\opt\perl-5.14.4.1-for-vim-7.4-interface\perl\bin;' . $PATH
+if has('perl')
+    function! RemoveElementFromPath(path, elemMatcher)
+        perl << EOP
+        my $reducedPath = ''; 
+        my $path = VIM::Eval('a:path');
+        my $elemMatcher = VIM::Eval('a:elemMatcher');
+        @elements = split(/;/, $path);
+        foreach $element (@elements) {
+            if (! ($element =~ /$elemMatcher/)) {
+                $reducedPath .= $element . ';';
+            }
+        }
+        VIM::Eval('setbufvar(bufname("%"), "perlFreePath", "' . $reducedPath . '")');
+        open(PFILE, '>C:/Users/bill.chatfield/Desktop/path.txt');
+        @elements = split(/;/, $reducedPath);
+        foreach $element (@elements) {
+            print PFILE "$element\n";
+        }
+        close(PFILE);
+EOP
+        return b:perlFreePath
+    endfunction
+
+    " For the Perl interface to work, Vim needs to be able to find the
+    " Perl dll in the PATH. And it has to be the exact dll name that
+    " Vim was compiled against. For example, perl514.dll.
+    "
+    " CPAN doesn't work with Strawberry Perl unless it's installed
+    " in the default location, so this doesn't really work. We have
+    " to use the main install of Perl and it has to match with the
+    " VIM version.
+
+    " let $PATH = RemoveElementFromPath($PATH, 'strawberry')
+    " This puts perl514.dll in the PATH.
+    " let $PATH = 'C:\opt\perl-5.14.4.1-for-vim-7.4-interface\perl\bin;' . $PATH
+
+    " Bring in the documentation for Perl plugins.
+    if isdirectory("$HOME/.vimfiles/doc")  " Reference options with '&'
+        helptags $HOME/.vimfiles/doc
+    endif
+
+endif
+
+" Turn on plugins for Perl coding in $HOME/.vimfiles
+"filetype plugin on
+
+"
+" You can set a color theme like this, but usually I give up on these.
+"
+if has('gui_running')
+    if g:os == "Darwin"
+        colorscheme blackbeauty
+    else
+        colorscheme slate
+    endif
+endif
+
+" Set font. To do this again, get your font set in the GUI the way you want
+" and then run the command ":set guifont?" to see what the font specification
+" is. Then copy the font specification to the value of guifont below.
+if has('gui_running')
+    if g:os == "Darwin"
+        set guifont=Monaco:h18
+    elseif g:os == "Linux"
+        set guifont="monofur 11"
+    else
+        "set guifont=Lucida_Console:h12:cANSI
+        "set guifont=ProggySquareTTSZ:h18:cANSI
+        "set guifont=Lucida_Console:h8:cANSI
+        "set guifont=PR_Number_3:h10:cANSI
+        set guifont=monofur:h15:cANSI:qDRAFT
+        "set guifont=FreeMono:h16
+    endif
+endif
+
+" Map the .vb file extension to the vbnet file type so we get syntax
+" highlighting.
+autocmd BufRead,BufNewFile *.vb setlocal filetype=vbnet 
+
+"  ------------------------------------------------------ 
+" 
+"  Java Complete
+"
+"  ------------------------------------------------------
+" Setup javacomplete.vim, java_parset.vim, and Reflection.java
+" This bullshit never worked so deleted the files.
+"if has("autocmd")
+    "autocmd Filetype java setlocal omnifunc=javacomplete#Complete
+    "autocmd Filetype java setlocal completefunc=javacomplete#CompleteParamsInfo
+"else
+    "setlocal omnifunc=javacomplete#Complete
+    "setlocal completefunc=javacomplete#CompleteParamsInfo
+"endif
+"inoremap <buffer> <C-X><C-U> <C-X><C-U><C-P>
+"inoremap <buffer> <C-S-Space> <C-X><C-U><C-P> 
+
+"  ------------------------------------------------------
+"
+"  Textile - requires Ruby
+"
+"  ------------------------------------------------------
+let g:TextileOS="Windows"
+let g:TextileBrowser="C:/Program Files (x86)/Mozilla Firefox/firefox.exe"
+
+
+" Code formatters
+let $PATH = $PATH . ';C:\opt\astyle-2.05.1\AStyle\bin'
+
+" K&R style for C and derivatives
+autocmd FileType C,C++,Objective\ C,Objective\ C++,C# nmap F :%!astyle --style="k&r" --break-closing-brackets --add-brackets<CR>
+
+" Java style for Java
+autocmd FileType Java nmap F :%!astyle --style=java --break-closing-brackets --add-brackets<CR>
+
+" Perltidy requires that the Perl::Tidy module is installed which
+" can be done directly with cpan using command: install Perl::Tidy
+autocmd FileType Perl nmap F :%!perltidy<CR>
+
+" Install webtidy with cpan command: force install HTML::Tidy
+" Webtidy claims it will accept a dash argument to read stdin but it
+" fails. Perl's webtidy doesn't work at all. Using the orginal
+" native tidy.exe instead. JTidy doesn't handle stdin/stdout.
+autocmd FileType HTML nmap F :%!tidy -i -q<CR>
+
+" Install xmltidy with cpan command: force install XML::Tidy
+" Xmltidy will accept input on stdin with a dash argument but
+" then it will fail because it has no file name to write the
+" output to. So, it is necessary to provide the file name of the
+" buffer.
+autocmd FileType XML nmap F :!xmltidy "%" "  "<CR>
+
+" ------------------------------------------------------ 
+" 
+"   Jython
+"
+" ------------------------------------------------------
+
+" Map the file extension to the file type so we get 
+" syntax highlighting.
+autocmd BufRead,BufNewFile *.jy setlocal filetype=python 
+
+autocmd BufRead,BufNewFile *.bsh setlocal filetype=java 
+au BufNewFile,BufRead *.asm set filetype=asm65816
+au BufNewFile,BufRead *.s set filetype=asm65816
+
+au BufRead,BufNewFile *.baz set filetype=virtualbasic
+

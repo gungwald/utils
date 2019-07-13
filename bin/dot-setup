@@ -1,0 +1,32 @@
+#!/bin/sh
+
+# This might need to be updated if you clone it somewheres else.
+utilsDir="$HOME/git/utils"
+
+this="$0"
+thisDir=$(dirname "$this")
+if [ "$thisDir" = "." ]
+then
+    thisDir=$(pwd)
+fi
+
+for dotFile in .bash_profile .profile .vimrc .inputrc
+do
+    if [ -f "$HOME/$dotFile" ]
+    then
+        # Rename original, if it is a normal file.
+        mv "$HOME/$dotFile" "$HOME/$dotFile".orig
+    elif [ -L "$HOME/$dotFile" ]
+    then
+        # Remove a symbolic link so it can be recreated.
+        rm "$HOME/$dotFile"
+    fi
+    if [ ! -e "$HOME/$dotFile" ]
+    then
+        # Create the link only the file doesn't already exist.
+        ln -s "$utilsDir/bin" "$HOME/$dotFile"
+    else
+        echo "$HOME/$dotFile" already exists.
+    fi
+done
+

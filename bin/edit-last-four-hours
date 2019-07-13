@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ -z "$EDITOR" -o "$EDITOR" = "vi" ]
+then
+	EDITOR=vim
+fi
+
+$EDITOR $(find-last-four-hours | cut -d : -f 1)

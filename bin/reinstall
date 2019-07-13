@@ -1,0 +1,12 @@
+#!/bin/sh
+
+unset ID
+
+. /etc/os-release
+
+if [ $ID = 'fedora' -o $ID = 'rhel' -o $ID = 'centos' -o $ID = 'sles' -o $ID = 'opensuse' ]
+then
+	echo `basename "$0"` does not know how to 'do' that yet.
+else
+	apt-get install --reinstall "$@"
+fi

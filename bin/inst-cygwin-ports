@@ -1,0 +1,2 @@
+#!/bin/sh
+cygstart -- $HOME/bin/cygwin-setup -K http://cygwinports.org/ports.gpg

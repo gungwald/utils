@@ -1,0 +1,60 @@
+#!/bin/sh
+
+# TODO - Split into two commands: grant-group-access-to-home & grant-user-access-to-home
+
+grantUserAccessToHome()
+{
+	if [ $# -gt 0 ]
+	then
+		setfacl --modify user:"$1":rx "$HOME"
+	else
+		echo User parameter is missing. 1>&2
+	fi
+}
+
+grantGroupAccessToHome()
+{
+	if [ $# -gt 0 ]
+	then
+		setfacl --modify group:"$1":rx "$HOME"
+	else
+		echo Group parameter is missing. 1>&2
+	fi
+}
+
+grantAccessToHome()
+{
+	for ARG in $*
+	do
+		if grep -q "$ARG" /etc/group
+		then
+			grantGroupAccessToHome "$ARG"
+		else
+			grantUserAccessToHome "$ARG"
+		fi
+	done
+}
+
+if [ $# -gt 0 ]
+then
+	grantAccessToHome "$*"
+else
+	printf "Grant access to a group or a user? (g/u) "
+	read ANSWER
+	case "$ANSWER" in
+		g | G) 
+			printf "Enter group: "
+			read GROUP_ENTERED
+			grantGroupAccessToHome "$GROUP_ENTERED"
+			;;
+		u | U)
+			printf "Enter user: "
+			read USER_ENTERED
+			grantUserAccessToHome "$USER_ENTERED"
+			;;
+		*)
+			echo Invalid entry: $ANSWER
+			;;
+	esac
+fi
+

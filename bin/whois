@@ -1,0 +1,21 @@
+#!/bin/sh
+
+whois() {
+        if [ $# -gt 0 ]
+        then
+                printf '%-8s  %s\n' 'USERID' 'USER NAME'
+        fi
+        for USERID in "$@"
+        do
+                USERNAME=`vastool attrs "$USERID" name | cut -d ' ' -f 2-`
+                printf '%-8s  %s\n' "$USERID" "$USERNAME"
+        done
+}
+
+if [ $# -gt 0 ]
+then
+        whois "$@"
+else
+        whois `w | tail -n +3 | cut -d ' ' -f 1`
+fi
+

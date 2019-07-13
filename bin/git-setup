@@ -1,0 +1,20 @@
+#!/bin/sh
+
+printf "Use business e-mail address? (y/n) "
+read ANSWER
+
+if [ "$ANSWER" = "y" ]
+then
+    git config --global user.email "bill.chatfield@cardinalhealth.com"
+else
+    git config --global user.email "bill_chatfield@yahoo.com"
+fi
+
+# This is always the same.
+git config --global user.name "Bill Chatfield"
+
+# Turn on user and password storage.
+git config --global credential.helper store
+
+# Set to UNIX functionality: no change on checkout, convert CRLF to LF on commit.
+git config --global core.autocrlf input

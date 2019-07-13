@@ -1,0 +1,5 @@
+#!/bin/sh
+# Also turn off IPv6 for more improvement.
+set-delayed-ack
+set-recvspace
+

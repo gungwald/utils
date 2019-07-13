@@ -1,0 +1,65 @@
+#!/bin/bash
+
+# Written by Alexander Klimetschek:
+# http://stackoverflow.com/users/2709/alexander-klimetschek
+#
+function abspath() {
+    # generate absolute path from relative path
+    # $1     : relative filename
+    # return : absolute path
+    if [ -d "$1" ]; then
+        # dir
+        (cd "$1"; pwd)
+    elif [ -f "$1" ]; then
+        # file
+        if [[ $1 == */* ]]; then
+            echo "$(cd "${1%/*}"; pwd)/${1##*/}"
+        else
+            echo "$(pwd)/$1"
+        fi
+    fi
+}
+
+function fullpath() {
+    FULLPATH=$(abspath "$1")
+    if [ "$WINDOWS_FORMAT" = 'true' ]
+    then
+        if [ "$IS_WIN" = 'true' ]
+        then
+            FULLPATH=$(cygpath --windows "$FULLPATH")
+        else
+            echo Cannot convert to Windows path name because the OS is not Windows.
+        fi
+    fi
+    echo $FULLPATH
+}
+
+UNAME=`uname -o`
+if [ "$UNAME" = 'Msys' -o "$UNAME" = 'Cygwin' ]
+then
+    IS_WIN=true
+else
+    IS_WIN=false
+fi
+
+if [ "$1" = '-w' ]
+then
+    shift
+    WINDOWS_FORMAT=true
+else
+    WINDOWS_FORMAT=false
+fi
+
+if [ $# = 0 ]
+then
+    for FILE in *
+    do
+        echo $(fullpath "$FILE")
+    done
+else
+    for FILE in "$@"
+    do
+        echo $(fullpath "$FILE")
+    done
+fi
+

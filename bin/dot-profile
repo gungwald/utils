@@ -1,0 +1,128 @@
+#!/bin/sh
+
+# Reference this from .profile or .bash_profile or make a link to it.
+
+GITDIR=$HOME/git
+UTILSBIN=$GITDIR/utils/bin
+JAVAUTILSBIN=$GITDIR/java-windows-integration/bin
+DROPBOXBIN=$HOME/Dropbox/bin
+
+isKornShell()
+{
+	# This function will implicitly return the result of this expression.
+ 	[ "${SHELL: -3}" = "ksh" ]
+}
+
+isBash()
+{
+	# This function will implicitly return the result of this expression.
+ 	[ "${SHELL: -4}" = "bash" ]
+}
+
+hasAliasCommand()
+{
+	type alias > /dev/null 2> /dev/null
+}
+
+isMacOSX()
+{
+	[ $(uname -s) = "Darwin" ]
+}
+    
+notContains() 
+{
+	echo $1 | grep -qv "$2"
+}
+
+readLine() 
+{
+	# IFS='' prevents trimming of input lines.
+	# The -r preserves backslashes.
+	# The -n part gets the last line if it has no newline.
+	IFS='' read -r LINE || [ -n "$LINE" ]
+}
+
+# Splits a string $2 on the single character delimiter $1, writing the
+# resulting parts to standard output as separate lines. This works like
+# Perl's split subroutine. Be aware the name of this function clashes
+# with the standard split command which splits files.
+split() 
+{
+	echo $2 | tr "$1" "\n"
+}
+
+# Joins lines read from standard input, separating them by the delimiter
+# $1, into a single string. Writing the result to standard output.
+# This works similar to Perl's join command. The
+# name of this function clashes with the standard join command.
+join() 
+{
+	if readLine
+	then
+		printf "%s" "$LINE"
+		while readLine
+		do
+			printf "%s%s" "$1" "$LINE" 
+		done
+	fi
+}
+
+removeDuplicateEntries() 
+{
+	split : "$1" | uniq | join :
+}
+
+fixKornShell()
+{
+	if isKornShell
+	then
+		echo Identified Korn Shell. Adding pushd, popd, and dirs commands.
+		. $UTILSBIN/dirstack.ksh
+	fi
+}
+	
+setupAliases()
+{
+	if hasAliasCommand
+	then
+		alias path="echo PATH=$PATH"
+		alias b="pushd $UTILSBIN"
+		alias g="pushd $GITDIR"
+		alias u="pushd $UTILSDIR"
+		alias jb="pushd $JAVAUTILSBIN"
+
+		if isMacOSX
+		then
+			alias ldd="otool -L"
+			alias crontab="VIM_CRONTAB=true crontab"
+		fi
+	else
+		echo No alias command in $SHELL. Cannot setup aliases.
+	fi
+}
+
+setupPath()
+{
+	local dir
+
+	PATH=$(removeDuplicateEntries "$PATH")
+
+	# /usr/local/(s)bin are for Tiger Brew. They should come
+	# bethree /bin and /usr/bin.
+	for dir in $HOME/bin $UTILSBIN /usr/local/bin /usr/local/sbin $JAVAUTILSBIN $DROPBOXBIN $HOME/.local/bin
+	do
+		if [ -d "$dir" ] && notContains "$PATH" "$dir"
+		then
+			PATH="$dir":"$PATH"
+		fi
+	done
+}
+
+fixKornShell
+setupAliases
+setupPath
+
+PS1='\nLast program exit code = $?\n\n\u @ \h \w\n\$ '
+EDITOR=vi
+export PATH PS1 EDITOR
+

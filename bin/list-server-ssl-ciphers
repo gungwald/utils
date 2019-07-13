@@ -1,0 +1,11 @@
+#!/bin/sh
+if [ $# -eq 0 ]
+then
+    echo Provide the host name for the server you want to check.
+else
+    for HOST in "$@"
+    do
+        nmap --script ssl-enum-ciphers -p 443 "$HOST"
+    done
+fi
+

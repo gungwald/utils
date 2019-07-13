@@ -1,0 +1,30 @@
+#!/bin/sh
+
+build_sql_in_list()
+{
+	# Initialize the variable to store the SQL "in list".
+	SQL=''
+
+	# Iterates over all function parameters
+	for FILE
+	do
+		while read LINE
+		do
+			if [ -z "$SQL" ]
+			then
+				SQL="'$LINE'"
+			else
+				SQL="$SQL, '$LINE'"
+			fi
+		done < "$FILE"
+	done
+	echo $SQL
+}
+
+if [ $# = 0 ]
+then
+	build_sql_in_list /dev/stdin
+else
+	build_sql_in_list "$@"
+fi
+

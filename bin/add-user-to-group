@@ -1,0 +1,58 @@
+#!/bin/sh
+
+# --------------------------------------------------------------------
+#
+# Copyright (c) 2018 Cardinal Health, Inc.
+# All rights reserved
+#
+# Author: Bill Chatfield <bill.chatfield@cardinalhealth.com>
+# 
+# --------------------------------------------------------------------
+
+usage()
+{
+	echo $(basename "$0") USER GROUP1[,GROUP2,...]
+}
+
+# The variable names USER and GROUPS should not be used!
+# GROUPS will not work because it will get automatically
+# and immediately overwritten by the standard array.
+
+if [ $# -eq 0 ]
+then
+	echo -n User:
+	read USER_TO_ADD
+	echo -n Groups \(comma-separated list, no spaces\):
+	read ADDL_GROUPS
+elif [ "$1" = "-h" -o "$1" = "-help" -o "$1" = "--help" -o "$1" = "-?" ]
+then
+	usage
+	exit 0
+elif [ $# -eq 1 ]
+then
+	usage
+	exit 1
+else
+	USER_TO_ADD=$1
+	# One or more groups in a comma-separated list
+	ADDL_GROUPS=$2
+fi
+
+if [ $(id -u) = 0 ]
+then
+	SUDO=
+else
+	echo You must be root to do this. Automatically prepending "sudo" command.
+	SUDO=sudo
+fi
+
+$SUDO usermod --append --groups $ADDL_GROUPS $USER_TO_ADD
+
+if [ $? -eq 0 ]
+then
+	echo User $USER_TO_ADD successfully added to group\(s\) $ADDL_GROUPS.
+	echo To verify, check that /etc/group contains a line starting with each
+	echo group in the list and that $USER_TO_ADD appears on all those the lines.
+	echo The user will have to log out and log back in for it to take effect.
+fi
+

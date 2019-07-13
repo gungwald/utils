@@ -1,0 +1,11 @@
+#!/bin/sh
+
+CONNECTION=Wireless1
+SSID=Gungwald
+INTERFACE=wlp16s21
+PASSWORD="Kind words bring life"
+
+nmcli connection add ifname $INTERFACE con-name $CONNECTION autoconnect yes save yes type wifi ssid $SSID
+nmcli connection modify id $CONNECTION 802-11-wireless-security.key-mgmt wpa-psk
+nmcli connection modify id $CONNECTION 802-11-wireless-security.psk "$PASSWORD"
+nmcli connection up id $CONNECTION

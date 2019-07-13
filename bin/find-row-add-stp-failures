@@ -1,0 +1,2 @@
+#!/bin/sh
+grep -B 2 WARNING "$@" | grep customerId | cut -d ' ' -f 6-

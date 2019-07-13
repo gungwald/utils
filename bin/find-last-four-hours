@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ $# -eq 0 ]
+then
+	find . -maxdepth 1 -mmin -240 -type f -print
+else
+	find . -maxdepth 1 -mmin -240 -type f -exec grep -cH "$@" '{}' \; | grep -v ':0$'
+fi
+

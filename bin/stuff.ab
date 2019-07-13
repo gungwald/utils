@@ -1,0 +1,17 @@
+home
+for i = 1 to 10
+print i
+gosub stuff
+if i = 3 then
+	print x
+elif i = 4 then
+	print y
+end
+
+next
+
+sub stuff
+	input l$
+	print l$
+end
+

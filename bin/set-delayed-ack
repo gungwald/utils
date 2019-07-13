@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# This works around a defect in the TCP/IP stack in Mac OSX.
+if [ "`uname -rs`" = "Darwin 8.11.0" ]; then
+    sudo sysctl -w net.inet.tcp.delayed_ack=0
+else
+    echo Not an old Mac.
+fi

@@ -1,0 +1,2 @@
+#!/bin/sh
+export JAVA_HOME=/c/opt/IBM/RAD75/SDP/jdk

@@ -1,0 +1,52 @@
+#!/bin/sh
+
+PROGRAM_NAME=$(basename "$0")
+EXIT_CODE=0
+
+# Write a message to stdout prefixed with the program name.
+# FILE is global
+# INPUT_SPEC is local
+say()
+{
+    if [ "$FILE" = "" -o "$FILE" = "-" ]
+    then
+        INPUT_SPEC="stdin"
+    else
+        INPUT_SPEC="$FILE"
+    fi
+
+    echo $PROGRAM_NAME: $INPUT_SPEC: $*
+}
+
+isUNIXTextFormat()
+{
+    if od -a "$1" | grep -q cr
+    then
+        say Probably Windows text format 
+        return 1
+    else
+        say Probably UNIX text format
+        return 0
+    fi
+}
+
+if [ $# -eq 0 ]
+then
+    isUNIXTextFormat "-"
+    EXIT_CODE=$?
+else
+    for FILE in "$@"
+    do
+        if file "$FILE" | grep -q text
+	then
+            isUNIXTextFormat "$FILE"
+            EXIT_CODE=$?
+        else
+            say Not a text file
+            EXIT_CODE=-1
+        fi
+    done
+fi
+
+exit $EXIT_CODE
+

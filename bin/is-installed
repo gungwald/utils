@@ -1,0 +1,26 @@
+#!/bin/sh
+
+OS=`uname -s`
+
+if [ "$OS" = Darwin ]
+then
+    if which port
+    then
+    	port installed "$@"
+    else
+        echo Can\'t do it until you install "port".
+    fi
+elif [ "$OS" = Linux ]
+then
+    . /etc/os-release
+    if [ "$ID_LIKE" = 'fedora' ]
+    then
+    	dnf list installed "$@"
+    elif [ "$ID_LIKE" = 'debian' ]
+    then
+        echo Don\'t know it. Fix me.
+    else
+        echo Don\'t know it. Fix me.
+    fi
+fi
+    

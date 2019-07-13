@@ -1,0 +1,99 @@
+#!/bin/sh
+
+# The normal UNIX commands like head, tail, cut, echo and printf consider
+# a line feed to be a line separator/terminator so they can't reliably be
+# used to read it as data in a pipeline or in a variable. They add/remove
+# it as needed from the input/output. For example, try:
+#
+#   [ `printf '\r'` = `printf '\r\n'` ] && echo Bash thinks they are equal
+#
+# To find a CRLF or LF in a file, or to detect a CR that is not followed
+# by a LF, the file has to be read character by character.
+
+message()
+{
+	echo $PROGRAM_NAME: $FILE: $*
+}
+
+error()
+{
+	message $* 1>&2
+}
+
+debug()
+{
+	if [ -n "$DEBUG" ]
+	then
+		echo $PROGRAM_NAME: $*
+	fi
+}
+
+# -//////////////////////////////////////////////////////////////////////////-
+#
+# Reads standard input one character per line, as output from hexdump with
+# custom format. Determines text format of input.
+#
+# CRLF line terminator = Windows text format
+# LF   line terminator = UNIX text format
+# CR   line terminator = MacOS9 or Apple II text format
+#
+# -//////////////////////////////////////////////////////////////////////////-
+
+identifyTextFormat()
+{
+	local CHAR RECOGNIZED=false CAUGHT_STRAY_CR=false
+
+	while read CHAR
+	do
+		debug CHAR=$CHAR CAUGHT_STRAY_CR=$CAUGHT_STRAY_CR
+
+		if [ "$CHAR" = cr ]
+		then
+			read CHAR
+			if [ "$CHAR" = lf ]
+			then
+				message Windows text format
+				RECOGNIZED=true
+				break
+			else
+				CAUGHT_STRAY_CR=true
+			fi
+		elif [ "$CHAR" = lf ]
+		then
+			message UNIX text format
+			RECOGNIZED=true
+			break
+		fi
+	done
+
+	if [ $RECOGNIZED = false ]
+	then
+		if [ $CAUGHT_STRAY_CR = true ]
+		then
+			message Old MacOS9 or Apple II text format
+		else
+			error Failed to recognize text format
+			return 1
+		fi
+	fi
+}
+
+# -//////////-
+#
+# Main program
+#
+# -//////////-
+
+PROGRAM_NAME=$(basename "$0")
+
+for FILE in "$@"
+do
+	# Make sure it is some kind of text file and not binary data.
+	if file "$FILE" | grep -iq text
+	then
+		# Pipes file contents one character per line to identify function
+		hexdump -v -e '1/1 "%_u\n"' "$FILE" | identifyTextFormat
+	else
+		message Not a text file
+	fi
+done

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+pushd $HOME/git
+
+for DIR in *
+do
+    if [ -d "$DIR" ]
+    then
+        pushd "$DIR"
+        git pull origin master
+        popd
+    fi
+done
+
+popd

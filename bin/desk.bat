@@ -1,0 +1,1 @@
+@pushd %USERPROFILE%\Desktop

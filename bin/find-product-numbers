@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# The -n turns off automatic printing of every line because we only
+# want to print matching lines.
+# Find lines with the <productNumber> begin and end tags.
+# Capture the product number value between the begin and end 
+# productNumber tags: \(.*\)
+# Substitute the whole line with just the captured product number: \1
+# Print the captured product number: p
+# Will read from command line parameters or stdin
+sed -n 's/^.*Read .*<productNumber>\(.*\)<\/productNumber>.*$/\1/p' "$@"

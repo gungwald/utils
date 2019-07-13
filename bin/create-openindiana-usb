@@ -1,0 +1,56 @@
+#!/bin/sh
+
+PROGRAM_NAME=$(basename "$0")
+
+# Assume failure until it is successful.
+EXIT_CODE=1
+
+say()
+{
+    echo $PROGRAM_NAME: $*
+}
+
+die()
+{
+    # Send output to stderr, baby.
+    echo $PROGRAM_NAME: $* 1>&2
+}
+
+# Validate command line parameters.
+if [ $# -eq 2 ]; then
+
+    IMAGE="$1"
+    DEVICE="$2"
+
+    if [ -f "$IMAGE" ]
+    then
+        if [ -b "$DEVICE" ]
+        then
+            if mount | grep -q "$DEVICE"
+            then
+                say The output device still has a partition mounted. Please unmount it first.
+                say Use lsblk to see the mount points of block devices.
+            else
+                dd bs=4M if="$IMAGE" of="$DEVICE" status=progress && sync
+
+                if [ $? -eq 0 ]
+                then
+                    EXIT_CODE=0
+                fi
+            fi
+        else
+            say The output file is not a block device: $DEVICE
+            say Use lsblk to see all the valid block devices.
+        fi
+    else
+        say The input source is not a file: $IMAGE
+    fi
+else
+    say Some command line parameters are missing.
+    say usage: $PROGRAM_NAME image-file ouput-block-device \(/dev/sdb or /dev/mmcblk0\)
+    say Use lsblk to find the output device.
+    say Make sure any mount points on that device are unmounted with umount.
+fi
+
+exit $EXIT_CODE
+

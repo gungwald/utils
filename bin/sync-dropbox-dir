@@ -1,0 +1,48 @@
+#!/bin/sh
+
+# Synchronizes ~/Dropbox with remote ~/Dropbox. It requires
+# public key authentication to be setup with the remote host.
+
+# DO NOT USE the "--delete" switch BECAUSE IT WILL WIPE OUT YOUR FILES!!!
+
+# Adding a trailing slash to the source will keep it from creating
+# extra directories at the destination.
+
+HOSTS_WITH_DROPBOX="hpelitebook.local hpcompaq6710b.local billslaptop.local"
+PULL_OK=false
+PUSH_OK=false
+
+message() {
+    echo `date` ////////// $*
+}
+
+for REMOTE_HOST in $HOSTS_WITH_DROPBOX
+do
+    message Pulling from $REMOTE_HOST.
+    rsync --archive --compress --verbose $REMOTE_HOST:Dropbox "$HOME"
+
+    if [ $? -eq 0 ]
+    then
+        PULL_OK=true
+        break
+    else
+        message Pull from $REMOTE_HOST failed.
+    fi
+
+    #message Pushing to $REMOTE_HOST
+    #rsync --archive --compress "$HOME"/Dropbox $REMOTE_HOST
+done
+
+if [ $PULL_OK = 'true' -a $PUSH_OK = 'true' ]
+then
+    message Sync successful.
+elif [ $PULL_OK = 'true' ]
+then
+    message Pull was successful. Push failed.
+elif [ $PUSH_OK = 'true' ]
+then
+    message Push was successful. Pull failed.
+else
+    message Sync failed.
+fi
+

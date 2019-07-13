@@ -1,0 +1,3 @@
+#!/bin/sh
+
+dd if="$1" of=/dev/sdb bs=32768 conv=notrunc,noerror,sync
