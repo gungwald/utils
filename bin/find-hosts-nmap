@@ -1,0 +1,8 @@
+#!/bin/sh
+if [ $(id -u) -ne 0 ]
+then
+    echo This scan requires root access. Restarting with Su-Su-Sussudio.
+    exec sudo "$0" "$@"
+fi
+nmap -O --osscan-guess -sT 192.168.0.2-50
+nmap -O --osscan-guess -sT 192.168.1.2-199
