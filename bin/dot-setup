@@ -21,12 +21,11 @@ do
         # Remove a symbolic link so it can be recreated.
         rm "$HOME/$dotFile"
     fi
-    if [ ! -e "$HOME/$dotFile" ]
+
+    target="$utilsDir/bin/dot-${dotFile#.}"
+    if [ -e "$target" ]
     then
-        # Create the link only the file doesn't already exist.
-        ln -s "$utilsDir/bin" "$HOME/$dotFile"
-    else
-        echo "$HOME/$dotFile" already exists.
+        ln -s "$target" "$HOME/$dotFile"
     fi
 done
 
