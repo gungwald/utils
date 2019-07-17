@@ -1,0 +1,19 @@
+#!/bin/sh
+
+grantAccess()
+{
+    find "$1" -type d -execdir chmod g+rx \{\} \;
+}
+    
+if [ $# -gt 0 ]
+then
+    for userSpecifiedDir in "$@"
+    do
+        grantAccess "$userSpecifiedDir"
+    done
+else
+    # If there is no argument, then assume the current directory to be the
+    # starting point.
+    grantAccess $(pwd)
+fi
+    
