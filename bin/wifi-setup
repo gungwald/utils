@@ -1,9 +1,48 @@
 #!/bin/sh
 
+selectInterface()
+{
+	local I IFACE ANSWER=0
+	while [ "$ANSWER" -le 0 -a "$ANSWER" -ge "$I" ]
+	do
+		I=1
+		echo Choose a Wi-Fi device to setup:
+		for IFACE in $*
+		do
+			echo $I\) $IFACE
+			I=$(expr $I + 1)
+		done
+		printf "Enter a number: "
+		read ANSWER
+	done
+	return "$ANSWER"
+}
+
+getValueAtIndex()
+{
+	local INDEX=$1 I=1 VALUE
+	shift
+	for VALUE in $*
+	do
+		if [ "$I" -eq "$INDEX" ]
+		then
+			echo $VALUE
+		fi
+		I=$(expr $I + 1)
+	done
+}
+
 CONNECTION=Wireless1
 SSID=Gungwald
-INTERFACE=wlp16s21
+INTERFACE=$(nmcli --terse device status | grep -E '^[[:alnum:]]+:wifi:' | cut -f 1 -d :)
 PASSWORD="Kind words bring life"
+WIFI_INTERFACE_COUNT=$(echo "$INTERFACE" | wc -w)
+
+case "$WIFI_INTERFACE_COUNT" of
+	0) echo No wifi devices. Install a device or firmware to recognize a device; exit 1 ;;
+	1) break ;;
+	*) selectInterface $INTERFACE && INDEX=$? && INTERFACE=$(getValueAtIndex "$INDEX" $INTERFACE) ;;
+esac
 
 nmcli connection add ifname $INTERFACE con-name $CONNECTION autoconnect yes save yes type wifi ssid $SSID
 nmcli connection modify id $CONNECTION 802-11-wireless-security.key-mgmt wpa-psk
