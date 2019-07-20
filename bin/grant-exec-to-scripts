@@ -1,0 +1,8 @@
+#!/bin/sh
+for f in "$@"
+do
+    if head -1 $f | grep -Eq '^#!'
+    then
+        chmod a+x $f
+    fi
+done
