@@ -1,0 +1,4 @@
+#!/bin/sh
+SCRIPT_DIR=$(dirname "$0") && [ "$SCRIPT_DIR" = "." ] && SCRIPT_DIR=$(pwd)
+"$SCRIPT_DIR"/avahi-install || exit 1
+"$SCRIPT_DIR"/open-avahi-port

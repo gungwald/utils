@@ -1,0 +1,32 @@
+#!/bin/sh
+
+isShellScript()
+{
+    head -1 $1 | grep -Eq '^#!/bin/[-_[:alnum:]]*sh$'
+}
+
+findShellScripts()
+{
+    for ARG in "$@"
+    do
+        if isShellScript "$ARG"
+        then
+            echo $ARG
+        fi
+    done
+}
+
+if [ $# -eq 0 ]
+then
+    echo Don\'t be a dumbass. 1>&2
+fi
+
+for ARG in "$@"
+do
+    if [ -d "$ARG" ]
+    then
+        findShellScripts "$ARG"/*
+    else
+        findShellScripts "$ARG"
+    fi
+done

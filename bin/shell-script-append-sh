@@ -1,0 +1,27 @@
+#!/bin/sh
+
+isShellScript()
+{
+    head -1 $1 | grep -Eq '^#!/bin/[-_[:alnum:]]*sh$'
+}
+
+endsWithDotSh()
+{
+    echo $1 | grep -Eq '\.sh$'
+}
+
+for ARG in "$@"
+do
+    if isShellScript "$ARG"
+    then
+        if endsWithDotSh "$ARG"
+        then
+            echo $ARG already ends with .sh
+        else
+            echo Renaming $ARG to $ARG.sh
+            mv "$ARG" "$ARG".sh
+        fi
+    else
+        echo $ARG is not a shell script
+    fi
+done
