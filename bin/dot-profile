@@ -143,7 +143,7 @@ setupAliases
 setupPath
 setupPrompt
 
+# Don't set VISUAL=vi because it will TURN OFF vi key sequences with ksh
 EDITOR=vi
-VISUAL=vi
-export EDITOR VISUAL
+export EDITOR
 

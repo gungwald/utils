@@ -1,0 +1,142 @@
+#!/bin/sh
+
+# --------------------------------------------------------------------
+#
+# Copyright (c) 2018 Cardinal Health, Inc.
+# All rights reserved
+#
+# Author: Bill Chatfield <bill.chatfield@cardinalhealth.com>
+# 
+# --------------------------------------------------------------------
+
+readonly PROGRAM_NAME=$(basename "$0")
+
+# Standard permission definitions by file type:
+readonly DIRECTORY_PERMISSIONS=775
+readonly FILE_PERMISSIONS=664
+readonly EXECUTABLE_PERMISSIONS=775
+readonly PASSWORD_FILE_PERMISSIONS=660
+
+write()
+{
+    echo $PROGRAM_NAME: $*
+}
+
+getAbsolutePath()
+{
+    echo $(cd $(dirname "$1"); pwd)/$(basename "$1")
+}
+
+#
+# Determines if a file contains executable content, like a binary
+# executable file, a shell script, Perl script, Python script, or any
+# other type of runnable script. It does not consider the executable
+# permission bit because that is the thing we're trying to derive.
+#
+# Returns:  0 (true)    If the file contains executable content
+#           1 (false)   Otherwise
+#
+isExecutable()
+{
+    # Grep will return true (0 in a shell script) if the output of 'file'
+    # contains 'executable'. This works. I checked it.
+    file "$1" | grep -Eiq 'executable'
+    # The function returns the status of the last command which was the
+    # above grep.
+}
+
+isDirectoryNotEmpty()
+{
+    local DIR="$1"
+    local GLOBULE=$(ls $DIR)
+    if [ ${#GLOBULE} -eq 0 ]
+    then
+        write Directory is empty: $DIR
+        return 1
+    else
+        return 0
+    fi
+}
+
+isConfigurationFile()
+{
+    local FILE=$(getAbsolutePath "$1")
+
+    # If the path contains 'conf', 'etc', or 'META-INF'.
+    # and
+    # The path does not contain 'doc'
+    # and
+    # The file type is 'text'
+    echo $FILE | grep -Eiq 'conf|etc|META-INF' && echo $FILE | grep -Eiqv 'doc' && file "$FILE" | grep -Eiq 'text'
+    # The function returns the status of the last command which was the
+    # above grep.
+}
+
+#
+# Determines if a file contains a password.
+# Should be broken into isConfigurationFile and containsPassword.
+#
+containsPassword()
+{
+    grep -Eiq 'password|passwd' "$1"
+    # The function returns the status of the last command which was the
+    # above grep.
+}
+
+isPasswordFile()
+{
+    isConfigurationFile "$1" && containsPassword "$1"
+}
+
+#
+# Sets permissions to given values.
+#
+setPermissions()
+{
+    local TYPE=$1
+    local PERMS=$2
+    local FILE=$3
+    write $FILE \($TYPE\)
+    chmod $PERMS "$FILE"
+}
+
+#
+# Takes multiple parameters which are the names of files or directories. For
+# each parameter, it sets the permissions on the file or directory to the
+# predefined global permissions for its corresponding type. This function
+# recursively descends into directories.
+#
+fixPermissions()
+{
+    local PERMS
+    local TYPE
+
+    for FILE in "$@"
+    do
+        if [ -d "$FILE" ]
+        then
+            setPermissions 'directory' $DIRECTORY_PERMISSIONS "$FILE"
+            if isDirectoryNotEmpty "$FILE"
+            then
+                # Recursive call
+                fixPermissions "$FILE"/*
+            fi
+        elif isExecutable "$FILE"
+        then
+            setPermissions 'executable' $EXECUTABLE_PERMISSIONS "$FILE"
+        elif isPasswordFile "$FILE"
+        then
+            setPermissions 'password file' $PASSWORD_FILE_PERMISSIONS "$FILE"
+        else
+            setPermissions 'plain file' $FILE_PERMISSIONS "$FILE"
+        fi
+    done
+}
+
+# Set standard permissions on all parameters passed on the command line.
+if [ $# -eq 0 ]
+then
+	fixPermissions $(pwd)
+else
+	fixPermissions "$@"
+fi
