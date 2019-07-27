@@ -13,7 +13,7 @@ then
 elif [ "$OS" = Linux ]
 then
     . /etc/os-release
-    if [ "$ID_LIKE" = 'fedora' ]
+    if [ "$ID" = "fedora" -o "$ID_LIKE" = 'fedora' ]
     then
     	dnf list installed "$@"
     elif [ "$ID_LIKE" = 'debian' ]

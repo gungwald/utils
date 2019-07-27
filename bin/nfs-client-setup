@@ -1,0 +1,46 @@
+#!/bin/sh
+
+MY_UID=$(id -u $LOGNAME)
+MY_GID=$(id -g $LOGNAME)
+DIR_TO_SHARE="$HOME/Dropbox"
+EXPORTS=/etc/exports
+EXPORTS_LINE="$DIR_TO_SHARE *.local(rw,async,root_squash,anonuid=$MY_UID,anongid=$MY_GID)"
+
+# Append our line to /etc/exports if it does not already exist.
+if grep -q "$DIR_TO_SHARE" "$EXPORTS"
+then
+    echo $EXPORTS already configured.
+else
+    echo $EXPORTS_LINE | sudo tee -a "$EXPORTS" || exit 1
+fi
+
+# Install NFS if it is not already installed.
+if [ -f /usr/sbin/rpc.nfsd ]
+then
+    echo nfs is already installed
+else
+    sudo dnf -y install nfs-utils || exit 1
+fi
+
+# Enable it if it is not already enabled.
+if systemctl is-enabled -q nfs-server
+then
+    echo nfs-server is already enabled
+else
+    sudo systemctl enable rpcbind nfs-server || exit 1
+fi
+
+# Start it if it is not already started.
+if systemctl is-active -q nfs-server
+then
+    echo nfs-server is already running
+else
+    sudo systemctl start rpcbind nfs-server || exit 1
+fi
+
+# Configure the firewall to permit nfs.
+# TODO - Check if already configured before configuring.
+sudo firewall-cmd --add-service=nfs --permanent && \
+    sudo firewall-cmd --add-service=rpc-bind --permanent && \
+    sudo firewall-cmd --reload
+
