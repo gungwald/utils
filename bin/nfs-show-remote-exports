@@ -1,0 +1,5 @@
+#!/bin/sh
+for REMOTE_HOST in "$@"
+do
+    showmount -e "$REMOTE_HOST"
+done
