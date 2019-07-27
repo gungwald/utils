@@ -103,7 +103,8 @@ setupAliases()
 
 setupPath()
 {
-	local dir
+	# Declare local variable. Works in bash & ksh.
+	typeset dir
 
 	PATH=$(removeDuplicateEntries "$PATH")
 
@@ -116,13 +117,33 @@ setupPath()
 			PATH="$dir":"$PATH"
 		fi
 	done
+        export PATH
 }
+
+setupPrompt()
+{
+	if isKornShell
+	then
+		PS1='[exit-status=$?]
+
+$LOGNAME @ $HOSTNAME $PWD
+$ '
+	elif isBash
+	then
+		PS1='[exit-status=$?]\n\n\u @ \h \w\n\$ '
+	else
+		PS1="$ "
+	fi
+        export PS1
+}
+
 
 fixKornShell
 setupAliases
 setupPath
+setupPrompt
 
-PS1='\nLast program exit code = $?\n\n\u @ \h \w\n\$ '
+# Don't set VISUAL=vi because it will TURN OFF vi key sequences with ksh
 EDITOR=vi
-export PATH PS1 EDITOR
+export EDITOR
 
