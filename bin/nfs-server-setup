@@ -40,5 +40,7 @@ fi
 
 # Configure the firewall to permit nfs.
 # TODO - Check if already configured before configuring.
-sudo firewall-cmd --add-service=nfs --permanent && sudo firewall-cmd --reload
+sudo firewall-cmd --add-service=nfs --permanent && \
+    sudo firewall-cmd --add-service=rpc-bind --permanent && \
+    sudo firewall-cmd --reload
 
