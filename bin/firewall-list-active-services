@@ -1,0 +1,2 @@
+#!/bin/sh
+sudo firewall-cmd --list-services

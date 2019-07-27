@@ -1,0 +1,5 @@
+#!/bin/sh
+for SVC in "$@"
+do
+    sudo firewall-cmd --info-service "$SVC"
+done
