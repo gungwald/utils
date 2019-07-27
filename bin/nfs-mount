@@ -1,6 +1,5 @@
 #!/bin/sh
 
-<<<<<<< HEAD
 REMOTE_DIR=$1
 LOCAL_DIR=$2
 
@@ -22,23 +21,3 @@ case $OS in
 		echo Not yet
 		;;
 esac
-=======
-if [ `uname -s` = 'Darwin' ]
-then
-    REMOTE_DIR=$1
-    LOCAL_DIR=$2
-
-    if [ -z "$REMOTE_DIR" -o -z "$LOCAL_DIR" ]
-    then
-        echo Missing options. Try again and don\'t be a dumb-ass.
-        exit 1
-    fi
-
-    # It will fail to connect to Fedora without the "tcp" option.
-    # It will fail in general without the "resvport" option.
-    mount -t nfs -o tcp,resvport "$REMOVE_DIR" "$LOCAL_DIR"
-else
-    echo This is only for MacOS X 10.4.11 which requires silly options to work.
-fi
->>>>>>> 7748b23a917bc72d2fc1f060ed3873cae4f41480
-
