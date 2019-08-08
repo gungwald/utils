@@ -143,7 +143,14 @@ setupAliases
 setupPath
 setupPrompt
 
-# Don't set VISUAL=vi because it will TURN OFF vi key sequences with ksh
-EDITOR=vi
-export EDITOR
+# VISUAL overrides EDITOR in bash and ksh.
+if [ -f /usr/bin/vim ]
+then
+    VISUAL=vim
+else
+    VISUAL=vi
+fi
+EDITOR=$VISUAL
+export EDITOR VISUAL
+
 
