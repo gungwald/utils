@@ -1,0 +1,8 @@
+# It is necessary to supplant the default .kshrc because it sets
+# emaces editing mode by default. Idiots...
+
+# Source global definitions
+if [ -f /etc/kshrc ]; then
+	. /etc/kshrc
+fi
+

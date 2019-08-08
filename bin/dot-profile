@@ -146,11 +146,11 @@ setupPrompt
 # VISUAL overrides EDITOR in bash and ksh.
 if [ -f /usr/bin/vim ]
 then
-    VISUAL=vim
+    export VISUAL=vim
 else
     VISUAL=vi
 fi
 EDITOR=$VISUAL
-export EDITOR VISUAL
+export EDITOR
 
 

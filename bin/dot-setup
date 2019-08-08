@@ -10,21 +10,27 @@ then
     thisDir=$(pwd)
 fi
 
-for dotFile in .bash_profile .profile .vimrc .inputrc
+for dotFile in .bash_profile .profile .vimrc .inputrc .kshrc
 do
-    if [ -f "$HOME/$dotFile" ]
+    # Remove a symbolic link so it can be recreated. We must check for
+    # a symbolic link first because the -f test for a regular file will
+    # also be true for a symbolic link, which makes no sense.
+    if [ -L "$HOME/$dotFile" ]
     then
-        # Rename original, if it is a normal file.
-        mv "$HOME/$dotFile" "$HOME/$dotFile".orig
-    elif [ -L "$HOME/$dotFile" ]
-    then
-        # Remove a symbolic link so it can be recreated.
+        echo Removing symbolic link: $HOME/$dotFile
         rm "$HOME/$dotFile"
+    elif [ -f "$HOME/$dotFile" ]
+    then
+        echo Making backup copy of original: $HOME/$dotFile \-\> $HOME/$dotfile.orig
+        # If it's not a symbolic link and it is a regular file, then it
+        # should be the original file. So, make a backup of it.
+        mv "$HOME/$dotFile" "$HOME/$dotFile".orig
     fi
 
     target="$utilsDir/bin/dot-${dotFile#.}"
     if [ -e "$target" ]
     then
+        echo Creating symbolic link from $HOME/$dotFile to $target.
         ln -s "$target" "$HOME/$dotFile"
     fi
 done
