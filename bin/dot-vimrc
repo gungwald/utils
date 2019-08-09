@@ -191,31 +191,31 @@ endif
 "
 " You can set a color theme like this, but usually I give up on these.
 "
-if has('gui_running')
-    if g:os == "Darwin"
-        colorscheme blackbeauty
-    else
-        colorscheme slate
-    endif
-endif
+"if has('gui_running')
+"    if g:os == "Darwin"
+"        colorscheme blackbeauty
+"    else
+"        colorscheme slate
+"    endif
+"endif
 
 " Set font. To do this again, get your font set in the GUI the way you want
 " and then run the command ":set guifont?" to see what the font specification
 " is. Then copy the font specification to the value of guifont below.
-if has('gui_running')
-    if g:os == "Darwin"
-        set guifont=Monaco:h18
-    elseif g:os == "Linux"
-        set guifont="monofur 11"
-    else
-        "set guifont=Lucida_Console:h12:cANSI
-        "set guifont=ProggySquareTTSZ:h18:cANSI
-        "set guifont=Lucida_Console:h8:cANSI
-        "set guifont=PR_Number_3:h10:cANSI
-        set guifont=monofur:h15:cANSI:qDRAFT
-        "set guifont=FreeMono:h16
-    endif
-endif
+"if has('gui_running')
+"    if g:os == "Darwin"
+"        set guifont=Monaco:h18
+"    elseif g:os == "Linux"
+"        set guifont="monofur 11"
+"    else
+"        "set guifont=Lucida_Console:h12:cANSI
+"        "set guifont=ProggySquareTTSZ:h18:cANSI
+"        "set guifont=Lucida_Console:h8:cANSI
+"        "set guifont=PR_Number_3:h10:cANSI
+"        set guifont=monofur:h15:cANSI:qDRAFT
+"        "set guifont=FreeMono:h16
+"    endif
+"endif
 
 " Map the .vb file extension to the vbnet file type so we get syntax
 " highlighting.

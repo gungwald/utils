@@ -15,9 +15,9 @@ case $OS in
 	Darwin)
 		# It will fail to connect to Fedora without the "tcp" option.
 		# It will fail in general without the "resvport" option.
-		mount -t nfs -o tcp,resvport "$REMOVE_DIR" "$LOCAL_DIR"
+		mount -t nfs -o tcp,resvport "$REMOTE_DIR" "$LOCAL_DIR"
 		;;
 	*)
-		echo Not yet
+		mount -t nfs -o nfsvers=3 "$REMOTE_DIR" "$LOCAL_DIR"
 		;;
 esac

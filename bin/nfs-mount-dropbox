@@ -1,0 +1,17 @@
+#!/bin/sh
+
+REMOTE_HOST=mammut-americanum.local
+
+OS=$(uname -s)
+
+case $OS in
+	Darwin)
+		# It will fail to connect to Fedora without the "tcp" option.
+		# It will fail in general without the "resvport" option.
+		sudo mount -t nfs -o tcp,resvport $REMOTE_HOST:/home/bill/Dropbox $HOME/Dropbox
+		;;
+	Linux)
+		# Can't get nfsvers=4 to work yet...
+		sudo mount -t nfs -o nfsvers=3 $REMOTE_HOST:/home/bill/Dropbox $HOME/Dropbox
+		;;
+esac
