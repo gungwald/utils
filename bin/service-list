@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sudo is not needed to list the services.
+systemctl list-units *.service

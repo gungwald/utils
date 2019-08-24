@@ -1,4 +1,9 @@
 #!/bin/sh
 
-exec avahi-browse -a -r
+cutLastField()
+{
+    sed -r 's/(.*) +[^ ]+$/\1/'
+}
+
+avahi-browse --all --terminate | cut -d ' ' -f 3- - | cutLastField
 
