@@ -35,3 +35,4 @@ do
     fi
 done
 
+echo Now run: . ~/.profile to activate changes in this session.
