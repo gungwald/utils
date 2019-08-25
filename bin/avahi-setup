@@ -59,7 +59,7 @@ getAvahiExampleLocation()
 {
     if isFedora
     then
-        echo blah
+        echo /usr/share/doc/avahi
     elif isDebianBased
     then
         echo /usr/share/doc/avahi-daemon/examples
