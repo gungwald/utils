@@ -1,4 +1,13 @@
 #!/bin/sh
 
-exec avahi-browse -a -r
+OS=$(uname -s)
+
+case $OS in
+    Darwin)
+        dns-sd -B _ssh._tcp
+        ;;
+    *)
+        avahi-browse -a -r
+        ;;
+esac
 
