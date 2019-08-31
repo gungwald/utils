@@ -1,5 +1,10 @@
 #!/bin/sh
 
+cutLastField()
+{
+    sed -r 's/(.*) +[^ ]+$/\1/'
+}
+
 OS=$(uname -s)
 
 case $OS in
@@ -7,7 +12,7 @@ case $OS in
         dns-sd -B _ssh._tcp
         ;;
     *)
-        avahi-browse -a -r
+        avahi-browse --all --terminate | cut -d ' ' -f 3- - | cutLastField
         ;;
 esac
 

@@ -1,0 +1,16 @@
+#!/bin/sh
+
+EXIT_SUCCESS=0
+EXIT_FAILURE=1
+
+if [ $# -gt 0 ]
+then
+    for SEARCH_TERM in "$@"
+    do
+        systemctl list-units *${SEARCH_TERM}*.service
+    done
+else
+    echo Please provide a search term on the command line, dumb ass...
+    exit $EXIT_FAILURE
+fi
+

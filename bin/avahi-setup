@@ -1,4 +1,102 @@
 #!/bin/sh
-SCRIPT_DIR=$(dirname "$0") && [ "$SCRIPT_DIR" = "." ] && SCRIPT_DIR=$(pwd)
-"$SCRIPT_DIR"/avahi-install || exit 1
-"$SCRIPT_DIR"/open-avahi-port
+
+FEDORA_PACKAGES="nss-mdns avahi avahi-tools"
+DEBIAN_PACKAGES="libnss-mdns avahi-daemon avahi-utils"
+
+loadLinuxSelfIdentification()
+{
+    . /etc/os-release
+}
+
+isFedora()
+{
+    [ "$ID" = "fedora" ]
+}
+
+isDebianBased()
+{
+    [ "$ID" = "debian" -o "$ID_LIKE" = "debian" ]
+}
+
+isInstalled()
+{
+    if isFedora
+    then
+        dnf list installed "$@"
+    elif isDebianBased
+    then
+        dpkg -l "$@" > /dev/null
+    else
+        echo Don\'t know how to do isInstalled for $ID.
+    fi
+}
+
+installPackages()
+{
+    if isFedora
+    then
+        sudo dnf install -y "$@"
+    elif isDebianBased
+    then
+        sudo apt install "$@"
+    else
+        echo Don\'t know how to do \"installPackages\" for $ID.
+    fi
+}
+
+getPackages()
+{
+    if isFedora
+    then
+        echo $FEDORA_PACKAGES
+    elif isDebianBased
+    then
+        echo $DEBIAN_PACKAGES
+    fi
+}
+
+getAvahiExampleLocation()
+{
+    if isFedora
+    then
+        echo /usr/share/doc/avahi
+    elif isDebianBased
+    then
+        echo /usr/share/doc/avahi-daemon/examples
+    fi
+}
+
+# ////////////
+#
+# Main Program
+#
+# ////////////
+loadLinuxSelfIdentification
+PACKAGES=$(getPackages)
+if isInstalled $PACKAGES
+then
+    echo $ID packages already installed: $PACKAGES
+else
+    installPackages $PACKAGES
+fi
+
+if isFedora
+then
+    sudo firewall-cmd --permanent --add-service=mdns
+    sudo firewall-cmd --reload
+fi
+
+# Allow avahi to broadcast SSH service availability
+DEF_DIR=$(getAvahiExampleLocation)
+INSTALL_DIR=/etc/avahi/services
+for SVC in ssh.service sftp-ssh.service
+do
+    if [ -f $INSTALL_DIR/$SVC ]
+    then
+        echo $SVC availability is already setup.
+    else
+        sudo cp $DEF_DIR/$SVC $INSTALL_DIR
+    fi
+done
+sudo systemctl restart avahi-daemon
+

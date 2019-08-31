@@ -39,8 +39,8 @@ begin
 	partCount := 0;
 	split := 0;
 	i := find(toSplit, splittor, 1);
-	while i > 0 do
-	begin
+	while i > 0 do begin
+		
 	end;
 end; (* split *)
 
@@ -48,8 +48,7 @@ end; (* split *)
 begin
 	path := GetEnvironmentVariable('PATH');
 	writeln(path);
-	for i := 1 to MAX_SIZE do
-	begin
+	for i := 1 to MAX_SIZE do begin
 		writeln(path[i], ' = ', ord(path[i]));
 	end;
 end.

@@ -1,2 +1,0 @@
-#!/bin/sh
-sudo dnf install -y nss-mdns avahi avahi-tools
