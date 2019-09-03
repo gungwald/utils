@@ -1,0 +1,3 @@
+#!/bin/sh
+
+qemu-kvm -cdrom ~/Downloads/alpine-virt-3.9.4-x86_64.iso -hda alpine.qcow -boot d -net nic -net user -m 256 -rtc base=localtime --enable-kvm

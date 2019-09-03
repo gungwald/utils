@@ -1,0 +1,2 @@
+#!/bin/sh
+qemu-kvm alpine.qcow -boot c -net nic -net user -m 256

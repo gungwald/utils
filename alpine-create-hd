@@ -1,0 +1,2 @@
+#!/bin/sh
+qemu-img create alpine.qcow 8G
