@@ -1,0 +1,38 @@
+#!/bin/sh
+
+IS_CLONED_DIR_DIFFERENT_FROM_CURRENT=false
+GIT_DIR="$HOME"/git
+
+if [ $# -eq 0 ]
+then
+    echo $(basename "$0"): You suck. Use this syntax: clone github-project-name 1>&2
+    exit 1
+fi
+
+if [ "$PWD" != "$GIT_DIR" ]
+then
+    echo Not in correct directory. Changing to: $GIT_DIR
+    cd "$GIT_DIR" || exit $?
+    IS_CLONED_DIR_DIFFERENT_FROM_CURRENT=true
+fi
+
+for PROJECT in "$@"
+do
+    git clone https://github.com/gungwald/"$PROJECT".git || exit $?
+done
+
+if [ $IS_CLONED_DIR_DIFFERENT_FROM_CURRENT = true ]
+then
+    echo 
+    echo '****************************************************************'
+    echo
+    echo '   Cloned directory is different from your current directory:'
+    echo
+    echo "       $GIT_DIR"
+    echo
+    echo '   You need to go there to find the project.'
+    echo
+    echo '****************************************************************'
+    echo
+fi
+
