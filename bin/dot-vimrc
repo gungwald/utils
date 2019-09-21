@@ -264,11 +264,14 @@ if g:os == 'Windows'
     let $PATH = $PATH . ';C:\opt\astyle-2.05.1\AStyle\bin'
 endif
 
-" K&R style for C and derivatives
-autocmd FileType C,C++,Objective\ C,Objective\ C++,C# nmap F :%!astyle --style="k&r" --break-closing-brackets --add-brackets<CR>
+if executable('astyle')
+    " K&R style for C and derivatives
+    autocmd FileType C,C++,Objective\ C,Objective\ C++,C# nmap F :%!astyle --style="k&r" --break-closing-brackets --add-brackets<CR>
 
 " Java style for Java
-autocmd FileType Java nmap F :%!astyle --style=java --break-closing-brackets --add-brackets<CR>
+    autocmd BufNewFile,BufRead *.java set formatprg=astyle --break-closing-brackets --add-brackets
+    autocmd FileType java nmap F :%!astyle --style=java --break-closing-brackets --add-brackets<CR>
+endif
 
 " Perltidy requires that the Perl::Tidy module is installed which
 " can be done directly with cpan using command: install Perl::Tidy
