@@ -1,0 +1,20 @@
+#!/bin/sh
+
+DOCUMENTATION_URL=https://macintoshgarden.org/sites/macintoshgarden.org/files/apps/Java_SE_6_Release_1_DP_5_-_Developer_Docs.dmg
+
+INSTALLER_BASENAME=Java_SE_6_Release_1_DP_6.dmg
+INSTALLER_URL=https://macintoshgarden.org/sites/macintoshgarden.org/files/apps/"$INSTALLER_BASENAME"
+INSTALLER="$HOME"/Desktop/"$INSTALLER_BASENAME"
+
+PKG=JavaSE6Release1.pkg
+ARCHIVE=/Contents/Archive.pax.gz
+
+ARCHIVE_V6_DIR="$HOME"/Desktop/Archive/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0 
+INSTALL_DIR=/System/Library/Frameworks/JavaVM.framework/Versions/
+
+curl $INSTALLER_URL
+# Extract JavaSE6Release1.pkg from DMG
+# Extract $ARCHIVE from $PKG
+gzcat $ARCHIVE | pax -r
+sudo cp -r "$ARCHIVE_V6_DIR" "$INSTALL_DIR"
+

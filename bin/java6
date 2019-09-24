@@ -1,0 +1,34 @@
+#!/bin/sh
+
+JAVA6=/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/java 
+OS=$(uname -s)
+THIS=$(basename "$0")
+
+# Check obvious failure scenarios.
+if [ "$OS" = "Darwin" ]
+then
+    if [ ! -f "$JAVA6" ]
+    then
+        echo $THIS: Java 6 is not installed. 1>&2
+    fi
+else
+    echo $THIS: This script only works on MacOS X 10.4.11 1>&2
+fi
+
+# From https://stackoverflow.com/questions/3618078/pipe-only-stderr-through-a-filter
+#
+# The following redirections allow stderr to be piped through a filter but
+# not stdout:
+#
+#   3>&1 1>&2 2>&3 3>&-
+#
+# Explanation:
+# 1. First save stdout as &3 (&1 is duped into 3)
+# 2. Next send stdout to stderr (&2 is duped into 1)
+# 3. Send stderr to &3 (stdout) (&3 is duped into 2)
+# 4. close &3 (&- is duped into 3)
+
+# So stderr gets piped through "tail" but stdout does not.
+
+exec "$JAVA6" "$@" 3>&1 1>&2 2>&3 3>&- | tail -n +3
+ 

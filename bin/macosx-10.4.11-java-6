@@ -1,0 +1,4 @@
+#!/bin/sh
+exec /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/java "$@" 2> java6-stderr.txt
+#tail -n +2
+
