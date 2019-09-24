@@ -1,0 +1,8 @@
+#!/bin/sh
+if [ $(id -u) -eq 0 ]
+then
+    unset ELEVATE
+else
+    ELEVATE=sudo
+fi
+$ELEVATE exportfs -r

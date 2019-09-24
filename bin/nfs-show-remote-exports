@@ -1,5 +1,11 @@
 #!/bin/sh
-for REMOTE_HOST in "$@"
-do
-    showmount -e "$REMOTE_HOST"
-done
+if [ $# -gt 0 ]
+then
+    for REMOTE_HOST in "$@"
+    do
+        showmount -e "$REMOTE_HOST"
+    done
+else
+    # Default to local machine
+    showmount -e
+fi
