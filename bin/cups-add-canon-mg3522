@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# Duh, what's the point of CUPS if we don't do this...
+sudo cupsctl --share-printers
+
+# Add the printer.
+# Use 'lpinfo -v' to get the possible values for the -v option.
+# Use 'lpinfo -m' to get the possible values for the -m option.
+sudo lpadmin -h localhost \
+    -p Canon_MG3522 \
+    -E \
+    -v 'ipp://CanonMG3522.local:631/ipp/print' \
+    -D "Canon PIXMA MG3522" \
+    -L "Bill's Room" \
+    -m 'gutenprint.5.2://bjc-MG3500-series/expert' \
+    -o printer-is-shared=true \
+    -u allow:all
+
+# Set as the default printer.
+sudo lpadmin -d Canon_MG3522
