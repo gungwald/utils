@@ -1,0 +1,71 @@
+#!/bin/sh
+
+isInstalled()
+{
+    dnf list --installed "$1" | grep -q "^$1\."
+}
+
+isFirewallServiceActive()
+{
+    sudo firewall-cmd --list-services | tr ' ' '\n' | grep -q '^'$1'$'
+}
+
+MY_UID=$(id -u $LOGNAME)
+MY_GID=$(id -g $LOGNAME)
+
+# Parallel arrays
+declare -a PROGRAMS=(dnsmasq)
+declare -a PACKAGES=(dnsmasq)
+declare -a SERVICES=(dnsmasq)
+declare -a FIREWALL_SERVICES=(dns)
+
+echo Installing packages:
+for PACKAGE in ${PACKAGES[@]}
+do
+    if isInstalled $PACKAGE
+    then
+        echo Package $PACKAGE is already installed.
+    else
+        sudo dnf -y install $PACKAGE || exit 1
+    fi
+done
+
+echo Enabling services:
+for SERVICE in ${SERVICES[@]}
+do
+    if systemctl is-enabled -q $SERVICE
+    then
+        echo Service $SERVICE is already enabled.
+    else
+        echo Enabling service $SERVICE.
+        sudo systemctl enable $SERVICE || exit 1
+    fi
+done
+
+echo Starting services:
+for SERVICE in ${SERVICES[@]}
+do
+    if systemctl is-active -q $SERVICE
+    then
+        echo Service $SERVICE is already running.
+    else
+        echo Starting service $SERVICE.
+        sudo systemctl start $SERVICE || exit 1
+    fi
+done
+
+echo Configuring firewall:
+for SERVICE in ${FIREWALL_SERVICES[@]}
+do
+    if isFirewallServiceActive $SERVICE
+    then
+        echo Service $SERVICE is already configured in firewall.
+    else
+        echo Adding service $SERVICE to active firewall configuration.
+        sudo firewall-cmd --add-service=$SERVICE || exit 1
+        echo Adding service $SERVICE to permanent firewall configuration.
+        sudo firewall-cmd --add-service=$SERVICE --permanent || exit 1
+    fi
+done
+
+echo Don\'t forget to uncomment bind-interfaces in /etc/dnsmasq.conf

@@ -6,15 +6,17 @@ sudo cupsctl --share-printers
 # Add the printer.
 # Use 'lpinfo -v' to get the possible values for the -v option.
 # Use 'lpinfo -m' to get the possible values for the -m option.
+# -m 'gutenprint.5.2://bjc-MG3500-series/expert' 
 sudo lpadmin -h localhost \
     -p Canon_MG3522 \
     -E \
     -v 'ipp://CanonMG3522.local:631/ipp/print' \
-    -D "Canon PIXMA MG3522" \
+    -D "Canon PIXMA MG3522 - No driver install required because it's rendered on the server" \
     -L "Bill's Room" \
-    -m 'gutenprint.5.2://bjc-MG3500-series/expert' \
+    -m canonmg3500.ppd \
     -o printer-is-shared=true \
-    -u allow:all
+    -u allow:all \
+    || exit $?
 
 # Set as the default printer.
-sudo lpadmin -d Canon_MG3522
+sudo lpadmin -d Canon_MG3522 || exit $?
