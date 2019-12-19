@@ -1,0 +1,78 @@
+      <!-- The node executable that actually ends up getting run here is <project-root>\temp\node\node.exe, 
+        not the one you may have installed. -->
+
+      <!-- Plugin to execute command "npm install" and "npm run build" inside /angular 
+        directory -->
+      <plugin>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <version>1.6</version>
+        <configuration>
+          <workingDirectory>front</workingDirectory>
+          <installDirectory>temp</installDirectory>
+        </configuration>
+        <executions>
+          <!-- It will install nodejs and npm -->
+          <execution>
+            <id>install node and npm</id>
+            <goals>
+              <goal>install-node-and-npm</goal>
+            </goals>
+            <configuration>
+              <nodeVersion>v8.10.0</nodeVersion>
+              <npmVersion>5.6.0</npmVersion>
+            </configuration>
+          </execution>
+
+          <!-- It will execute command "npm install" inside "/angular" directory -->
+          <execution>
+            <id>npm install</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <arguments>install</arguments>
+            </configuration>
+          </execution>
+
+          <!-- It will execute command "npm build" inside "front" directory to clean 
+            and create "dist" directory -->
+          <execution>
+            <id>npm build</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <!-- Append " - -prod" replacing the single dashes with double dashes, 
+                for production builds -->
+              <arguments>run-script build -- --prod --aot</arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Plugin to copy the content of /front/dist/ directory to output directory 
+        WebContent -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.4.2</version>
+        <executions>
+          <execution>
+            <id>default-copy-resources</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <overwrite>true</overwrite>
+              <outputDirectory>${project.basedir}/WebContent/</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.basedir}/front/dist</directory>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
