@@ -2,11 +2,9 @@
 
 # --------------------------------------------------------------------
 #
-# Copyright (c) 2018 Cardinal Health, Inc.
+# Copyright (c) 2020 Bill Chatfield
 # All rights reserved
 #
-# Author: Bill Chatfield <bill.chatfield@cardinalhealth.com>
-# 
 # --------------------------------------------------------------------
 
 readonly PROGRAM_NAME=$(basename "$0")

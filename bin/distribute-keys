@@ -1,0 +1,40 @@
+#!/bin/sh
+
+makeRemoteDotSshDir()
+{
+	L_HOST=$1
+	# Don't try to invoke bash on the remote machine because it might not be 
+	# there, for example if it's a Solaris 2.7 machine.
+	ssh $L_HOST /bin/sh <<EOF
+if [ ! -d .ssh ]
+then
+	mkdir .ssh
+fi
+EOF
+}
+
+appendToRemoteAuthorizedKeys()
+{
+	L_HOST=$1
+	ssh $L_HOST <<EOF
+cat >> .ssh/authorized_hosts < .ssh/id_rsa.pub
+EOF
+}
+
+distributeKeys()
+{
+    if [ $# -gt 0 ]
+    then
+            for HOST in "$@"
+            do
+                    makeRemoteDotSshDir $HOST
+                    scp $HOME/.ssh/id_rsa* $HOST:.ssh
+                    appendToRemoteAuthorizedKeys $HOST
+            done
+    else
+            echo usage: $0 hostname1 [ hostname2 ... ]
+    fi
+}
+
+distributeKeys "$@"
+

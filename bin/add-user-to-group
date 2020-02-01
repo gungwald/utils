@@ -2,11 +2,9 @@
 
 # --------------------------------------------------------------------
 #
-# Copyright (c) 2018 Cardinal Health, Inc.
+# Copyright (c) 2019 Bill Chatfield
 # All rights reserved
 #
-# Author: Bill Chatfield <bill.chatfield@cardinalhealth.com>
-# 
 # --------------------------------------------------------------------
 
 usage()
