@@ -1,0 +1,6 @@
+#!/bin/sh
+sudo lshw -class memory
+
+# Also:
+# dmidecode -t memory
+# But it sucks compared to lshw
