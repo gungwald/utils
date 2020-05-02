@@ -1,21 +1,25 @@
-#!/bin/bash
+#!/bin/sh
 
-# The ${OS_VER:0:1} substring operation does not work in dash, so specifying
-# bash above.
-
-OS_VER=$(uname -r)
-OS_MAJOR_VER=${OS_VER:0:1}
-OS_NAME=$(uname)
+# Older shells do not support the new $(uname) syntax so using the old backtick
+# syntax for better compatibility.
+OS_NAME=`uname`
+OS_VER=`uname -r`
+# The ${OS_VER:0:1} substring operation does not work in dash and is not POSIX.
+# This is a POSIX-compilant method of getting the first character of a string
+# without calling an external program like "cut" or "printf", which would be
+# less efficient.
+OS_MAJOR_VER=${OS_VER%${OS_VER#?}}
 
 if [ "$OS_NAME" = 'Darwin' -a "$OS_MAJOR_VER" = '8' ]
 then
     # This script exists because the Mac location is weird.
     # This is what it takes to get vim started from the command
     # line on a Mac.
-    VIM_EXE=/Applications/Vim.app/Contents/MacOS/Vim
+    PGM=/Applications/Vim.app/Contents/MacOS/Vim
 else
-    VIM_EXE=/usr/bin/vim
+    # TODO - Some systems don't support -a switch on which. Need a solution.
+    PGM=`which -a vim | grep -v "$0" | head -1`
 fi
 
-exec "$VIM_EXE" "$@"
+exec "$PGM" "$@"
 
