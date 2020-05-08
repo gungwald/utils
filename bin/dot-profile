@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Reference this from .profile or .bash_profile or make a link to it.
 
