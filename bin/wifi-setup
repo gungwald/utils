@@ -1,8 +1,11 @@
 #!/bin/sh
 
-selectInterface()
+SSID=Gungwald
+PASSWORD="Kind words bring life"
+CONNECTION=Wireless1
+
+selectInterface() 
 {
-	local I IFACE ANSWER=0
 	while [ "$ANSWER" -le 0 -a "$ANSWER" -ge "$I" ]
 	do
 		I=1
@@ -10,7 +13,7 @@ selectInterface()
 		for IFACE in $*
 		do
 			echo $I\) $IFACE
-			I=$(expr $I + 1)
+			I=`expr $I + 1`
 		done
 		printf "Enter a number: "
 		read ANSWER
@@ -20,7 +23,7 @@ selectInterface()
 
 getValueAtIndex()
 {
-	local INDEX=$1 I=1 VALUE
+	INDEX=$1
 	shift
 	for VALUE in $*
 	do
@@ -28,23 +31,59 @@ getValueAtIndex()
 		then
 			echo $VALUE
 		fi
-		I=$(expr $I + 1)
+		I=`expr $I + 1`
 	done
 }
 
-CONNECTION=Wireless1
-SSID=Gungwald
-INTERFACE=$(nmcli --terse device status | grep -E '^[[:alnum:]]+:wifi:' | cut -f 1 -d :)
-PASSWORD="Kind words bring life"
-WIFI_INTERFACE_COUNT=$(echo "$INTERFACE" | wc -w)
+chooseInterface()
+{
+	INTERFACE=`nmcli --terse device status | grep -E '^[[:alnum:]]+:wifi:' | cut -f 1 -d :`
+	WIFI_INTERFACE_COUNT=`echo "$INTERFACE" | wc -w`
 
-case "$WIFI_INTERFACE_COUNT" of
-	0) echo No wifi devices. Install a device or firmware to recognize a device; exit 1 ;;
-	1) break ;;
-	*) selectInterface $INTERFACE && INDEX=$? && INTERFACE=$(getValueAtIndex "$INDEX" $INTERFACE) ;;
-esac
+	# The dash shell requires the keyword "in" in a case statement.
+	case "$WIFI_INTERFACE_COUNT" in
+		0) echo No wifi devices. Install a device or firmware to recognize a device; exit 1 ;;
+		1) break ;;
+		*) selectInterface $INTERFACE && INDEX=$? && INTERFACE=`getValueAtIndex "$INDEX" $INTERFACE` ;;
+	esac
+        echo $INTERFACE
+}
 
-nmcli connection add ifname $INTERFACE con-name $CONNECTION autoconnect yes save yes type wifi ssid $SSID
-nmcli connection modify id $CONNECTION 802-11-wireless-security.key-mgmt wpa-psk
-nmcli connection modify id $CONNECTION 802-11-wireless-security.psk "$PASSWORD"
-nmcli connection up id $CONNECTION
+connectionExists()
+{
+	nmcli connection show id "$1" > /dev/null 2>&1
+}
+
+deleteConnection()
+{
+	nmcli connection delete id "$1"
+}
+
+deleteConnectionIfExists()
+{
+	if connectionExists "$1"
+	then
+		deleteConnection "$1"
+	fi
+}
+
+INTERFACE=`chooseInterface`
+
+# Delete the connection that is about to be created if it already exists.
+deleteConnectionIfExists "$CONNECTION"
+# Create the "connection" object with the chosen interface and default SSID.
+# The "connection." prefix for the property names is required in Debian.
+nmcli connection add \
+	connection.id $CONNECTION \
+	connection.interface-name $INTERFACE \
+	connection.autoconnect yes \
+	save yes \
+	type wifi \
+	ssid $SSID || exit $?
+# Set security type to WPA.
+nmcli connection modify id $CONNECTION 802-11-wireless-security.key-mgmt wpa-psk || exit $?
+# Set the password.
+nmcli connection modify id $CONNECTION 802-11-wireless-security.psk "$PASSWORD" || exit $?
+# Activate the connection.
+nmcli connection up id $CONNECTION || exit $?
+
