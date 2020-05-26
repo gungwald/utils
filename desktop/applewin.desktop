@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=AppleWin
+Exec=/home/bill/Dropbox/opt/applewin-1.29.10.0/Applewin.exe
+Type=Application
+StartupNotify=true
+Comment=Apple ][e Emulator for Windows
+Path=/home/bill/Dropbox/opt/applewin-1.29.10.0
+Icon=/home/bill/Dropbox/pics/icons/applewin.ico

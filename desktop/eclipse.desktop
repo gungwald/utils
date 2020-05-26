@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Eclipse
+Exec=/home/bill/opt/eclipse-2019-12/eclipse/eclipse
+Type=Application
+StartupNotify=true
+Comment=Eclipse Java IDE
+Path=/home/bill/opt/eclipse-2019-12/eclipse
+Icon=/home/bill/opt/eclipse-2019-12/eclipse/icon.xpm
