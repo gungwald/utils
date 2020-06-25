@@ -1,28 +1,72 @@
 #!/bin/sh
 
 OS=$(uname -s)
+EIGHT_MB=8388608
 
+# $1 - Target
+# $2 - Default target
+determineTarget()
+{
+	if [ -n "$1" ]
+	then
+		DT_TARGET="$1"
+	else
+		DT_TARGET="$2"
+	fi
+	echo $DT_TARGET
+}
+
+# $1 - Target
+# $2 - Device listing command
+verifyTarget()
+{
+	$2
+	printf "Write to device %s and wipe out everything on it? (y/n) " "$1"
+	read ANSWER
+	[ "$ANSWER" = "y" ]
+}
+
+unset SOURCE
 if [ $# -eq 0 ]
 then
-    printf "What file do you want to write? "
-    read FILE
+	printf "What file do you want to write? "
+	read SOURCE
 else
-    FILE="$1"
+	SOURCE="$1"
 fi
 
-if [ "$OS" = "Darwin" ]
+unset TARGET
+if [ -n "$2" ]
 then
-    DISKUTIL=/usr/sbin/diskutil
-    DISK=/dev/disk1
-    EIGHT_MB=8388608
-    "$DISKUTIL" list
-    printf "Write to device %s? (y/n) " "$DISK"
-    read ANSWER
-    if [ "$ANSWER" = "y" ]
-    then
-        "$DISKUTIL" unmountDisk "$DISK"
-        printf "Writing %s to %s\n" "$FILE" "$DISK"
-        printf "This will take a very, very long time...\n"
-        dd if="$FILE" of="$DISK" bs="$EIGHT_MB"
-    fi
+	TARGET="$2"
 fi
+
+case "$OS" in
+	Darwin)
+		DEFAULT_TARGET=/dev/disk1
+		DEVICE_COMMAND=/usr/sbin/diskutil
+		DEVICE_LIST_CMD="$DEVICE_COMMAND list"
+		TARGET=`determineTarget "$TARGET" "$DEFAULT_TARGET"`
+		if verifyTarget "$TARGET" "$DEVICE_LIST_CMD"
+		then
+			"$DISKUTIL" unmountDisk "$TARGET"
+			printf "Writing %s to %s\n" "$SOURCE" "$TARGET"
+			printf "This will take a very, very long time...\n"
+			dd if="$SOURCE" of="$TARGET" bs="$EIGHT_MB" && sync
+		fi
+		;;
+	Linux)
+		DEFAULT_TARGET=/dev/sdb
+		DEVICE_LIST_CMD=lsblk
+		TARGET=`determineTarget "$TARGET" "$DEFAULT_TARGET"`
+		if verifyTarget "$TARGET" "$DEVICE_LIST_CMD"
+		then
+			wipefs "$TARGET"
+			dd if="$SOURCE" of="$TARGET" bs="$EIGHT_MB" status=progress && sync
+		fi
+		;;
+	*)
+    		echo Please update script with section for `uname -s`
+		;;
+esac
+
