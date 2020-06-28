@@ -61,8 +61,8 @@ case "$OS" in
 		TARGET=`determineTarget "$TARGET" "$DEFAULT_TARGET"`
 		if verifyTarget "$TARGET" "$DEVICE_LIST_CMD"
 		then
-			wipefs "$TARGET"
-			dd if="$SOURCE" of="$TARGET" bs="$EIGHT_MB" status=progress && sync
+			sudo wipefs --all "$TARGET" || exit $?
+			sudo dd if="$SOURCE" of="$TARGET" bs="$EIGHT_MB" status=progress && sync || exit $?
 		fi
 		;;
 	*)
