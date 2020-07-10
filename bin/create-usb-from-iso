@@ -4,33 +4,50 @@ OS=$(uname -s)
 EIGHT_MB=8388608
 
 # $1 - Target
-# $2 - Default target
-determineTarget()
-{
-	if [ -n "$1" ]
-	then
-		DT_TARGET="$1"
-	else
-		DT_TARGET="$2"
-	fi
-	echo $DT_TARGET
-}
-
-# $1 - Target
 # $2 - Device listing command
 verifyTarget()
 {
 	$2
 	printf "Write to device %s and wipe out everything on it? (y/n) " "$1"
-	read ANSWER
+	read -r ANSWER
 	[ "$ANSWER" = "y" ]
 }
+
+determineDecompressionProgram()
+(
+  # Using the above parentheses instead of curly braces for the function body
+  # is a POSIX-compatible way to make sure variables inside the function are
+  # local (non-global).
+  FILE_NAME="$1"
+  EXT=${FILE_NAME##*.}
+
+  # Determine decompression program from extension.
+  case "$EXT" in
+    'xz')
+      echo xzcat
+      ;;
+    'zip')
+      echo unzip -p
+      ;;
+    'gz')
+      echo zcat
+      ;;
+    'img'|'iso')
+      echo cat
+      ;;
+    *)
+      echo Don\'t understand file extension "$EXT"
+      ;;
+  esac
+)
+
+# $ZCAT "$IMAGE" | sudo dd status=progress bs=4M of="$DEVICE"
 
 unset SOURCE
 if [ $# -eq 0 ]
 then
 	printf "What file do you want to write? "
-	read SOURCE
+	read -r SOURCE
 else
 	SOURCE="$1"
 fi
@@ -43,22 +60,20 @@ fi
 
 case "$OS" in
 	Darwin)
-		DEFAULT_TARGET=/dev/disk1
 		DEVICE_COMMAND=/usr/sbin/diskutil
 		DEVICE_LIST_CMD="$DEVICE_COMMAND list"
-		TARGET=`determineTarget "$TARGET" "$DEFAULT_TARGET"`
+		[ -z "$TARGET" ] && TARGET=/dev/disk1
 		if verifyTarget "$TARGET" "$DEVICE_LIST_CMD"
 		then
 			"$DISKUTIL" unmountDisk "$TARGET"
 			printf "Writing %s to %s\n" "$SOURCE" "$TARGET"
 			printf "This will take a very, very long time...\n"
-			dd if="$SOURCE" of="$TARGET" bs="$EIGHT_MB" && sync
+			dd if="$SOURCE" of="$TARGET" bs="$EIGHT_MB" && sync || exit $?
 		fi
 		;;
 	Linux)
-		DEFAULT_TARGET=/dev/sdb
 		DEVICE_LIST_CMD=lsblk
-		TARGET=`determineTarget "$TARGET" "$DEFAULT_TARGET"`
+		[ -z "$TARGET" ] && TARGET=/dev/sdb
 		if verifyTarget "$TARGET" "$DEVICE_LIST_CMD"
 		then
 			sudo wipefs --all "$TARGET" || exit $?
@@ -66,7 +81,7 @@ case "$OS" in
 		fi
 		;;
 	*)
-    		echo Please update script with section for `uname -s`
+    echo Please update script with section for "$OS"
 		;;
 esac
 

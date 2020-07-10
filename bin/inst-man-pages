@@ -9,11 +9,11 @@ case "$OS" in
 				sudo apt install manpages-dev
 				;;
 			*)
-				echo Implement case for $NAME Linux.
+				echo Implement case for "$NAME" Linux.
 				;;
 		esac
 		;;
 	*)
-		echo Implement case for $OS.
+		echo Implement case for "$OS".
 		;;
 esac

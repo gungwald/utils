@@ -1,9 +1,12 @@
 #!/usr/bin/python
 
 """
-The problem with doing this in Python is that the latest Fedora
+The problem with doing this in Python is that it's not backwards compatible.
+A Python 2 program won't run on Python 3. Java, Shell, C, PCs are all
+backwards compatible. It's a necessary feature. The latest Fedora
 has Python 3 whereas Mac OS 10.4 has Python 2. There's no way
-to write one script for both.
+to write one script for both. So you can't create one program and have it
+run everywhere.
 """
 
 from platform import uname
