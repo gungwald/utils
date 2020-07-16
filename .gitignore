@@ -4,6 +4,9 @@
 # Vim backup files
 *~
 
+# Some silly Vim file
+.*.swo
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
