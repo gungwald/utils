@@ -1,20 +1,53 @@
 #!/bin/sh
 
-DOCUMENTATION_URL=https://macintoshgarden.org/sites/macintoshgarden.org/files/apps/Java_SE_6_Release_1_DP_5_-_Developer_Docs.dmg
+# TODO - Installation of documentation
 
+DOCUMENTATION_URL=https://macintoshgarden.org/sites/macintoshgarden.org/files/apps/Java_SE_6_Release_1_DP_5_-_Developer_Docs.dmg
 INSTALLER_BASENAME=Java_SE_6_Release_1_DP_6.dmg
 INSTALLER_URL=https://macintoshgarden.org/sites/macintoshgarden.org/files/apps/"$INSTALLER_BASENAME"
-INSTALLER="$HOME"/Desktop/"$INSTALLER_BASENAME"
+INSTALLER_DIR="$HOME"/Desktop/Installers/Java/6
+INSTALLER="$INSTALLER_DIR/$INSTALLER_BASENAME"
+INSTALLER_VOLUME="/Volumes/Java SE 6 Release 1"
+INSTALLER_PKG=JavaSE6Release1.pkg
+ARCHIVE_BASENAME=/Contents/Archive.pax.gz
+FILE_SELECTOR=./System/Library/Frameworks/JavaVM.framework/Versions/1.6.0 
+TARGET_DIR=/System/Library/Frameworks/JavaVM.framework/Versions
+ARCHIVE="$INSTALLER_VOLUME/$INSTALLER_PKG/$ARCHIVE_BASENAME"
+PATH_FIX=':./System/Library/Frameworks/JavaVM.framework/Versions/::'
 
-PKG=JavaSE6Release1.pkg
-ARCHIVE=/Contents/Archive.pax.gz
+# Download the installer
+if [ -f "$INSTALLER" ]
+then
+    echo Installer has already been downloaded.
+else
+    echo Downloading installer...
+    curl -o "$INSTALLER" "$INSTALLER_URL" || exit
+fi
 
-ARCHIVE_V6_DIR="$HOME"/Desktop/Archive/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0 
-INSTALL_DIR=/System/Library/Frameworks/JavaVM.framework/Versions/
+# Mount the installer dmg volume
+if [ -d "$INSTALLER_VOLUME" ]
+then
+    echo Installer volume appears to be mounted already.
+else
+    echo Mounting installer volume...
+    hdiutil mount "$INSTALLER" || exit
+fi
 
-curl $INSTALLER_URL
-# Extract JavaSE6Release1.pkg from DMG
-# Extract $ARCHIVE from $PKG
-gzcat $ARCHIVE | pax -r
-sudo cp -r "$ARCHIVE_V6_DIR" "$INSTALL_DIR"
+# Extract /Vol/Package/Archive into target directory. A pkg file is actually 
+# a directory in disguise. Can't exit on failure because we have to unmount
+# the dmg volume.
+if [ -d "$TARGET_DIR"/1.6.0 ]
+then
+    echo Java 6 appears to be installed already.
+else
+    if cd "$TARGET_DIR"
+    then
+        echo Extracting Java 6 into $TARGET_DIR...
+        sudo pax -r -vz -pe -f "$ARCHIVE" -s "$PATH_FIX" "$FILE_SELECTOR"
+    fi
+fi
 
+# Done with dmg volume so unmount
+echo Unmounting installer volume...
+hdiutil unmount "$INSTALLER_VOLUME"
+echo Done
