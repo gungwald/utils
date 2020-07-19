@@ -20,13 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/utils.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/utils.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +51,14 @@
       <option name="presentableId" value="Default" />
       <updated>1594530529248</updated>
     </task>
+    <task id="LOCAL-00001" summary="Made it an Intellij project">
+      <created>1594535209435</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1594535209435</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -70,7 +72,15 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Made it an Intellij project" />
+    <option name="LAST_COMMIT_MESSAGE" value="Made it an Intellij project" />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="455" y="276" width="1008" height="664" key="Vcs.Push.Dialog.v2" timestamp="1594535228449">
+      <screen x="0" y="35" width="1920" height="1139" />
+    </state>
+    <state x="455" y="276" width="1008" height="664" key="Vcs.Push.Dialog.v2/0.35.1920.1139@0.35.1920.1139" timestamp="1594535228449" />
     <state x="521" y="214" width="972" height="784" key="find.popup" timestamp="1594530815490">
       <screen x="0" y="37" width="1920" height="1135" />
     </state>
