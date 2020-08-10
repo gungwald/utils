@@ -1,36 +1,30 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 
 # Author: Bill Chatfield - https://github.com/gungwald
 
 use strict;
-use warnings FATAL => 'all';
-use open ':std', ':encoding(UTF-8)';    # Makes STDIN, STDOUT, STDERR UTF-8 compatible
+use open ':std', ':encoding(UTF-8)'; # Makes STDIN, STDOUT, STDERR UTF-8 compatible
 use Data::Dumper;
-use Try::Tiny;
-use Exception::Class ('ModuleInterfaceException');
 
 use constant EXIT_SUCCESS => 0;
 use constant EXIT_FAILURE => 1;
 
-# Import Net::GitHub module or provide instructions for installing it.
-# TODO - The same for Exception::Class - libexception-class-perl
-# TODO - The same for Tiny::Try - libtiny-try-perl???
-# TODO - Convert eval to try/catch
+# Import non-standard modules or provide instructions for installing them.
 BEGIN {
-    eval {use Net::GitHub::V3};
-    if ($@) {
-        say STDERR "Please install required modules via one of these options: ";
-        say STDERR '';
-        say STDERR "    Any System:";
-        say STDERR "    (Recommended to get a working version of Net::GitHub)";
-        say STDERR "    sudo cpan -i Try::Tiny Exception::Class Net::GitHub";
-        say STDERR '';
-        say STDERR "    Ubuntu, Debian, Mint:";
-        say STDERR "    (Not recommended due to old and broken libnet-github-perl)";
-        say STDERR "    sudo apt install libtry-tiny-perl libexception-class-perl libnet-github-perl";
-        say STDERR '';
-        say STDERR "    Fedora:";
-        say STDERR "    sudo dnf install perl-Try-Tiny perl-Exception-Class perl-Net-GitHub";
+    my $isModuleMissing = 0;
+    if (! eval "use Net::GitHub::V3") {
+        say STDERR "Please install module: sudo cpan -i Net::GitHub";
+        $isModuleMissing = 1;
+    }
+    if (! eval "use Try::Tiny") {
+        say STDERR "Please install module: sudo cpan -i Try::Tiny";
+        $isModuleMissing = 1;
+    }
+    if (! eval "use Exception::Class ('ModuleInterfaceException')") {
+        say STDERR "Please install module: sudo cpan -i Exception::Class";
+        $isModuleMissing = 1;
+    }
+    if ($isModuleMissing) {
         exit(EXIT_FAILURE);
     }
 }
