@@ -1,0 +1,48 @@
+class GlobFilenameFilter implements FilenameFilter
+{
+    private String regexPattern;
+    
+    public GlobFilenameFilter(String globPattern)
+    {
+        regexPattern = globPattern.replaceAll("?", ".");
+        regexPattern = regexPattern.replaceAll("*", ".*");
+    }
+    
+    boolean accept(File dir, String name)
+    {
+        return name.matches(regexPattern);
+    }
+}
+
+String[] listFiles(searchPattern) 
+{
+    cwd = new File(bsh.cwd);
+    return cwd.list(new GlobFilenameFilter(searchPattern));
+}
+
+String formatDate(Date date, String formatSpecification) 
+{
+    SimpleDateFormat formatter = new SimpleDateFormat(formatSpecification);
+    return formatter.format(date);
+}
+
+Date getCurrentDate() 
+{
+    return new Date();
+}
+
+minecraftServerDir="C:\\opt\\MinecraftServer";
+
+cd(minecraftServerDir);
+
+// Build timestamp suffix
+today=getCurrentDate();
+dateSuffix=formatDate(today, "-%yyyy-%MM-%dd-%hh-%mm-%ss");
+
+// Loop through world directories and rename them
+worldDirs=listFiles("world*");
+for (dir : worldDirs) {
+    mv(dir, dir + dateSuffix);
+}
+
+

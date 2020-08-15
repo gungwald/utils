@@ -1,0 +1,11 @@
+#!/bin/sh
+
+BIN_DIR=`dirname "$0"`
+if [ "$BIN_DIR" = "." ]
+then
+	BIN_DIR=`pwd`
+fi
+
+CLASSES_DIR=`dirname "$BIN_DIR"`/classes
+
+exec java -classpath "$CLASSES_DIR" JGet "$@"

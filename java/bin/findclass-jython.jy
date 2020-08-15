@@ -1,0 +1,56 @@
+#!/usr/bin/env jython
+
+import re
+import sys
+
+from java.lang import System
+from java.io import File
+from java.util.jar import JarFile
+
+cwd = File(System.getProperty("user.dir"))
+
+def getRelativePath(f):
+    return cwd.toPath().relativize(f.toPath())
+
+def hasMatch(searchTerm, text):
+    return re.search('(?i)' + searchTerm, text)
+
+def isJavaClassFile(f):
+    return f.getName().endswith(".class")
+
+def isJavaArchive(f):
+    name = f.getName()
+    return name.endswith(".jar") or name.endswith(".war") or name.endswith(".ear")
+
+def findClassInJar(jar, classToFind):
+    jarFile = JarFile(jar)
+    for entry in jarFile.entries():
+        if hasMatch(classToFind, entry.getName()):
+            print "%s: %s" % (getRelativePath(jar), entry.getName())
+
+def findClass(f, classToFind):
+    if f.isDirectory():
+        for entry in f.listFiles():
+            findClass(entry, classToFind)
+    elif isJavaClassFile(f) and hasMatch(classToFind, f.getName()):
+        print getRelativePath(f)
+    elif isJavaArchive(f):
+        findClassInJar(f, classToFind)
+
+####################
+#
+#   Main Program 
+#
+####################
+
+if len(sys.argv) > 0:
+    firstArg = File(sys.argv[0])
+    if firstArg.isDirectory():
+        for arg in sys.argv[1:]:
+            findClassInDirectory(firstArg, arg)
+    else:
+        for arg in sys.argv:
+            findClassInDirectory(cwd, arg)
+else:
+    print "Find what, dumb-ass?
+

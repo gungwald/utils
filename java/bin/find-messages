@@ -1,0 +1,16 @@
+#!/bin/sh
+//bin/true; exec java bsh.Interpreter "$0" "$@"
+
+pattern = java.util.regex.Pattern.compile(" - Read message from queue.*?(<\\?xml.*>)");
+
+for (String f : bsh.args) {
+	in = new BufferedReader(new FileReader(f));
+	while ((line = in.readLine()) != null) {
+		matcher = pattern.matcher(line);
+		if (matcher.find()) {
+			print(matcher.group(1));
+		}
+	}
+}
+
+// vim: syntax=java

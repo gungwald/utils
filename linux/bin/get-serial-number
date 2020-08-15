@@ -1,0 +1,2 @@
+#!/bin/sh
+echo `cat /proc/device-tree/serial-number`

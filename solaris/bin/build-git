@@ -1,0 +1,96 @@
+#!/bin/sh
+
+# TODO - Instead of dynamically trying to figure things out, create
+#         static config.mak files for each operating system that are
+#         known to work with that operating system.
+
+#VER=1.8.2.3
+# This is the highest version that will compile on Darwin 8 (MacOS 10.4).
+# I can't remember why but I should figure it out and document.
+VER=2.9.5
+PKG=git-"$VER".tar.gz
+ON=YesPlease
+SAVED_PKG="$HOME"/storage/sources/"$PKG"
+PKG_URL=http://mirrors.edge.kernel.org/pub/software/scm/git/"$PKG"
+
+if [ ! -f "$SAVED_PKG" ]
+then
+  curl "$PKG_URL" -o "$SAVED_PKG" || exit $?
+fi
+
+cd "$HOME"/src
+
+if [ ! -d git-"$VER" ]
+then
+  gunzip -c "$SAVED_PKG" | tar -xvf - || exit $?
+fi           
+
+cd git-"$VER"
+
+# Solaris 7 system make does not work for the build.
+# Git insists on using the wrong make even when the PATH is configured
+# properly.
+if [ -f /usr/local/bin/make ]
+then
+  MAKE=/usr/local/bin/make
+fi
+
+# Solaris 7 does not come with bash.
+if [ -f /usr/local/bin/bash ]
+then
+  SHELL_PATH=/usr/local/bin/bash
+fi
+
+# Solaris 7 doesn't have this defined properly.
+if grep -v INET_ADDRSTRLEN /usr/include/netinet/in.h > /dev/null
+then
+  CFLAGS="-DINET_ADDRSTRLEN=16 -g -O2 -Wall"
+else
+  CFLAGS="-g -O2 -Wall"
+fi
+
+# Create config.mak for custom settings.
+if [ ! -f config.mak ]
+then
+  cat > config.mak <<EOF
+V=1
+CC=gcc
+MAKE=$MAKE
+SHELL_PATH=$SHELL_PATH
+NO_EXPAT=$ON
+NO_GETTEXT=$ON
+CURLDIR=/usr/local
+OPENSSLDIR=/usr/local/ssl
+PERL_PATH=/usr/local/bin/perl
+CFLAGS=$CFLAGS
+EOF
+
+# Solaris 7 stupid stuff
+if [ ! -f /usr/include/stdint.h ]
+then
+  cd compat/regex
+  if [ ! -f regex.c.orig ]
+  then
+    mv regex.c regex.c.orig
+    sed 's/stdint/inttypes/' regex.c.orig > regex.c
+  fi
+  cd ../..
+fi
+
+if [ ! -f configure ]
+then
+  make configure || exit $?
+fi
+
+if [ ! -f config.status ]
+then
+  ./configure --prefix=/usr/local || exit $?
+fi
+
+# Other make targets which we can't build: doc info
+make all || exit $?
+
+# Other install targets: install-doc install-html install-info
+# The NO_BLAH defines must match the above make command or it
+# will recompile everything. That is very helpful. NOT!!!!
+sudo make install || exit $?

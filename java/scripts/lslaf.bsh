@@ -1,0 +1,17 @@
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+ 
+String systemLaf = UIManager.getSystemLookAndFeelClassName();
+LookAndFeelInfo[] lafInfos = UIManager.getInstalledLookAndFeels();
+for (LookAndFeelInfo info : lafInfos) {
+    String className = info.getClassName();
+    String name = info.getName();
+    System.out.print(name + "\t" + className);
+    if (className.equals(systemLaf)) {
+        System.out.println(" (System)");
+    }
+    else {
+        System.out.println();
+    }
+}
+ 

@@ -1,0 +1,8 @@
+#!/bin/sh
+PLAF=net.sourceforge.openlook_plaf.OpenLookLookAndFeel
+CLSPATH=$HOME/lib/CharacterCodeDisplayer.jar:$HOME/lib/openlookplaf.jar
+BOOTCLSPATH=/usr/share/jamvm/classes.zip:/usr/share/classpath/glibj.zip
+gij --verbose:class -Dsun.boot.class.path=$BOOTCLSPATH \
+                        -Djava.library.path=/usr/lib/classpath \
+                        -Dswing.defaultlaf=$PLAF \
+                        -cp $CLSPATH CharacterCodeDisplayer $@

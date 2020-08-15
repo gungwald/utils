@@ -1,0 +1,13 @@
+#!/bin/sh
+
+abspath() (
+    cd `dirname "$1"`
+    echo `pwd`/`basename "$1"`
+)
+
+PGM=`abspath "$0"`
+PGMDIR=`dirname "$PGM"`
+TOPDIR=`dirname "$PGMDIR"`
+LIBDIR="$TOPDIR"/lib
+BSHJAR=`ls "$LIBDIR"/bsh*.jar | tail -1` || exit $?
+exec java -classpath "$BSHJAR" bsh.Interpreter "$@"

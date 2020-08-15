@@ -1,0 +1,3 @@
+#!/bin/sh
+CFLAGS=-I/usr/local/include ./configure --enable-gui=motif 
+make

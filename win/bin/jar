@@ -1,0 +1,2 @@
+#!/bin/sh
+gij -cp /usr/lib/tools.jar gnu.classpath.tools.jar.Main $@

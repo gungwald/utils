@@ -1,0 +1,1 @@
+set JAVA_HOME=C:\opt\IBM\RAD75\SDP\jdk

@@ -1,0 +1,62 @@
+#!/bin/sh
+
+#
+# This script sets the permissions on all the given command line
+# arguments to "standard" values based on the below definitions
+# for each file type.
+#
+# Author:   Bill Chatfield <bill_chatfield@yahoo.com>
+# License:  LGPL
+#
+
+# Standard permission definitions by file type:
+STD_DIR_PERMISSIONS=775
+STD_FILE_PERMISSIONS=664
+STD_EXEC_PERMISSIONS=775
+
+#
+# Determines if a file contains executable content, like a binary 
+# executable file, a shell script, Perl script, Python script, or any
+# other type of runnable script. It does not consider the executable
+# permission bit because that is the thing we're trying to derive.
+#
+# Returns:  0 (true)    If the file contains executable content
+#           1 (false)   Otherwise
+#
+is_executable () {
+    # Grep will return true (0 in a shell script) if the output of 'file' 
+    # contains 'executable' or 'script'.
+    file $1 | grep -Eiq 'executable|script'
+    # Return the result of the above grep command.
+    return $?
+}
+
+#
+# Takes multiple parameters which are the names of files or directories. For
+# each parameter, it sets the permissions on the file or directory to the
+# predefined global permissions for its corresponding type. This function
+# recursively descends into directories.
+#
+set_permissions () {
+    for FILE in $*
+    do
+        if [ -d $FILE ]
+        then
+            chmod $STD_DIR_PERMISSIONS $FILE
+            set_permissions $FILE/*
+        elif is_executable $FILE
+        then
+            chmod $STD_EXEC_PERMISSIONS $FILE
+        else
+            chmod $STD_FILE_PERMISSIONS $FILE
+        fi
+    done
+}
+
+#
+# Main program
+#
+
+# Set standard permissions on all parameters passed on the command line.
+set_permissions $*
+

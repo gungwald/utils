@@ -1,0 +1,32 @@
+#!/usr/bin/perl
+
+my $topPid;
+my $topTid;
+my $topCmd;
+my $topCpu = 0.0;
+
+my $currentPid;
+my $currentCmd;
+
+open(TH, "ps -emo 'pid lwp comm pcpu' |") || die "PS command failed: $!\n";
+<TH>;   # Read past the first line which just has the column titles.
+while (<TH>) {
+    ($line) = /^\s*(.*?)\s*$/;  # Trim whitespace so that split works.
+    ($pid, $tid, $cmd, $cpu) = split(/\s+/, $line);
+    if ($pid eq '-') {
+        if ($cpu > $topCpu) {
+            $topPid = $currentPid;
+            $topCmd = $currentCmd;
+            $topTid = $tid;
+            $topCpu = $cpu;
+        }
+    }
+    else {
+        $currentPid = $pid;
+        $currentCmd = $cmd;
+    }
+}
+close(TH);
+
+printf("cpu=%f pid=%d tid=%d hextid=0x%x cmd=%s\n", $topCpu, $topPid, $topTid, $topTid, $topCmd);
+

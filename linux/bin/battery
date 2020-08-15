@@ -1,0 +1,20 @@
+#!/usr/bin/perl
+
+my $batteryFile = "/proc/pmu/battery_0";
+my $charge;
+my $maxCharge;
+
+open(BATTERY, $batteryFile) || die "$batteryFile: $!\n";
+
+while (<BATTERY>) {
+    ($key, $value) = /(\w*)\s*:\s*(\w*)/;
+    if ($key eq 'charge') {
+        $charge = $value;
+    } elsif ($key eq 'max_charge') {
+        $maxCharge = $value;
+    }
+}
+
+close(BATTERY);
+
+printf("%0.2f\% (%d/%d)\n", $charge / $maxCharge * 100, $charge, $maxCharge);
