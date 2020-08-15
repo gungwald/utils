@@ -1,0 +1,19 @@
+#!/bin/sh
+
+BIN_DIR=$(dirname "$0")
+if [ "$BIN_DIR" = "." ]
+then
+    BIN_DIR=$(pwd)
+fi
+
+TOP_DIR=$(dirname "$BIN_DIR")
+LIB_DIR="$TOP_DIR"/lib
+
+for JAR in "$LIB_DIR"/bsh*.jar
+do
+    BSH_JAR="$JAR"
+done
+BSH_SCRIPT="$TOP_DIR"/scripts/$(basename "$0").bsh
+
+exec java -classpath "$BSH_JAR" bsh.Interpreter "$BSH_SCRIPT" "$@"
+

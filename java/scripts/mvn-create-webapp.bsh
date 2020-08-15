@@ -1,0 +1,18 @@
+// BeanShell script to run Maven to create a webapp project.
+//
+in = new BufferedReader(new InputStreamReader(System.in));
+
+System.out.print("Group ID formatted like com.company.group.name: ");
+group = in.readLine();
+
+System.out.print("Artifact ID formatted like my-component-name: ");
+artifact = in.readLine();
+
+mvn = "mvn archetype:generate"
+        + " -DgroupId=" + group
+        + " -DartifactId=" + artifact
+        + " -DarchetypeArtifactId=maven-archetype-webapp"
+        + " -DinteractiveMode=false";
+
+print(mvn);
+exec(mvn);

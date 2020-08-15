@@ -1,0 +1,24 @@
+#!/bin/bash
+
+OS=$(uname -s)
+
+if [ "${OS:0:5}" = "MINGW" -o "${OS:0:6}" = "CYGWIN" -o "${OS:0:4}" = "MSYS" ]
+then
+    BIN_DIR=$(dirname "$0")
+    if [ "$BIN_DIR" = "." ]
+    then
+        BIN_DIR=$(pwd)
+    fi
+
+    # The below separation of work into separate lines and the quoting of the
+    # variables is very precise. If you change either of them in the slightest,
+    # it will break.
+    JAR_BAT=$(cygpath --windows "$BIN_DIR"/jar.bat) 
+    JAR_CMD=$JAR_BAT\ "$@"
+    $COMSPEC /c "$JAR_CMD"
+else
+    # It would be good to be able to change the to code tha can run the second
+    # program found in the PATH.
+    exec /usr/bin/jar "$@"
+fi
+

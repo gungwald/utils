@@ -1,0 +1,2 @@
+#!/bin/sh
+sudoedit /etc/java-6-openjdk/jvm-powerpc.cfg

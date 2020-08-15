@@ -1,0 +1,8 @@
+// BeanShell script to run Maven to download dependencies.
+//
+
+cmdPrefix = System.getProperty("os.name").startsWith("Windows") ? "cmd /c " : "";
+mvn = cmdPrefix + "mvn dependency:resolve";
+print(mvn);
+exec(mvn);
+

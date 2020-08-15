@@ -1,0 +1,14 @@
+#!/bin/sh
+
+dumpDeps() {
+  pkgadd -d "$1" 2>&1 
+}
+
+extractDeps() {
+  sed -n 's/ *The <\(.*\)> package "\(.*\) - .*$/\1 - \2/p'
+}
+
+for PKG in "$@"
+do
+  echo all | dumpDeps "$PKG" | extractDeps
+done

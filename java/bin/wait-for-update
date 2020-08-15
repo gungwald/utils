@@ -1,0 +1,33 @@
+#!/bin/sh
+//bin/true; exec java -Dscript="$0" -classpath $(dirname "$0")/../lib/bsh-2.0b6.jar bsh.Interpreter "$0" "$@"
+
+import java.io.File;
+
+public static final char BELL = '\u0007';
+public static final long MILLISECONDS_PER_SECOND = 1000;
+public static final int EXIT_FAILURE = 1;
+public static final String SCRIPT = new File(System.getProperty("script")).getName();
+    
+void sleep(long milliseconds) {
+    try {
+        Thread.sleep(milliseconds);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+}
+
+for (String fileName : bsh.args) {
+    File f = new File(fileName);
+    if (f.exists()) {
+        long baselineModTime = f.lastModified(); // Milliseconds since 00:00 GMT, 1970-01-01
+        while (baselineModTime == f.lastModified()) {
+            sleep(MILLISECONDS_PER_SECOND);
+        }
+        System.out.println(BELL + "File updated: " + fileName);
+    } else {
+        System.err.println(SCRIPT + ": File not found: " + fileName);
+        System.exit(EXIT_FAILURE);
+    }
+}
+
+// vim: syntax=java

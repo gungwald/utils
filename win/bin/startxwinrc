@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# This script is run by startxwin after it startx the Cgywin X Server:
+# /usr/bin/XWin. Application configuration is in .Xdefaults.
+
+/usr/openwin/bin/clock -geometry 150x150-46+55 &
+/usr/bin/xload -geometry 148x143-47+247 &
+xterm -geometry 80x24-80-52
+
+#/usr/bin/rxvt.exe -display :0 -font 10x20 -tn rxvt-cygwin -e /bin/bash
