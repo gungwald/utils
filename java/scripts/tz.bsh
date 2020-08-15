@@ -1,0 +1,5 @@
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
+SimpleDateFormat formatter = new SimpleDateFormat("ZZZZZ");
+print(formatter.format(new Date()));

@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# This version is pacifically assigned to Mac OS 10.3.9 by 
+# http://pdb.finkproject.org/pdb/package.php/libcurl4-shlibs.
+VER=7.16.4
+PKG=curl-"$VER".tar.gz
+URL=https://curl.haxx.se/download/archeology/$PKG
+INSTALL_INSTRUCTIONS=docs/INSTALL
+
+if [ ! -f "$HOME"/storage/"$PKG" ]
+then
+        cur "$URL" -o "$HOME"/storage/"$PKG" || exit $?
+fi
+
+cd "$HOME"/src
+
+if [ ! -d curl-"$VER" ]
+then
+        tar -xvzf "$HOME"/storage/"$PKG" || exit $?
+fi
+
+cd curl-"$VER"
+
+./configure --prefix=/usr/local --with-ssl || exit $?
+make || exit $?
+sudo make install || exit $?
+

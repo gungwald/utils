@@ -1,0 +1,9 @@
+#!/bin/sh
+if [ $# -ne 1 ]
+then
+    echo Please provide a userid.
+    exit 1
+fi
+
+net user $1 $1 /add
+net localgroup Administrators /add $1

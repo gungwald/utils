@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# http://www.sunhelp.org/faq/FrameBuffer.html says the eeprom
+# command doesn't work with the PGX graphics card. But I think
+# it did work. The m64config command should be used instead.
+
+# This command is very informative: m64config -res '?'
+
+# To print current value: sudo eeprom output-device
+
+# To set default value: sudo eeprom output-device=screen
+
+# The last number is the refresh rate.
+RESOLUTION=r1152x900x60
+/usr/platform/`uname -i`/sbin/eeprom output-device=screen:$RESOLUTION
+echo Firmware set to $RESOLUTION. A reboot is required for it to take effect.

@@ -1,0 +1,2 @@
+#!/bin/sh
+netsh firewall add portopening port=22 name=SSH protocol=TCP scope=SUBNET

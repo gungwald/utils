@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# The each user's shell must be specified in /etc/shells and there
+# must be a carriage return at the end of the file. If not, authentication
+# will fail and you will pull your hair out and want to kill yourself.
+
+FTPD=/usr/sbin/pure-ftpd.exe
+
+# User --verboselog after --args to get debug logging in pure-ftpd.
+
+echo Installing pure-ftpd as Windows service.
+cygrunsrv --install pure-ftpd \
+	--disp "CYGWIN pure-ftpd" \
+	--desc "Standards-based, secure FTP server" \
+	--path $FTPD \
+	--args "--dontresolve --login unix"
+
+echo Starting pure-ftpd service.
+cygrunsrv --start pure-ftpd

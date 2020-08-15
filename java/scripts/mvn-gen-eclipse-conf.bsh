@@ -1,0 +1,4 @@
+// BeanShell script to create Eclipse config files
+mvn = "mvn eclipse:eclipse -Dwtpversion=2.0";
+print(mvn);
+exec(mvn);

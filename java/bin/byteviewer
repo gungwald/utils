@@ -1,0 +1,2 @@
+#!/bin/sh
+exec java -cp $HOME/workspace/byteviewer/classes com.alteredmechanism.byteviewer.ByteViewer "$@"

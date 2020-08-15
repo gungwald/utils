@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Makes the Fn-CTRL and Fn-ALT combinations behave as a middle and 
+# right button. 
+
+echo 0x61 > /proc/sys/dev/mac_hid/mouse_button2_keycode
+echo 0x64 > /proc/sys/dev/mac_hid/mouse_button3_keycode
+echo 1 > /proc/sys/dev/mac_hid/mouse_button_emulation
+

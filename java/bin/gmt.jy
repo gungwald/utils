@@ -1,0 +1,9 @@
+#!/usr/bin/env jython
+
+from java.util import GregorianCalendar;
+from java.util import Calendar;
+from java.util import TimeZone;
+
+gmtTz = TimeZone.getTimeZone("GMT")
+cal = GregorianCalendar(gmtTz)
+print "%02d:%02d GMT" % (cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE))

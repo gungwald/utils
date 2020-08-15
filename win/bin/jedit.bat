@@ -1,0 +1,1 @@
+"C:\Windows\system32\java.exe" -Dswing.defaultlaf=net.sourceforge.openlook_plaf.OpenLookLookAndFeel -Xmx192M -cp "C:\Program Files\jEdit\jedit.jar";openlookplaf.jar org.gjt.sp.jedit.jEdit -reuseview %*

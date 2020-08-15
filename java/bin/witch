@@ -1,0 +1,13 @@
+#!/bin/sh
+
+BIN_DIR=`dirname "$0"`
+
+if [ "$BIN_DIR" = '.' ]
+then
+    BIN_DIR=`pwd`
+fi
+
+LIB_DIR=$(dirname "$BIN_DIR")/lib
+
+exec java -jar "$LIB_DIR"/which.jar "$@"
+
