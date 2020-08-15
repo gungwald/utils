@@ -17,19 +17,14 @@ case $OS in
 		;;
 
 	Linux)
-		unset ID_LIKE
 		. /etc/os-release
-
-		case $ID_LIKE in
-
+		case $ID in
 			fedora | rhel | centos)
 				rpm -q -l "$@"
 				;;
-
 			debian)
 				dpkg-query --listfiles "$@"
 				;;
-
 			*)
 				echo Add code for $ID_LIKE Leenukes
 				;;

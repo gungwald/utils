@@ -11,6 +11,9 @@ $_ = get($baseUrl);
 my @fileNames = / href="(.*?)"/gm;
 for (@fileNames) {
     if (/\.gz$/) {
-        getstore($baseUrl . $_, $destDir . '/' . $_);
+        my $url = $baseUrl . $_;
+	my $destFile = $destDir . '/' . $_;
+	print "Downloading $destFile\n";
+        getstore($url, $destFile);
     }
 }
