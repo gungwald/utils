@@ -1,0 +1,12 @@
+#!/bin/sh
+
+BIN_DIR=`dirname "$0"`
+
+if [ "$BIN_DIR" = "." ]
+then
+    BIN_DIR=`pwd`
+fi
+
+TOP_DIR=`dirname "$BIN_DIR"`
+
+exec bwbasic "$TOP_DIR"/scripts/`basename "$0"`.bas "$@"

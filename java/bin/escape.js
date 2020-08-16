@@ -1,3 +1,5 @@
+#!/usr/bin/env rhino
+
 if (arguments.length > 0) {
     // If there are arguments, decode them.
     for (var i = 0; i < arguments.length; i++) {

@@ -1,0 +1,8 @@
+1. JScript execution requires a .bat here and a .js in the scripts directory
+   because command line programs need to run with cscript, not wscript,
+   which is the default. Or the .js can include code to restart itself with
+   cscript.
+2. Windows-specific Perl .pl files can go here because windows can be 
+   configured to execute them directly.
+3. Any Java programs should go in ~/git/utils/java, not here in the Windows
+   directory, unless they are Windows-specific.

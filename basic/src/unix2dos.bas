@@ -1,3 +1,6 @@
+1 REM
+2 REM I think this is FreeBASIC code.
+3 REM
 10 REM
 20 REM  Converts text files from UNIX to Windows format.
 30 REM

@@ -2,6 +2,8 @@ Rem
 Rem     Splitpath implemented in BW-BASIC
 Rem
 Rem     Mid$ doesn't work in BW-BASIC so this program fails
+Rem	Mid$ is apparently fixed in version 3.2
+Rem	UNIX shebang doesn't work in 3.2 but is fixed in 3.3
 Rem
 
 DefInt i, j, s
