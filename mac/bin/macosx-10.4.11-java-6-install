@@ -2,6 +2,20 @@
 
 # TODO - Installation of documentation
 
+# More proper installation ---
+#
+# Tiger on PowerPC or Intel
+# If you run the installer on a fully updated Tiger system, it’ll inform you that 
+# “This volume contains a newer version of Java.” So, first move aside the files it’s checking.
+#
+# sudo mv /System/Library/Frameworks/JavaVM.framework/Resources/Info-macos.plist{,.old}
+# sudo mv /System/Library/Frameworks/JavaVM.framework/Resources/version.plist{,.old}
+#
+# After running the installer, open the new “Java Preferences” in 
+# /Applications/Utilities/Java/Java SE 6. Set “Use version” to “Java SE 6” and reorder the 
+# list in “Java Application Runtime Settings” so “Java SE 6” is first. After you click “Save” 
+# and quit, confirm that Java 6 is active by running java -version.
+
 DOCUMENTATION_URL=https://macintoshgarden.org/sites/macintoshgarden.org/files/apps/Java_SE_6_Release_1_DP_5_-_Developer_Docs.dmg
 INSTALLER_BASENAME=Java_SE_6_Release_1_DP_6.dmg
 INSTALLER_URL=https://macintoshgarden.org/sites/macintoshgarden.org/files/apps/"$INSTALLER_BASENAME"
