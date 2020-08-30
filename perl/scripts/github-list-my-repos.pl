@@ -12,9 +12,8 @@ my $github = Net::GitHub->new(  # Net::GitHub::V3
 	RaiseError => 1
 );
            
-my @repos = $github->repos->list;
+my @repos = $github->repos->list();
 
 foreach my $repo (@repos) {
 	print $$repo{name}, "\n";
 }
-
