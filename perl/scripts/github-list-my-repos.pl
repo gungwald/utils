@@ -2,6 +2,8 @@
 
 # Bill Chatfield <bill_chatfield@yahoo.com>
 
+use strict;
+use warnings;
 use Net::GitHub;
 
 my $github = Net::GitHub->new(  # Net::GitHub::V3
@@ -12,7 +14,7 @@ my $github = Net::GitHub->new(  # Net::GitHub::V3
            
 my @repos = $github->repos->list;
 
-foreach $repo (@repos) {
+foreach my $repo (@repos) {
 	print $$repo{name}, "\n";
 }
 
