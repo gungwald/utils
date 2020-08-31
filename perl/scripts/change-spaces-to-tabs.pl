@@ -2,17 +2,24 @@
 
 # Change indentation to use tabs.
 
+use strict;
+use warnings;
 use File::Basename qw(basename dirname);
 use File::Copy qw(copy);
 use File::Spec::Functions qw(catfile catdir);
 
-my $backupDir = catdir($ENV{USERPROFILE}, '.backups');
+sub getUserHomeDir
+{
+    return $ENV{HOME} || $ENV{USERPROFILE};
+}
+
+my $backupDir = catdir(getUserHomeDir(), '.backups');
 if (! -d $backupDir) {
     mkdir($backupDir) || die "Failed to create backup directory: $!\n";
 }
 
-# Process all commmand line arguments.
-for $file (@ARGV) {
+# Process all command line arguments.
+for my $file (@ARGV) {
     my @lines;
     
     # Backup file
