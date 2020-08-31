@@ -154,8 +154,8 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Perl.extract-links-from-html.pl" />
       <item itemvalue="Perl.github-search-repos.pl" />
+      <item itemvalue="Perl.extract-links-from-html.pl" />
       <item itemvalue="Perl.solaris-download-gnu-devel.pl" />
     </list>
     <recent_temporary>
