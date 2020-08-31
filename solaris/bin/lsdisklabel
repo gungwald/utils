@@ -1,0 +1,8 @@
+#!/bin/sh
+
+{
+sudo format -d c0t0d0 <<EOF
+verify
+quit
+EOF
+} | tail +24
