@@ -1,21 +1,22 @@
 #!/bin/sh
 
-endsWith() {
+fileNameEndsWith() {
   test `basename "$1"` != `basename "$1" "$2"`
 }
 
 # The temp directory must be somewhere with a lot of space.
-TMPDIR="$HOME"/tmp
-test -d "$TMPDIR" || mkdir -p "$TMPDIR"
+#TMPDIR="$HOME"/tmp
+#test -d "$TMPDIR" || mkdir -p "$TMPDIR"
 
 for arg in "$@"
 do
-  if endsWith "$arg" '.gz'
+  if fileNameEndsWith "$arg" '.gz'
   then
     gunzip "$arg"
     package=`basename "$arg" '.gz'`
   else
     package="$arg"
   fi
-  sudo TMPDIR=$TMPDIR pkgadd -d "$package"
+  #sudo TMPDIR=$TMPDIR pkgadd -d "$package"
+  sudo pkgadd -d "$package"
 done

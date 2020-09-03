@@ -1,1 +1,21 @@
-/export/home/bill/git/utils/bin/solaris7-free
+#!/bin/ksh
+echo Calculating average memory over 5 seconds...
+FREE_PAGES=`sar -r 5 | tail -1 | awk '{ print $2 }'`
+PAGESIZE_BYTES=`pagesize`
+FREE_MB=`expr $FREE_PAGES \* $PAGESIZE_BYTES / 1048576`
+TOTAL_MB=`prtconf | head -2 | tail -1 | awk '{ print $3 }'`
+USED_MB=`expr $TOTAL_MB - $FREE_MB`
+
+SWAP_USED_KB=`swap -s | cut -d' ' -f 9`
+SWAP_USED_KB=${SWAP_USED_KB%k}
+SWAP_USED_MB=`expr $SWAP_USED_KB / 1024`
+
+SWAP_TOTAL_KB=`swap -s | cut -d' ' -f 11`
+SWAP_TOTAL_KB=${SWAP_TOTAL_KB%k}
+SWAP_TOTAL_MB=`expr $SWAP_TOTAL_KB / 1024`
+
+printf "\n"
+printf "      In Use (MiB)   Total (Mib)\n"
+printf "RAM   %8s      %8s\n" $USED_MB $TOTAL_MB
+printf "Swap  %8s      %8s\n" $SWAP_USED_MB $SWAP_TOTAL_MB
+printf "\n"
