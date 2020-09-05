@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# CAUTION - Not all steps in this file are tested!!!!!
+# It looks like only the fist 2 steps below are necessary?
+
+# https://askubuntu.com/questions/592925/dell-inspiron-3551-unresponsive-touchpad
+
+# FIRST add i8042.nopnp to command line in /etc/default/grub
+# SECOND update-grub
+# REST is below:
+
+# Blacklist the problematic driver.
+echo "blacklist i2c_hid" | sudo tee /etc/modprobe.d/i2c-hid.conf
+
+# Compute module dependencies?
+sudo depmod -a
+
+# Update boot-time RAM file system containing kernel drivers.
+# Debian-based: sudo update-initramfs -u
+# Fedora:
+sudo dracut -f /boot/initramfs-$(uname -r).img
+
+# Add the module we need for the Dell touchpad.
+echo "synaptics_i2c" | sudo tee -a /etc/modules

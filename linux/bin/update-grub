@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# Author: Bill Chatfield
+
+# This only works on Fedroika right now. Ubuntu comes with an update-grub
+# command though. I'm not sure why they make it so hard in Fedora.
+. /etc/os-release
+if [ "$ID" != 'fedora' ]
+then
+  echo Sorry this only works in Fedora right now. Please update this script.
+  exit 1
+fi
+
+# Determine if the system uses UEFI or BIOS.
+if [ -f /sys/firmware/efi ]
+then
+  # Update grub for UEFI-based system.
+  sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+else
+  # Update grub for BIOS-based system.
+  sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+fi
