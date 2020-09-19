@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# https://unix.stackexchange.com/questions/6890/what-is-making-my-cursor-randomly-disappear-when-using-gnome-teminal
+# https://en.wikipedia.org/wiki/ANSI_escape_code#CSI_sequences
+
+echo Sending character sequence to restore terminal cursor.
+echo -en "\e[?25h"
+echo Done

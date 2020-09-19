@@ -16,20 +16,12 @@
         <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </expand>
-    <select>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:master" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </select>
+    <select />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/perl5local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/perl/scripts/solaris-download-gnu-devel.pl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unix/bin/fix-missing-terminal-cursor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perl/scripts/solaris7-download-gnu-devel.pl" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +55,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/unix/bin" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -71,6 +63,11 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/unix/bin" />
+    </key>
   </component>
   <component name="RunManager" selected="Perl.solaris-download-gnu-devel.pl">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
@@ -154,8 +151,8 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Perl.github-search-repos.pl" />
       <item itemvalue="Perl.extract-links-from-html.pl" />
+      <item itemvalue="Perl.github-search-repos.pl" />
       <item itemvalue="Perl.solaris-download-gnu-devel.pl" />
     </list>
     <recent_temporary>
@@ -227,6 +224,10 @@
       <screen x="0" y="0" width="1920" height="1049" />
     </state>
     <state x="418" y="184" width="1207" height="684" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1049@0.0.1920.1049" timestamp="1596574601521" />
+    <state x="531" y="383" width="838" height="441" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1600474904846">
+      <screen x="0" y="34" width="1920" height="1125" />
+    </state>
+    <state x="531" y="383" width="838" height="441" key="#com.intellij.fileTypes.FileTypeChooser/0.34.1920.1125@0.34.1920.1125" timestamp="1600474904846" />
     <state x="1216" y="305" key="#xdebugger.evaluate" timestamp="1596827843742">
       <screen x="0" y="0" width="1920" height="1049" />
     </state>
@@ -316,23 +317,26 @@
     </state>
     <state width="1876" height="271" key="GridCell.Tab.3.right/0.0.1920.1049@0.0.1920.1049" timestamp="1596827840852" />
     <state width="677" height="316" key="GridCell.Tab.3.right/0.27.1920.1020/1920.0.1920.1080@0.27.1920.1020" timestamp="1598417638085" />
-    <state x="441" y="184" key="SettingsEditor" timestamp="1598901420681">
-      <screen x="0" y="27" width="1920" height="1020" />
+    <state x="441" y="207" width="1271" height="912" key="SettingsEditor" timestamp="1600475018276">
+      <screen x="0" y="34" width="1920" height="1125" />
     </state>
     <state x="441" y="161" key="SettingsEditor/0.0.1920.1049@0.0.1920.1049" timestamp="1596570161486" />
     <state x="441" y="184" key="SettingsEditor/0.27.1920.1020/1920.0.1920.1080@0.27.1920.1020" timestamp="1598901420681" />
+    <state x="441" y="207" width="1271" height="912" key="SettingsEditor/0.34.1920.1125@0.34.1920.1125" timestamp="1600475018276" />
     <state x="455" y="276" width="1008" height="664" key="Vcs.Push.Dialog.v2" timestamp="1594535228449">
       <screen x="0" y="35" width="1920" height="1139" />
     </state>
     <state x="455" y="276" width="1008" height="664" key="Vcs.Push.Dialog.v2/0.35.1920.1139@0.35.1920.1139" timestamp="1594535228449" />
-    <state x="574" y="140" width="764" height="769" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1596738822759">
-      <screen x="0" y="0" width="1920" height="1049" />
+    <state x="574" y="184" width="764" height="769" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1600475097427">
+      <screen x="0" y="34" width="1920" height="1125" />
     </state>
     <state x="574" y="140" width="764" height="769" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1049@0.0.1920.1049" timestamp="1596738822759" />
-    <state x="697" y="516" width="518" height="170" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1595199675542">
-      <screen x="0" y="27" width="1920" height="1149" />
+    <state x="574" y="184" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.34.1920.1125@0.34.1920.1125" timestamp="1600475097427" />
+    <state x="697" y="513" width="518" height="204" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599701728623">
+      <screen x="0" y="34" width="1920" height="1125" />
     </state>
     <state x="697" y="516" width="518" height="170" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.27.1920.1149@0.27.1920.1149" timestamp="1595199675542" />
+    <state x="697" y="513" width="518" height="204" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.34.1920.1125@0.34.1920.1125" timestamp="1599701728623" />
     <state x="521" y="214" width="972" height="784" key="find.popup" timestamp="1594530815490">
       <screen x="0" y="37" width="1920" height="1135" />
     </state>
