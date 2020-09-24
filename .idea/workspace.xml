@@ -20,7 +20,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/unix/bin/fix-missing-terminal-cursor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,6 +45,7 @@
   </component>
   <component name="ProjectId" id="1eZYLxQK8Nu1XxurDO1NocI2d3E" />
   <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
@@ -181,7 +181,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594535209435</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Improve name of script">
+      <created>1600495328540</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1600495328540</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -213,7 +220,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Made it an Intellij project" />
-    <option name="LAST_COMMIT_MESSAGE" value="Made it an Intellij project" />
+    <MESSAGE value="Improve name of script" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improve name of script" />
   </component>
   <component name="WindowStateProjectService">
     <state x="688" y="227" key="#Perl5" timestamp="1596569675045">
@@ -323,20 +331,21 @@
     <state x="441" y="161" key="SettingsEditor/0.0.1920.1049@0.0.1920.1049" timestamp="1596570161486" />
     <state x="441" y="184" key="SettingsEditor/0.27.1920.1020/1920.0.1920.1080@0.27.1920.1020" timestamp="1598901420681" />
     <state x="441" y="207" width="1271" height="912" key="SettingsEditor/0.34.1920.1125@0.34.1920.1125" timestamp="1600475018276" />
-    <state x="455" y="276" width="1008" height="664" key="Vcs.Push.Dialog.v2" timestamp="1594535228449">
-      <screen x="0" y="35" width="1920" height="1139" />
+    <state x="455" y="272" width="1008" height="664" key="Vcs.Push.Dialog.v2" timestamp="1600495363146">
+      <screen x="0" y="34" width="1920" height="1125" />
     </state>
+    <state x="455" y="272" key="Vcs.Push.Dialog.v2/0.34.1920.1125@0.34.1920.1125" timestamp="1600495363146" />
     <state x="455" y="276" width="1008" height="664" key="Vcs.Push.Dialog.v2/0.35.1920.1139@0.35.1920.1139" timestamp="1594535228449" />
     <state x="574" y="184" width="764" height="769" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1600475097427">
       <screen x="0" y="34" width="1920" height="1125" />
     </state>
     <state x="574" y="140" width="764" height="769" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1049@0.0.1920.1049" timestamp="1596738822759" />
     <state x="574" y="184" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.34.1920.1125@0.34.1920.1125" timestamp="1600475097427" />
-    <state x="697" y="513" width="518" height="204" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599701728623">
+    <state x="697" y="513" width="518" height="211" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1600781283356">
       <screen x="0" y="34" width="1920" height="1125" />
     </state>
     <state x="697" y="516" width="518" height="170" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.27.1920.1149@0.27.1920.1149" timestamp="1595199675542" />
-    <state x="697" y="513" width="518" height="204" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.34.1920.1125@0.34.1920.1125" timestamp="1599701728623" />
+    <state x="697" y="513" width="518" height="211" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.34.1920.1125@0.34.1920.1125" timestamp="1600781283356" />
     <state x="521" y="214" width="972" height="784" key="find.popup" timestamp="1594530815490">
       <screen x="0" y="37" width="1920" height="1135" />
     </state>
