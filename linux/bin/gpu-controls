@@ -1,0 +1,2 @@
+#!/bin/sh
+DRI_PRIME=1 GALLIUM_HUD=GPU-load+cpu+fps glxgears
