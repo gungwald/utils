@@ -1,0 +1,27 @@
+#!/bin/sh
+
+TOP_DIR=(cd `dirname "$0"` ; pwd)
+MY_NAME=`basename "$0" .sh`
+
+# Determine which profile to use.
+# .profile is not read if .bash_profile exists...
+for PROFILE_NAME in .bash_profile .profile
+do
+    PROFILE="$HOME"/"$PROFILE_NAME"
+    if [ -e "$PROFILE" ]
+    then
+        break
+    fi
+done
+
+MY_FULL_NAME="$TOP_DIR/$MY_NAME"
+if grep 'Added by \$MY_FULL_NAME' "$PROFILE"
+then
+    echo Already setup in $PROFILE
+else
+    echo "" >> "$PROFILE"
+    echo "# Added by $MY_FULL_NAME" >> "$PROFILE"
+    echo ". $TOP_DIR/profile" >> "$PROFILE"
+    echo $PROFILE updated
+fi
+
