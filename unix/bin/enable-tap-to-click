@@ -1,2 +1,14 @@
 #!/bin/sh
+# Requires xorg-x11-drv-synaptics and probably xorg.conf for synaptics
 synclient TapButton1=1
+
+# The other option is libinput, configured like this in xorg.conf.d/40-touchpad.conf
+# Section "InputClass"
+#   Identifier "touchpad"
+#   Driver "libinput"
+#   MatchIsTouchpad "on"
+#   Option "Tapping" "on"
+#   Option "NaturalScrolling" "on"
+#   Option "ClickMethod" "clickfinger"
+# EndSection
+
