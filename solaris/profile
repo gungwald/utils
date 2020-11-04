@@ -1,0 +1,8 @@
+
+isSupported() {
+  if [ $(uname -s) = SunOS ]; then
+    true
+  else
+    false
+  fi
+}

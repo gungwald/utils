@@ -1,0 +1,8 @@
+
+isSupported() {
+  if [ $(uname -s) = Darwin ]; then
+    true
+  else
+    false
+  fi
+}

@@ -1,0 +1,8 @@
+
+isSupported() {
+  if [ $(uname -s) = Linux ]; then
+    true
+  else
+    false
+  fi
+}
