@@ -26,8 +26,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/unix/bin/download-sun-microsystems-gallant-font.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic/src/remove-fake-carriage-returns.bas" beforeDir="false" afterPath="$PROJECT_DIR$/basic/src/remove-fake-carriage-returns.bas" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,7 +195,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600495328540</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added font download">
+      <created>1604525039151</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1604525039151</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -228,7 +235,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Made it an Intellij project" />
     <MESSAGE value="Improve name of script" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improve name of script" />
+    <MESSAGE value="Added font download" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added font download" />
   </component>
   <component name="WindowStateProjectService">
     <state x="688" y="227" key="#Perl5" timestamp="1596569675045">
@@ -339,10 +347,10 @@
     <state x="441" y="203" key="SettingsEditor/0.26.1920.1150@0.26.1920.1150" timestamp="1604276233773" />
     <state x="441" y="184" key="SettingsEditor/0.27.1920.1020/1920.0.1920.1080@0.27.1920.1020" timestamp="1598901420681" />
     <state x="441" y="207" width="1271" height="912" key="SettingsEditor/0.34.1920.1125@0.34.1920.1125" timestamp="1604250960273" />
-    <state x="455" y="272" width="1008" height="664" key="Vcs.Push.Dialog.v2" timestamp="1600495363146">
+    <state x="455" y="272" width="1000" height="661" key="Vcs.Push.Dialog.v2" timestamp="1604525054201">
       <screen x="0" y="34" width="1920" height="1125" />
     </state>
-    <state x="455" y="272" key="Vcs.Push.Dialog.v2/0.34.1920.1125@0.34.1920.1125" timestamp="1600495363146" />
+    <state x="455" y="272" width="1000" height="661" key="Vcs.Push.Dialog.v2/0.34.1920.1125@0.34.1920.1125" timestamp="1604525054201" />
     <state x="574" y="184" width="764" height="769" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1600475097427">
       <screen x="0" y="34" width="1920" height="1125" />
     </state>

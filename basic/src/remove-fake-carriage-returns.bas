@@ -1,39 +1,47 @@
-' Remrove Flake CRz
+' Removes Fake CRs
+' Author: Bill Chatfield
+' Untested, work-in-progress
 
 
-function rmFakeCRs(lyne as String)
+function removeFakeCRsFromLine(oneLine as String) as String
     dim prevChar as String
     dim c as String
-    dime newLine as String
+    dim correctedLine as String
+    dim i as Integer
 
-    newLine = ""
-    prevChar = left$(lyne, 1)
-    for i = 2 to len(lyne)
-        c = mid$(lyne, i, 1)
+    correctedLine = ""
+    prevChar = left(oneLine, 1)
+    for i = 2 to len(oneLine)
+        c = mid(oneLine, i, 1)
         if not (prevChar = "^" and c = "M") then
-            newLine = newLine + prevChar
+            correctedLine = correctedLine + prevChar
         end if
         prevChar = c
     next i
-    if right$(lyne) <> "^M" then
-        newLine = newLine + prevChar
+    if right(oneLine, 1) <> "^M" then
+        correctedLine = correctedLine + prevChar
     end if
-    rmFakeCRs = newLine
+    removeFakeCRsFromLine = correctedLine
 end function
 
+sub removeFakeCRs(fileName as String)
+    dim oneLine as String
+    open fileName for input as #1
+    do while not eof(1)
+        line input #1, oneLine
+        oneLine = removeFakeCRsFromLine(oneLine)
+        print oneLine
+    loop
+    close #1
+end sub
+
 ''''''''''''''''
+'
 ' Main Program
 '
 ''''''''''''''''
 dim fileName as String
-dim oneLine as String
-input "File:";fileName
-open fileName for input as #1
-do while not eof(1)
-    input line oneLine
-    oneLine = rmFakeCRs(oneLine)
-    print oneLine
-loop
-close #1
+input "File";fileName
+removeFakeCRs(fileName)
 end
 
