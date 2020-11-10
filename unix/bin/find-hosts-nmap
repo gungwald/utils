@@ -4,5 +4,5 @@ then
     echo This scan requires root access. Restarting with Su-Su-Sussudio.
     exec sudo "$0" "$@"
 fi
-nmap -O --osscan-guess -sT 192.168.0.2-50
-nmap -O --osscan-guess -sT 192.168.1.2-199
+echo SEARCHING HOSTS ON 192.168.0.X
+nmap -v -O --osscan-guess -sT 192.168.0.2-50
