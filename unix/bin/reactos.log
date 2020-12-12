@@ -1,0 +1,225 @@
+(../boot/freeldr/freeldr/disk/partition.c:425) fixme: DiskGetPartitionEntry() unimplemented for RAW
+(ntoskrnl/kd/kdio.c:105) -----------------------------------------------------
+(ntoskrnl/kd/kdio.c:106) ReactOS 0.4.13 (Build 20200409-0.4.13-release-0-g4ee3778) (Commit 4ee3778a4ed2d80c96e7a0f7a1e52e78d3a6568e)
+(ntoskrnl/kd/kdio.c:107) 1 System Processor [256 MB Memory]
+(ntoskrnl/kd/kdio.c:108) Command Line: NOGUIBOOT KDSERIAL DEBUGPORT=COM1 FIRSTCHANCE
+(ntoskrnl/kd/kdio.c:109) ARC Paths: multi(0)disk(0)cdrom(96) \ multi(0)disk(0)cdrom(96) \reactos\
+(ntoskrnl/ke/i386/cpu.c:450) Supported CPU features :  KF_RDTSC KF_CR4 KF_CMOV KF_GLOBAL_PAGE KF_LARGE_PAGE  KF_CMPXCHG8B KF_MMX KF_WORKING_PTE KF_PAT KF_FXSR KF_FAST_SYSCALL KF_XMMI   KF_XMMI64    
+(ntoskrnl/ke/i386/cpu.c:722) Prefetch Cache: 64 bytes	L2 Cache: 2097152 bytes	L2 Cache Line: 64 bytes	L2 Cache Associativity: 8
+(ntoskrnl/mm/ARM3/mminit.c:1452) HAL I/O Mapping at FFFE0000 is unsafe
+(ntoskrnl/mm/mminit.c:131)           0x80000000 - 0x83000000	Boot Loaded Image
+(ntoskrnl/mm/mminit.c:135)           0xB0000000 - 0xB01C1000	PFN Database
+(ntoskrnl/mm/mminit.c:139)           0xB01C1000 - 0xB0979000	ARM3 Non Paged Pool
+(ntoskrnl/mm/mminit.c:143)           0xB9400000 - 0xBB400000	System View Space
+(ntoskrnl/mm/mminit.c:147)           0xBB400000 - 0xC0000000	Session Space
+(ntoskrnl/mm/mminit.c:150)           0xC0000000 - 0xC03FFFFF	Page Tables
+(ntoskrnl/mm/mminit.c:153)           0xC0300000 - 0xC0300FFF	Page Directories
+(ntoskrnl/mm/mminit.c:156)           0xC0400000 - 0xC07FFFFF	Hyperspace
+(ntoskrnl/mm/mminit.c:159)           0xC1000000 - 0xE0FFFFFF	System Cache
+(ntoskrnl/mm/mminit.c:163)           0xE1000000 - 0xED400000	ARM3 Paged Pool
+(ntoskrnl/mm/mminit.c:166)           0xF4C00000 - 0xFA37D000	System PTE Space
+(ntoskrnl/mm/mminit.c:169)           0xFA37D000 - 0xFFBE0000	Non Paged Pool Expansion PTE Space
+(ntoskrnl/config/cmcheck.c:25) CmCheckRegistry(0xB06FD008, 2) is UNIMPLEMENTED!
+(hal/halx86/legacy/bussupp.c:728) Found parent bus (indicating PCI Bridge). PCI devices may fail!
+
+====== PCI BUS HARDWARE DETECTION =======
+
+00:00.0 Host bridge [0600]: Intel Corporation 440FX - 82441FX PMC [Natoma] [8086:1237] (rev 02)
+	Subsystem: Qemu virtual machine [1af4:1100]
+	Flags: fast devsel, latency 0
+	Device has Extended Address Decoding. It may fail to work on older BIOSes!
+
+00:01.0 ISA bridge [0601]: Intel Corporation 82371SB PIIX3 ISA [Natoma/Triton II] [8086:7000] (rev 00)
+	Subsystem: Qemu virtual machine [1af4:1100]
+	Flags: medium devsel, latency 0
+
+00:01.1 IDE interface [0101]: Intel Corporation 82371SB PIIX3 IDE [Natoma/Triton II] [8086:7010] (rev 00)
+	Subsystem: Qemu virtual machine [1af4:1100]
+	Flags: medium devsel, latency 0
+	I/O ports at c540 [size=64]
+
+00:01.3 Bridge [0680]: Intel Corporation 82371AB/EB/MB PIIX4 ACPI [8086:7113] (rev 03)
+	Subsystem: Qemu virtual machine [1af4:1100]
+	Flags: medium devsel, latency 0, IRQ 09
+	Device is using IRQ 9! ISA Cards using that IRQ may fail!
+
+00:02.0 VGA compatible controller [0300]:  Unknown device [1234:1111] (rev 02)
+	Subsystem: Unknown [1af4:1100]
+	Flags: fast devsel, latency 0
+	Memory at fd000000 (32-bit, prefetchable) [size=16M]
+	Memory at febf0000 (32-bit, non-prefetchable) [size=64K]
+
+00:03.0 Ethernet controller [0200]: Intel Corporation 82540EM Gigabit Ethernet Controller [8086:100e] (rev 03)
+	Subsystem: QEMU Virtual Machine [1af4:1100]
+	Flags: fast devsel, latency 0, IRQ 11
+	Memory at febc0000 (32-bit, non-prefetchable) [size=256K]
+	I/O ports at c500 [size=256]
+	Device is using IRQ 11! ISA Cards using that IRQ may fail!
+
+00:04.0 Multimedia audio controller [0401]: Intel Corporation 82801AA AC'97 Audio Controller [8086:2415] (rev 01)
+	Subsystem: QEMU Virtual Machine [1af4:1100]
+	Flags: medium devsel, latency 0, IRQ 11
+	I/O ports at c000 [size=16K]
+	I/O ports at c400 [size=1K]
+	Device is using IRQ 11! ISA Cards using that IRQ may fail!
+
+====== PCI BUS DETECTION COMPLETE =======
+
+PC Compatible Eisa/Isa HAL Detected
+(sdk/lib/rtl/image.c:171) Invalid base address: 00000000
+(ntoskrnl/io/iomgr/driver.c:1635) '\Driver\sacdrv' initialization failed, status (0xc0000037)
+(ntoskrnl/io/iomgr/driver.c:64) Deleting driver object '\Driver\sacdrv'
+(drivers/filesystems/fastfat/iface.c:161) FastFAT KDBG extension registered: yes
+Btrfs ERR : add_group_mapping : invalid SID
+WARNING:  NtNotifyChangeMultipleKeys at ntoskrnl/config/ntapi.c:1450 is UNIMPLEMENTED!
+Btrfs ERR : watch_registry : ZwNotifyChangeKey returned c0000002
+(drivers/storage/class/ramdisk/ramdisk.c:2486) FIXME: Installing from RamDisk is UNSUPPORTED!
+(drivers/storage/scsiport/scsiport.c:5859) ZwOpenKey() failed with Status=0xC0000034
+(hal/halx86/legacy/bussupp.c:1274) Slot assignment for 5 on bus 0
+(hal/halx86/legacy/bus/pcibus.c:742) WARNING: PCI Slot Resource Assignment is FOOBAR
+(ntoskrnl/io/iomgr/iorsrce.c:874) IoReportResourceUsage is halfplemented!
+(ntoskrnl/io/iomgr/iorsrce.c:874) IoReportResourceUsage is halfplemented!
+(ntoskrnl/io/iomgr/driver.c:1635) '\Driver\buslogic' initialization failed, status (0xc00000c0)
+(ntoskrnl/io/iomgr/driver.c:64) Deleting driver object '\Driver\buslogic'
+(drivers/storage/port/storport/storport.c:961) StorPortInitialize(B06D4CD8 F9E20A4C F9E20880 00000000)
+(drivers/storage/port/storport/storport.c:963) HwInitializationDataSize: 84
+(drivers/storage/port/storport/storport.c:964) AdapterInterfaceType: 5
+(drivers/storage/port/storport/storport.c:965) HwInitialize: FA23E51C
+(drivers/storage/port/storport/storport.c:966) HwStartIo: FA241091
+(drivers/storage/port/storport/storport.c:967) HwInterrupt: FA23F66A
+(drivers/storage/port/storport/storport.c:968) HwFindAdapter: FA241430
+(drivers/storage/port/storport/storport.c:969) HwResetBus: FA23E5B3
+(drivers/storage/port/storport/storport.c:970) HwDmaStarted: 00000000
+(drivers/storage/port/storport/storport.c:971) HwAdapterState: 00000000
+(drivers/storage/port/storport/storport.c:972) DeviceExtensionSize: 75584
+(drivers/storage/port/storport/storport.c:973) SpecificLuExtensionSize: 0
+(drivers/storage/port/storport/storport.c:974) SrbExtensionSize: 1320
+(drivers/storage/port/storport/storport.c:975) NumberOfAccessRanges: 6
+(drivers/storage/port/storport/storport.c:1001) No driver object extension!
+(drivers/storage/port/storport/storport.c:1013) Driver object extension created!
+(drivers/storage/port/storport/storport.c:31) PortAddDriverInitData()
+(drivers/storage/port/storport/storport.c:1044) StorPortInitialize() done (Status 0x00000000)
+(ntoskrnl/fstub/disksup.c:1494) FSTUB: (IoReadPartitionTable) No 0xaa55 found in partition table 0
+(drivers/storage/port/storport/storport.c:461) DriverEntry(B06A0BD8 F9E20A4C)
+(ntoskrnl/fstub/disksup.c:1494) FSTUB: (IoReadPartitionTable) No 0xaa55 found in partition table 0
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24054
+(ntoskrnl/cc/pin.c:107) Mapping/pinning with no read not implemented. Forcing read, might fail if wait not allowed
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24054
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24000
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24038
+(ntoskrnl/fstub/disksup.c:1494) FSTUB: (IoReadPartitionTable) No 0xaa55 found in partition table 0
+Drive letter already used!
+(sdk/lib/rtl/actctx.c:5048) Failed to create the implicit act ctx. Status: 0xc000003a!!!
+Boot took 178334676 cycles!
+Interrupts: 711 System Calls: 4273 Context Switches: 32
+(ntoskrnl/config/cmsysini.c:2151) Failed to create key \REGISTRY\MACHINE\SOFTWARE (Status: c000000d)
+(base/setup/lib/setuplib.c:842) SourcePath (1): '\Device\CdRom0\reactos'
+(base/setup/lib/setuplib.c:843) SourceRootPath (1): '\Device\CdRom0'
+(base/setup/lib/setuplib.c:844) SourceRootDir (1): '\reactos'
+(base/setup/lib/setuplib.c:853) SourcePath (2): '\Device\CdRom0\reactos'
+(base/setup/lib/setuplib.c:854) SourceRootPath (2): '\Device\CdRom0'
+(base/setup/lib/setuplib.c:855) SourceRootDir (2): '\reactos'
+(base/setup/usetup/devinst.c:128) Using driver 'i8042prt.sys' for device 'Root\*PNP0303\0000'
+(base/setup/usetup/devinst.c:183) Installing keyboard class driver for 'Root\*PNP0303\0000'
+(ntoskrnl/io/iomgr/driver.c:332) IopLoadServiceModule(i8042prt, 0xF9D97C98) called in ExpInTextModeSetup mode...
+(ntoskrnl/mm/ARM3/sysldr.c:176) Loading: \SystemRoot\System32\drivers\i8042prt.sys at F9D77000 with 1b pages
+(drivers/input/i8042prt/hwhacks.c:230) SMBiosTables HACK, see CORE-14867
+(base/setup/usetup/devinst.c:128) Using driver 'pci.sys' for device 'PCI_HAL\PNP0A03\0'
+(ntoskrnl/io/iomgr/driver.c:332) IopLoadServiceModule(pci, 0xF9D97C98) called in ExpInTextModeSetup mode...
+(ntoskrnl/mm/ARM3/sysldr.c:176) Loading: \SystemRoot\System32\drivers\pci.sys at F9D65000 with 12 pages
+(base/setup/usetup/devinst.c:128) Using driver 'pciide.sys' for device 'PCI\VEN_8086&DEV_7010&SUBSYS_11001AF4&REV_00\2&b3ac4ede&21'
+(ntoskrnl/io/iomgr/driver.c:332) IopLoadServiceModule(pciide, 0xF9D97C98) called in ExpInTextModeSetup mode...
+(ntoskrnl/mm/ARM3/sysldr.c:176) Loading: \SystemRoot\System32\drivers\pciide.sys at F9D5D000 with 8 pages
+(ntoskrnl/mm/ARM3/sysldr.c:176) Loading: \SystemRoot\System32\drivers\pciidex.sys at F9D51000 with c pages
+(hal/halx86/legacy/bus/pcibus.c:713) HAL: No PCI Resource Adjustment done! Hardware may malfunction
+(base/setup/usetup/devinst.c:128) Using driver 'uniata.sys' for device 'PCIIDE\IDEChannel\3&51188e26&0'
+(base/setup/usetup/devinst.c:128) Using driver 'uniata.sys' for device 'PCIIDE\IDEChannel\3&51188e26&1'
+WARNING:  HvpWriteLog at sdk/lib/cmlib/hivewrt.c:29 is UNIMPLEMENTED!
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24054
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24000
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24038
+(base/setup/lib/utils/partlist.c:1626) Disk 0 of identifier '00000000-00000000-X' is fixed
+(base/setup/lib/utils/partlist.c:1793) Buffer size: 136
+(ntoskrnl/fstub/disksup.c:1494) FSTUB: (IoReadPartitionTable) No 0xaa55 found in partition table 0
+(base/setup/lib/utils/partlist.c:1827) PartitionCount: 0
+(base/setup/lib/utils/partlist.c:1855) No valid partition table found! Use megabyte (2048 Sectors) alignment!
+(base/setup/lib/utils/partlist.c:1134) No primary partition!
+(base/setup/lib/utils/partlist.c:844) First Sector : 2048
+(base/setup/lib/utils/partlist.c:845) Last Sector  : 20971439
+(base/setup/lib/utils/partlist.c:846) Total Sectors: 20969392
+(base/setup/lib/utils/partlist.c:2967) CreatePrimaryPartition(0)
+(base/setup/lib/utils/partlist.c:863) Current partition sector count: 20969392
+(base/setup/lib/utils/partlist.c:916) First Sector : 2048
+(base/setup/lib/utils/partlist.c:917) Last Sector  : 20971439
+(base/setup/lib/utils/partlist.c:918) Total Sectors: 20969392
+(base/setup/lib/utils/partlist.c:2721) UpdateDiskLayout()
+(base/setup/lib/utils/partlist.c:2667) ReAllocateLayoutBuffer()
+(base/setup/lib/utils/partlist.c:2675) CurrentPartitionCount: 4 ; NewPartitionCount: 4
+(base/setup/lib/utils/partlist.c:2759) Updating primary partition entry 0
+(base/setup/lib/utils/partlist.c:2837) Primary partition entry 1
+(base/setup/lib/utils/partlist.c:2837) Primary partition entry 2
+(base/setup/lib/utils/partlist.c:2837) Primary partition entry 3
+(base/setup/lib/utils/partlist.c:3643) Use new first active system partition 0 in disk 0, drive letter C
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24054
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24000
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24038
+(base/setup/usetup/usetup.c:3009) FormatState: Start --> FormatInstallPartition
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24054
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24000
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24038
+(drivers/filesystems/fastfat/fsctl.c:288) SysType 00000000 (....)
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24054
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24000
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24038
+(base/setup/usetup/usetup.c:3046) FormatState: FormatOtherPartition --> FormatDone
+(base/setup/usetup/usetup.c:3567) CheckFileSystemPage -- PartitionType: 0x0B ; FileSystem: FAT
+(drivers/filesystems/fastfat/misc.c:426) VfatCheckForDismount(B063E0D0, 0)
+(base/setup/lib/setuplib.c:683) Fixed disk found by BIOS, using MULTI ARC path 'multi(0)disk(0)rdisk(0)partition(1)\'
+(base/setup/lib/install.c:419) AddSectionToCopyQueue(): Unable to find section 'SourceDisksFiles.x86' in TXTSETUP.SIF
+(base/setup/lib/install.c:525) AddSectionToCopyQueue(SourceDisksFiles.x86) failed!
+(base/setup/lib/utils/filesup.c:274) NtOpenFile failed: c0000034, \Device\CdRom0\reactos\system32\kdvbox.dll
+(base/setup/usetup/usetup.c:4069) An error happened while trying to copy file '\Device\Harddisk0\Partition1\ReactOS\system32\kdvbox.dll' (error 0xc0000034), skipping it...
+(base/setup/usetup/usetup.c:4081) CHECKPOINT:HALF_COPIED
+WARNING:  HvHiveWillShrink at sdk/lib/cmlib/hivewrt.c:280 is UNIMPLEMENTED!
+(ntoskrnl/config/cmcheck.c:25) CmCheckRegistry(0xB0437008, 0) is UNIMPLEMENTED!
+(ntoskrnl/config/cmcheck.c:25) CmCheckRegistry(0xB0435008, 0) is UNIMPLEMENTED!
+(ntoskrnl/config/cmcheck.c:25) CmCheckRegistry(0xB0433008, 0) is UNIMPLEMENTED!
+(ntoskrnl/config/cmapi.c:2239) CmUnloadKey: Force unloading is HALF-IMPLEMENTED, expect dangling KCBs problems!
+WARNING:  HvHiveWillShrink at sdk/lib/cmlib/hivewrt.c:280 is UNIMPLEMENTED!
+(ntoskrnl/config/cmapi.c:2239) CmUnloadKey: Force unloading is HALF-IMPLEMENTED, expect dangling KCBs problems!
+WARNING:  HvHiveWillShrink at sdk/lib/cmlib/hivewrt.c:280 is UNIMPLEMENTED!
+(ntoskrnl/config/cmapi.c:2239) CmUnloadKey: Force unloading is HALF-IMPLEMENTED, expect dangling KCBs problems!
+WARNING:  HvHiveWillShrink at sdk/lib/cmlib/hivewrt.c:280 is UNIMPLEMENTED!
+WARNING:  HvHiveWillShrink at sdk/lib/cmlib/hivewrt.c:280 is UNIMPLEMENTED!
+WARNING:  HvHiveWillShrink at sdk/lib/cmlib/hivewrt.c:280 is UNIMPLEMENTED!
+(base/setup/usetup/usetup.c:4287) SystemRootPath: \Device\Harddisk0\Partition1\
+(base/setup/lib/bootsup.c:2116) No or unknown boot loader found
+(base/setup/lib/bootsup.c:2129) Create new 'freeldr.ini'
+(drivers/filesystems/fastfat/misc.c:426) VfatCheckForDismount(B063E0D0, 0)
+(base/setup/lib/bootsup.c:2146) Save bootsector: \Device\Harddisk0\Partition1\ ==> \Device\Harddisk0\Partition1\BOOTSECT.OLD
+(drivers/filesystems/fastfat/misc.c:426) VfatCheckForDismount(B063E0D0, 0)
+(base/setup/lib/bootsup.c:2171) Install FAT32 bootcode: \Device\CdRom0\loader\fat32.bin ==> \Device\Harddisk0\Partition1\
+(drivers/filesystems/fastfat/misc.c:426) VfatCheckForDismount(B063E0D0, 0)
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24054
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24000
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24038
+(base/setup/lib/bootsup.c:918) Install MBR bootcode: \Device\CdRom0\loader\dosmbr.bin ==> \Device\Harddisk0\Partition0
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24054
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24000
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24038
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24054
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24000
+(drivers/storage/scsiport/scsiport.c:2894)   unknown ioctl code: 0x24038
+WARNING:  HvHiveWillShrink at sdk/lib/cmlib/hivewrt.c:280 is UNIMPLEMENTED!
+WARNING:  HvHiveWillShrink at sdk/lib/cmlib/hivewrt.c:280 is UNIMPLEMENTED!
+WARNING:  HvHiveWillShrink at sdk/lib/cmlib/hivewrt.c:280 is UNIMPLEMENTED!
+(drivers/filesystems/fastfat/misc.c:426) VfatCheckForDismount(B063E0D0, 0)
+(ntoskrnl/po/poshtdwn.c:259)        SMSS.EXE is still RUNNING (00000054)
+WARNING:  MiShutdownSystem at ntoskrnl/mm/shutdown.c:37 is UNIMPLEMENTED!
+(drivers/filesystems/fastfat/misc.c:426) VfatCheckForDismount(B063E0D0, 0)
+(ntoskrnl/mm/section.c:4827) SectionObject has ImageSection
+(ntoskrnl/mm/section.c:4827) SectionObject has ImageSection
+(ntoskrnl/po/power.c:242) No system power driver available
+WARNING:  PoStartNextPowerIrp at ntoskrnl/po/power.c:628 is UNIMPLEMENTED!
+(hal/halx86/legacy/halpnpdd.c:853) HAL: PnP Driver Power!
+(hal/halx86/legacy/halpnpdd.c:853) HAL: PnP Driver Power!
