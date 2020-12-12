@@ -1,5 +1,6 @@
 #!/bin/sh
-
-qemu-system-i386 -L . -m 256 -hda ~/reactos-hd.qcow2 -localtime \
-	-serial file:reactos.log -soundhw ac97 \
+qemu-system-i386 -L . -m 256 \
+    -hda $HOME/var/reactos/reactos-hd.qcow2 \
+    -serial file:$HOME/var/reactos/reactos.log  \
+    -soundhw ac97 \
 	-net user,smb=/home/bill
