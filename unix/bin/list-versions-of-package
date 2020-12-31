@@ -1,0 +1,11 @@
+#!/bin/sh
+
+. /etc/os-release
+
+if [ $ID = 'ubuntu' -o $ID = 'debian' ]
+then
+	apt-cache showpkg $1
+elif [ $ID = 'fedora' ]
+then
+	dnf list $1 --showduplicates
+fi

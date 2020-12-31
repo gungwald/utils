@@ -1,0 +1,8 @@
+#!/bin/sh
+DIR=$HOME/var/reactos
+if [ ! -d "$DIR" ]
+then
+    mkdir -p "$DIR"
+fi
+qemu-img create -f qcow2 "$DIR"/reactos-hd.qcow2 10G
+
