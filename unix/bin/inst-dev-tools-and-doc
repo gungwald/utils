@@ -2,9 +2,19 @@
 
 # https://developer.fedoraproject.org/tech/languages/c/gtk.html
 
-sudo dnf install gtk3-devel gstreamer-devel clutter-devel webkit2gtk3-devel libgda-devel gobject-introspection-devel \
+sudo dnf install gtk3-devel gstreamer-devel clutter-devel webkit2gtk3-devel \
+	libgda-devel gobject-introspection-devel \
 	devhelp gtk3-devel-docs gstreamer-devel-docs clutter-doc \
 	gcc gcc-c++ \
 	autoconf automake \
 	cmake \
-	csbuild
+	csbuild \
+	gnome-builder \
+	anjuta \
+	glade \
+	java-gnome java-gnome-javadoc \
+	java-11-openjdk-devel maven ant \
+	eclipse eclipse-cdt eclipse-pydev \
+	eclipse-webtools-* eclipse-egit eclipse-m2e-* \
+	eclipse-mpc \
+	gtkmm30-devel gtkmm30-doc
