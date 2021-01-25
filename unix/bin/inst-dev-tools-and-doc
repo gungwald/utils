@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# https://developer.fedoraproject.org/tech/languages/c/gtk.html
+
+sudo dnf install gtk3-devel gstreamer-devel clutter-devel webkit2gtk3-devel libgda-devel gobject-introspection-devel \
+	devhelp gtk3-devel-docs gstreamer-devel-docs clutter-doc \
+	gcc gcc-c++ \
+	autoconf automake \
+	cmake \
+	csbuild
