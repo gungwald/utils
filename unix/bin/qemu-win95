@@ -1,0 +1,63 @@
+#!/bin/sh 
+
+INSTALLER_URL="https://archive.org/download/win-95-osr-2/Win95%20OSR2.ISO"
+DOWNLOADED_INSTALLER="$HOME/Downloads/Win95 OSR2.ISO"
+WORK_DIR="$HOME"/var/windows95
+HARD_DISK="$WORK_DIR"/windows95.qcow2
+INSTALL_LOG="$WORK_DIR"/install.log
+INSTALLED_SENTINEL="$WORK_DIR"/.installed
+HARD_DISK_SIZE=5G
+RAM_SIZE=128
+
+if [ ! -f "$HARD_DISK" ]
+then
+  # Create work directory
+  if [ ! -d "$WORK_DIR" ]
+  then
+    mkdir -pv "$WORK_DIR"
+  fi
+
+  # Create hard disk
+  qemu-img create -f qcow2 "$HARD_DISK" "$HARD_DISK_SIZE" || exit
+fi
+
+if [ ! -f "$INSTALLED_SENTINEL" ]
+  then
+
+  if [ ! -f "$DOWNLOADED_INSTALLER" ]
+  then
+    # Download installer file
+    curl -# -L -o "$DOWNLOADED_INSTALLER" "$INSTALLER_URL" || exit
+  fi
+
+  # Start the install process
+  qemu-system-i386 -L . \
+	-m "$RAM_SIZE" \
+	-cdrom "$DOWNLOADED_INSTALLER" \
+	-hda "$HARD_DISK" \
+	-boot d \
+	-serial file:"$INSTALL_LOG" \
+	-soundhw ac97 || exit
+    
+  unset ANSWER
+  while [ "$ANSWER" != "y" -a "$ANSWER" != "n" ]
+  do
+    printf "Did the install complete successfully? (y/n) "
+    read ANSWER
+  done
+
+  if [ "$ANSWER" = "y" ]
+  then
+    touch "$INSTALLED_SENTINEL"
+  else
+    exit 1
+  fi
+fi
+
+qemu-system-i386 -L . \
+	-m "$RAM_SIZE" \
+	-hda "$HARD_DISK" \
+	-serial file:"$RUNTIME_LOG"  \
+	-soundhw ac97 \
+	-net user,smb=/home/bill
+
