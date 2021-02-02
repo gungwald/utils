@@ -1,0 +1,97 @@
+#!/bin/sh 
+
+INSTALLER_URL="https://archive.org/download/windows-98-se_202010/Windows%2098%20Second%20Edition%20Full%20Bootable%20CD.iso"
+WORK_DIR="$HOME"/var/win98
+DOWNLOADED_INSTALLER="$WORK_DIR"/win98se-setup.iso
+HARD_DISK="$WORK_DIR"/win98se-drive-c.qcow2
+INSTALL_LOG="$WORK_DIR"/install.log
+RUNTIME_LOG="$WORK_DIR"/runtime.log
+INSTALLED_SENTINEL="$WORK_DIR"/.installed
+HARD_DISK_SIZE=5G
+RAM_SIZE=128
+NETWORK_CARD=ne2k_pci
+#NETWORK_CARD=rtl8139
+SOUND_CARD=ac97
+# Sound Blaster support is not complete
+#SOUND_CARD=sb16
+PRODUCT_KEY="RW9MG-QR4G3-2WRR9-TG7BH-33GXB or RC7JH-VTKHG-RVKWJ-HBC3T-FWGBG"
+LOG="$RUNTIME_LOG"
+BOOT_DRIVE="c"
+
+if [ "$1" = "-reinstall" ]
+then
+  rm -f "$INSTALLED_SENTINEL"
+fi
+
+if [ "$1" = "-wipe" ]
+then
+  unset ANSWER
+  while [ "$ANSWER" != "y" -a "$ANSWER" != "n" -a "$ANSWER" != "q" ]
+  do
+    printf "Are you really really sure you want to delete\n"
+    printf "the Windows 98 hard disk? (y/n/q) "
+    read ANSWER
+  done
+  if [ "$ANSWER" = "y" ]
+  then
+    rm -f "$INSTALLED_SENTINEL" "$HARD_DISK"
+  fi
+  exit 0
+fi
+
+if [ ! -f "$HARD_DISK" ]
+then
+  # Create work directory
+  if [ ! -d "$WORK_DIR" ]
+  then
+    mkdir -pv "$WORK_DIR"
+  fi
+
+  # Create hard disk
+  qemu-img create -f qcow2 "$HARD_DISK" "$HARD_DISK_SIZE" || exit
+fi
+
+if [ ! -f "$INSTALLED_SENTINEL" ]
+then
+  unset ANSWER
+  while [ "$ANSWER" != "y" -a "$ANSWER" != "n" -a "$ANSWER" != "q" ]
+  do
+    printf "Do you want to install or reinstall Windows 98? (y/n/q) "
+    read ANSWER
+  done
+
+  if [ "$ANSWER" = "y" ]
+  then
+    if [ ! -f "$DOWNLOADED_INSTALLER" ]
+    then
+      # Download installer file
+      curl -# -L -o "$DOWNLOADED_INSTALLER" "$INSTALLER_URL" || exit
+    fi
+
+    BOOT_DRIVE="d"
+    LOG="$INSTALL_LOG"
+    echo Use product key: $PRODUCT_KEY
+  elif [ "$ANSWER" = "n" ]
+  then
+    touch "$INSTALLED_SENTINEL"
+    BOOT_DRIVE="c"
+  else
+    exit 0
+  fi
+fi
+
+# -nic option is not supported on Lubuntu 16.04
+
+qemu-system-i386 -boot "$BOOT_DRIVE" \
+	-L "$WORK_DIR" \
+	-machine pc \
+	-m "$RAM_SIZE" \
+	-hda "$HARD_DISK" \
+	-cdrom "$DOWNLOADED_INSTALLER" \
+	-vga cirrus \
+	-soundhw "$SOUND_CARD" \
+	-netdev user,id=n1 \
+	-device "$NETWORK_CARD",netdev=n1 \
+	-net user,smb="$HOME" \
+	-serial file:"$LOG"
+

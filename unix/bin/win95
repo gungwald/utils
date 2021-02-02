@@ -1,15 +1,17 @@
 #!/bin/sh 
 
 INSTALLER_URL="https://archive.org/download/win-95-osr-2/Win95%20OSR2.ISO"
-DOWNLOADED_INSTALLER="$HOME/Downloads/Win95 OSR2.ISO"
-WORK_DIR="$HOME"/var/windows95
-HARD_DISK="$WORK_DIR"/windows95.qcow2
+WORK_DIR="$HOME"/var/win95
+DOWNLOADED_INSTALLER="$WORK_DIR/Win95 OSR2.ISO"
+HARD_DISK="$WORK_DIR"/win95.qcow2
 INSTALL_LOG="$WORK_DIR"/install.log
 RUNTIME_LOG="$WORK_DIR"/runtime.log
 INSTALLED_SENTINEL="$WORK_DIR"/.installed
 HARD_DISK_SIZE=5G
 RAM_SIZE=128
-NETWORK_CARD=ne2k_pci
+# I can't get the ne2k to work with any driver.
+#NETWORK_CARD=ne2k_pci
+NETWORK_CARD=rtl8139
 SOUND_CARD=ac97
 # Sound Blaster support is not complete
 #SOUND_CARD=sb16
@@ -91,6 +93,6 @@ qemu-system-i386 -boot "$BOOT_DRIVE" \
 	-soundhw "$SOUND_CARD" \
 	-netdev user,id=n1 \
 	-device "$NETWORK_CARD",netdev=n1 \
-	-net user,smb=/home/bill \
+	-net user,smb="$HOME" \
 	-serial file:"$LOG"
 
