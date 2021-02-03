@@ -3,7 +3,8 @@
 # Author: Bill Chatfield - https://github.com/gungwald
 
 use strict;
-use open ':std', ':encoding(UTF-8)'; # Makes STDIN, STDOUT, STDERR UTF-8 compatible
+# Make STDIN, STDOUT, STDERR UTF-8 compatible
+use open ':std', ':encoding(UTF-8)'; 
 use Data::Dumper;
 
 use constant EXIT_SUCCESS => 0;
@@ -12,15 +13,23 @@ use constant EXIT_FAILURE => 1;
 # Import non-standard modules or provide instructions for installing them.
 BEGIN {
     my $isModuleMissing = 0;
-    if (! eval "use Net::GitHub::V3") {
+    # Simply checking the return value of eval doesn't work in old versions
+    # of Perl. The $@ variable must be checked.
+    eval "use Net::GitHub::V3";
+    if ($@) {
+        say STDERR $@;
         say STDERR "Please install module: sudo cpan -i Net::GitHub";
         $isModuleMissing = 1;
     }
-    if (! eval "use Try::Tiny") {
+    eval "use Try::Tiny";
+    if ($@) {
+        say STDERR $@;
         say STDERR "Please install module: sudo cpan -i Try::Tiny";
         $isModuleMissing = 1;
     }
-    if (! eval "use Exception::Class ('ModuleInterfaceException')") {
+    eval "use Exception::Class ('ModuleInterfaceException')";
+    if ($@) {
+        say STDERR $@;
         say STDERR "Please install module: sudo cpan -i Exception::Class";
         $isModuleMissing = 1;
     }
