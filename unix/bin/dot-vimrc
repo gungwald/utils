@@ -269,7 +269,7 @@ if executable('astyle')
     autocmd FileType C,C++,Objective\ C,Objective\ C++,C# nmap F :%!astyle --style="k&r" --break-closing-brackets --add-brackets<CR>
 
 " Java style for Java
-    autocmd BufNewFile,BufRead *.java set formatprg=astyle --break-closing-brackets --add-brackets
+    autocmd BufNewFile,BufRead *.java set formatprg=astyle
     autocmd FileType java nmap F :%!astyle --style=java --break-closing-brackets --add-brackets<CR>
 endif
 
