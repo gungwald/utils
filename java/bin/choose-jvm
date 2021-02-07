@@ -1,0 +1,22 @@
+#!/bin/sh
+
+OS=$(uname -s)
+
+if [ $OS = Linux ]
+then
+  source /etc/os-release
+
+  if [ $ID = debian -o $ID_LIKE = debian ]
+  then
+    # update-java-alternatives --set DOES NOT WORK!!!!!!!!!!
+    sudo update-alternatives --config java
+    sudo update-alternatives --config javac
+  elif [ $ID = fedora -o $ID_LIKE = fedora ]
+  then
+    sudo alternatives --config java
+  else
+    echo Don\'t know how for $ID $OS
+  fi
+else
+  echo Don\'t know howfor $OS
+fi

@@ -230,6 +230,7 @@ endif
 " Map the .vb file extension to the vbnet file type so we get syntax
 " highlighting.
 autocmd BufRead,BufNewFile *.vb setlocal filetype=vbnet 
+" BeanShell
 autocmd BufRead,BufNewFile *.bsh setlocal filetype=java 
 
 "  ------------------------------------------------------ 
@@ -266,12 +267,18 @@ endif
 
 if executable('astyle')
     " K&R style for C and derivatives
-    autocmd FileType C,C++,Objective\ C,Objective\ C++,C# nmap F :%!astyle --style="k&r" --break-closing-brackets --add-brackets<CR>
+    autocmd FileType C,C++,Objective\ C,Objective\ C++,C#
+        \ nmap F :%!astyle --style="k&r" --break-closing-brackets
+        \ --add-brackets<CR>
 
 " Java style for Java
-    autocmd BufNewFile,BufRead *.java set formatprg=astyle
-    autocmd FileType java nmap F :%!astyle --style=java --break-closing-brackets --add-brackets<CR>
+    autocmd BufNewFile,BufRead *.java set formatprg=astyle makeprg=ant
+    autocmd FileType java nmap F :%!astyle --style=java
+        \ --break-closing-brackets --add-brackets<CR>
 endif
+
+" Ubuntu/Debian:
+" sudo apt install perltidy libxml-tidy-perl libhtml-tidy-perl 
 
 " Perltidy requires that the Perl::Tidy module is installed which
 " can be done directly with cpan using command: install Perl::Tidy
