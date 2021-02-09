@@ -274,7 +274,7 @@ if executable('astyle')
 " Java style for Java
     autocmd BufNewFile,BufRead *.java set formatprg=astyle makeprg=ant
     autocmd FileType java nmap F :%!astyle --style=java
-        \ --break-closing-brackets --add-brackets<CR>
+        \ --break-closing-brackets --add-brackets --max-code-length=100<CR>
 endif
 
 " Ubuntu/Debian:

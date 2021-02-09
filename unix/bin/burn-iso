@@ -1,0 +1,6 @@
+#!/bin/sh
+DEV=/dev/cdrom
+# Was /dev/sg1 on Debian PPC.
+if [ $# -gt 0 ]; then
+  wodim -v dev=$DEV -eject -sao $*
+fi
