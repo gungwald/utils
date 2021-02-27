@@ -1,0 +1,24 @@
+#!/bin/sh
+
+if [ ! -d "$HOME"/git/virtual_basic ]
+then
+	(
+	cd "$HOME"/git
+	git clone https://bitbucket.org/andresloz/virtual_basic.git
+	)
+fi
+
+if type python2 2>/dev/null
+then
+	echo Found python2
+else
+	printf "Python2 is required. Install it? [y/n] "
+	read response
+	if [ "$response" = "y" ]
+	then
+		sudo dnf install python2.7
+	fi
+fi
+
+python2 $HOME/git/virtual_basic/virtualbasic.py
+
