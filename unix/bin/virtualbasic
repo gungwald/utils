@@ -8,9 +8,9 @@ then
 	)
 fi
 
-if type python2 2>/dev/null
+if type python2 > /dev/null 2>&1
 then
-	echo Found python2
+	echo Found python2 > /dev/null
 else
 	printf "Python2 is required. Install it? [y/n] "
 	read response
@@ -20,5 +20,5 @@ else
 	fi
 fi
 
-python2 $HOME/git/virtual_basic/virtualbasic.py
+python2 $HOME/git/virtual_basic/virtualbasic.py "$@"
 
