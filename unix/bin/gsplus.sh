@@ -158,3 +158,6 @@ bram3[e0] = ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
 bram3[f0] = ff ff ff ff ff ff ff ff ff ff ff ff d9 27 73 8d
 EOF
 
+
+gsplus -config "$HOME"/.local/share/gsplus/config.txt
+
