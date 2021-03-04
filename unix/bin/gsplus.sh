@@ -9,41 +9,78 @@ DOWNLOADED_FILE="$HOME"/Downloads/gsplus.tar.bz2
 DOWNLOADED_ROM=APPLE2GS.ROM2.gz
 ICON_URL=http://apple2.gs/plus/img/gsp_icon_webhead_256.png
 DOWNLOADED_ICON=gsplus.png
+GIT_URL=https://github.com/digarok/gsplus
+OS=$(uname -s)
+CPU=$(uname -p)
+INSTALLED_PROGRAM="$HOME"/.local/bin/gsplus
+FIRMWARE_DIR="$HOME"/.local/share/firmware
 
-if [ ! -f /usr/local/bin/gsplus ]
+if [ ! -f "$INSTALLED_PROGRAM" ]
 then
-  if [ ! -f "$DOWNLOADED_FILE" ]
-  then
-    curl -o "$DOWNLOADED_FILE" "$URL"
-  fi
-  tar -xvjf "$DOWNLOADED_FILE" -C "$HOME"/Downloads
-  sudo install gsplus-ubuntu-sdl/gsplus /usr/local/bin
-  rm -rf gsplus-ubuntu-sdl
+    if [ "$OS" = Linux -a "$CPU" != x86_64 ]
+    then
+        # Need to build it
+        # Pretty much only Debian supports non-x86_64 now.
+        sudo apt install -y libpcap-dev libfreetype6-dev libsdl2-dev \
+            libsdl2-image-dev re2c libreadline-dev cmake
+        if [ ! -d "$HOME"/git/gsplus ]
+        then
+            (
+            cd "$HOME"/git
+            git clone "$GIT_URL"
+            cd gsplus
+            cat <<EOF > CMakeLists.txt
+include_directories(include/SDL2)
+include_directories(include/freetype2)
+EOF
+            )
+        fi
+
+        if [ -f build/bin/GSplus ]
+        then
+            (
+            mkdir -p build
+            cd build
+            cmake ..
+            make
+            )
+        fi
+        install "$HOME"/git/gsplus/build/bin/GSplus \
+            "$INSTALLED_PROGRAM"
+    else
+        if [ ! -f "$DOWNLOADED_FILE" ]
+        then
+            curl -o "$DOWNLOADED_FILE" "$URL"
+        fi
+        tar -xvjf "$DOWNLOADED_FILE" -C "$HOME"/Downloads
+        install gsplus-ubuntu-sdl/gsplus "$INSTALLED_PROGRAM"
+        rm -rf gsplus-ubuntu-sdl
+    fi
 fi
 
-if [ ! -f /usr/local/lib/firmware ]
+if [ ! -d "$FIRMWARE_DIR" ]
 then
   if [ ! -f "$DOWNLOADED_ROM" ]
   then
     curl -o "$DOWNLOADED_ROM" "$ROM_URL"
   fi
   gunzip "$DOWNLOADED_ROM"
-  sudo mkdir -p /usr/local/lib/firmware
-  sudo install APPLE2GS.ROM2 /usr/local/lib/firmware
+  mkdir -p "$FIRMWARE_DIR"
+  install APPLE2GS.ROM2 "$FIRMWARE_DIR"
 fi
 
 mkdir -p "$HOME"/.local/share/gsplus
 
-if [ ! -f /usr/local/share/icons/"$DOWNLOADED_ICON" ]
+if [ ! -f "$HOME"/.local/share/icons/"$DOWNLOADED_ICON" ]
 then
   curl -o "$HOME"/Downloads/"$DOWNLOADED_ICON" "$ICON_URL"
-  sudo install "$HOME"/Downloads/"$DOWNLOADED_ICON" /usr/local/share/icons
+  install "$HOME"/Downloads/"$DOWNLOADED_ICON" "$HOME"/.local/share/icons
 fi
 
 cat <<EOF > ~/.local/share/applications/gsplus.desktop
 [Desktop Entry]
 Name=GS+
-Exec=/usr/local/bin/gsplus
+Exec=$INSTALLED_PROGRAM
 Type=Application
 StartupNotify=true
 Terminal=false
@@ -51,7 +88,8 @@ Comment=Apple IIgs Emulator
 Path=$HOME/.local/share/gsplus
 Categories=Emulator
 Encoding=UTF-8
-Icon=/usr/local/share/icons/"$DOWNLOADED_ICON"
+Icon=$HOME/.local/share/icons/"$DOWNLOADED_ICON"
+#
 # See here for a list of valid categories:
 # https://specifications.freedesktop.org/menu-spec/latest/apa.html
 EOF
@@ -61,7 +99,7 @@ if rpm --query SDL2_image
 then
   SDL2_image already installed
 else
-  sudo dnf install SDL2_image
+  sudo dnf install -y SDL2_image
 fi
 
 cat <<EOF > "$HOME"/.local/share/gsplus/config.txt
@@ -81,7 +119,7 @@ s7d5 =
 s7d6 =
 
 g_invert_paddles = 1
-g_cfg_rom_path = /usr/local/lib/firmware/APPLE2GS.ROM2
+g_cfg_rom_path = $FIRMWARE_DIR/APPLE2GS.ROM2
 g_limit_speed = 3
 
 
