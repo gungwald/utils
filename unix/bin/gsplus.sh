@@ -15,6 +15,8 @@ CPU=$(uname -p)
 INSTALLED_PROGRAM="$HOME"/.local/bin/gsplus
 FIRMWARE_DIR="$HOME"/.local/share/firmware
 
+mkdir -p "$(dirname "$INSTALLED_PROGRAM")"
+
 if [ ! -f "$INSTALLED_PROGRAM" ]
 then
     if [ "$OS" = Linux -a "$CPU" != x86_64 ]
@@ -22,27 +24,31 @@ then
         # Need to build it
         # Pretty much only Debian supports non-x86_64 now.
         sudo apt install -y libpcap-dev libfreetype6-dev libsdl2-dev \
-            libsdl2-image-dev re2c libreadline-dev cmake
+            libsdl2-image-dev re2c libreadline-dev cmake || exit
         if [ ! -d "$HOME"/git/gsplus ]
         then
             (
-            cd "$HOME"/git
-            git clone "$GIT_URL"
-            cd gsplus
-            cat <<EOF > CMakeLists.txt
+            cd "$HOME"/git || exit
+            git clone "$GIT_URL" || exit
+            cd gsplus || exit
+            cat <<EOF >> CMakeLists.txt
 include_directories(include/SDL2)
 include_directories(include/freetype2)
 EOF
             )
         fi
 
-        if [ -f build/bin/GSplus ]
+        if [ ! -f build/bin/GSplus ]
         then
             (
+	    cd "$HOME"/git/gsplus
             mkdir -p build
             cd build
-            cmake ..
-            make
+	    if [ ! -f Makefile ]
+            then
+                cmake .. || exit
+	    fi
+            make || exit
             )
         fi
         install "$HOME"/git/gsplus/build/bin/GSplus \
@@ -55,6 +61,13 @@ EOF
         tar -xvjf "$DOWNLOADED_FILE" -C "$HOME"/Downloads
         install gsplus-ubuntu-sdl/gsplus "$INSTALLED_PROGRAM"
         rm -rf gsplus-ubuntu-sdl
+
+	if rpm --query SDL2_image
+	then
+	  SDL2_image already installed
+	else
+	  sudo dnf install -y SDL2_image || exit
+	fi
     fi
 fi
 
@@ -62,20 +75,22 @@ if [ ! -d "$FIRMWARE_DIR" ]
 then
   if [ ! -f "$DOWNLOADED_ROM" ]
   then
-    curl -o "$DOWNLOADED_ROM" "$ROM_URL"
+    curl -o "$DOWNLOADED_ROM" "$ROM_URL" || exit
   fi
-  gunzip "$DOWNLOADED_ROM"
+  gunzip "$DOWNLOADED_ROM" || exit
   mkdir -p "$FIRMWARE_DIR"
-  install APPLE2GS.ROM2 "$FIRMWARE_DIR"
+  install APPLE2GS.ROM2 "$FIRMWARE_DIR" || exit
 fi
 
 mkdir -p "$HOME"/.local/share/gsplus
 
 if [ ! -f "$HOME"/.local/share/icons/"$DOWNLOADED_ICON" ]
 then
-  curl -o "$HOME"/Downloads/"$DOWNLOADED_ICON" "$ICON_URL"
-  install "$HOME"/Downloads/"$DOWNLOADED_ICON" "$HOME"/.local/share/icons
+  curl -o "$HOME"/Downloads/"$DOWNLOADED_ICON" "$ICON_URL" || exit
+  install "$HOME"/Downloads/"$DOWNLOADED_ICON" "$HOME"/.local/share/icons || exit
 fi
+
+mkdir -p "$HOME"/.local/share/applications
 
 cat <<EOF > ~/.local/share/applications/gsplus.desktop
 [Desktop Entry]
@@ -93,14 +108,7 @@ Icon=$HOME/.local/share/icons/"$DOWNLOADED_ICON"
 # See here for a list of valid categories:
 # https://specifications.freedesktop.org/menu-spec/latest/apa.html
 EOF
-update-desktop-database ~/.local/share/applications/
-
-if rpm --query SDL2_image
-then
-  SDL2_image already installed
-else
-  sudo dnf install -y SDL2_image
-fi
+update-desktop-database ~/.local/share/applications/ || exit
 
 cat <<EOF > "$HOME"/.local/share/gsplus/config.txt
 # GSplus configuration file version 0.14
