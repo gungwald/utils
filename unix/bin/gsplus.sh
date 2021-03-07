@@ -1,12 +1,9 @@
 #!/bin/sh
 
-# TODO - Put everything in ~/.local - No sudo required
-# TODO - Auto download system hard disk
-
 URL=http://apple2.gs/downloads/plusbuilds/0.14/gsplus-ubuntu-sdl.tar.bz2
-ROM_URL=https://macgui.com/downloads/?mode=download&file_id=11145
+ROM_URL="ftp://ftp.apple.asimov.net/pub/apple_II/emulators/rom_images/gsrom03.zip"
 DOWNLOADED_FILE="$HOME"/Downloads/gsplus.tar.bz2
-DOWNLOADED_ROM=APPLE2GS.ROM2.gz
+DOWNLOADED_ROM="$HOME"/Downloads/gsrom03.zip
 ICON_URL=http://apple2.gs/plus/img/gsp_icon_webhead_256.png
 DOWNLOADED_ICON=gsplus.png
 GIT_URL=https://github.com/digarok/gsplus
@@ -14,6 +11,10 @@ OS=$(uname -s)
 CPU=$(uname -p)
 INSTALLED_PROGRAM="$HOME"/.local/bin/gsplus
 FIRMWARE_DIR="$HOME"/.local/share/firmware
+INSTALLED_ROM="$FIRMWARE_DIR"/apple-iigs-rom3.rom 
+GSOS_DISK_URL="ftp://ftp.apple.asimov.net/pub/apple_II/images/gs/os/gsos/Apple_IIGS_System_6.0.4/Live.Install.po"
+GSOS_DISK=apple-iigs-gsos-6.0.4.po
+GSOS_INSTALLED_DISK="$HOME"/.local/var/"$GSOS_DISK"
 
 mkdir -p "$(dirname "$INSTALLED_PROGRAM")"
 
@@ -59,12 +60,12 @@ EOF
             curl -o "$DOWNLOADED_FILE" "$URL"
         fi
         tar -xvjf "$DOWNLOADED_FILE" -C "$HOME"/Downloads
-        install gsplus-ubuntu-sdl/gsplus "$INSTALLED_PROGRAM"
-        rm -rf gsplus-ubuntu-sdl
+        install "$HOME"/Downloads/gsplus-ubuntu-sdl/gsplus "$INSTALLED_PROGRAM"
+        rm -rf "$HOME"/Downloads/gsplus-ubuntu-sdl
 
 	if rpm --query SDL2_image
 	then
-	  SDL2_image already installed
+	  echo SDL2_image already installed
 	else
 	  sudo dnf install -y SDL2_image || exit
 	fi
@@ -77,9 +78,9 @@ then
   then
     curl -o "$DOWNLOADED_ROM" "$ROM_URL" || exit
   fi
-  gunzip "$DOWNLOADED_ROM" || exit
+  unzip "$DOWNLOADED_ROM" || exit
   mkdir -p "$FIRMWARE_DIR"
-  install APPLE2GS.ROM2 "$FIRMWARE_DIR" || exit
+  install "$HOME"/Downloads/rom03gd "$INSTALLED_ROM" || exit
 fi
 
 mkdir -p "$HOME"/.local/share/gsplus
@@ -91,6 +92,12 @@ then
 fi
 
 mkdir -p "$HOME"/.local/share/applications
+mkdir -p $(dirname "$GSOS_INSTALLED_DISK")
+
+if [ ! -f "$GSOS_INSTALLED_DISK" ]
+then
+	curl -o "$GSOS_INSTALLED_DISK" "$GSOS_DISK_URL"
+fi
 
 cat <<EOF > ~/.local/share/applications/gsplus.desktop
 [Desktop Entry]
@@ -119,7 +126,7 @@ s5d2 =
 s6d1 =
 s6d2 = 
 
-s7d1 = ../../../var/apple2gs/gsos-system-6.0.4.po
+s7d1 = $GSOS_INSTALLED_DISK
 s7d2 =
 s7d3 =
 s7d4 =
@@ -127,7 +134,7 @@ s7d5 =
 s7d6 =
 
 g_invert_paddles = 1
-g_cfg_rom_path = $FIRMWARE_DIR/APPLE2GS.ROM2
+g_cfg_rom_path = $INSTALLED_ROM
 g_limit_speed = 3
 
 
