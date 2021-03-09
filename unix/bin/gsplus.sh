@@ -5,21 +5,22 @@ ROM_URL="ftp://ftp.apple.asimov.net/pub/apple_II/emulators/rom_images/gsrom03.zi
 DOWNLOADED_FILE="$HOME"/Downloads/gsplus.tar.bz2
 DOWNLOADED_ROM="$HOME"/Downloads/gsrom03.zip
 ICON_URL=http://apple2.gs/plus/img/gsp_icon_webhead_256.png
-DOWNLOADED_ICON=gsplus.png
+DOWNLOADED_ICON="$HOME"/Downloads/gsplus.png
+INSTALLED_ICON="$HOME"/.local/share/icons/gsplus.png
 GIT_URL=https://github.com/digarok/gsplus
 OS=$(uname -s)
 CPU=$(uname -p)
 INSTALLED_PROGRAM="$HOME"/.local/bin/gsplus
-FIRMWARE_DIR="$HOME"/.local/share/firmware
-INSTALLED_ROM="$FIRMWARE_DIR"/apple-iigs-rom3.rom 
+INSTALLED_ROM="$HOME"/.local/share/firmware/apple-iigs-rom3.rom 
 GSOS_DISK_URL="ftp://ftp.apple.asimov.net/pub/apple_II/images/gs/os/gsos/Apple_IIGS_System_6.0.4/Live.Install.po"
 GSOS_DISK=apple-iigs-gsos-6.0.4.po
 GSOS_INSTALLED_DISK="$HOME"/.local/var/"$GSOS_DISK"
-
-mkdir -p "$(dirname "$INSTALLED_PROGRAM")"
+CONFIG_FILE="$HOME"/.local/share/gsplus/config.txt
+DESKTOP_FILE="$HOME"/.local/share/applications/gsplus.desktop
 
 if [ ! -f "$INSTALLED_PROGRAM" ]
 then
+    mkdir -p "$(dirname "$INSTALLED_PROGRAM")"
     if [ "$OS" = Linux -a "$CPU" != x86_64 ]
     then
         # Need to build it
@@ -72,34 +73,34 @@ EOF
     fi
 fi
 
-if [ ! -d "$FIRMWARE_DIR" ]
+if [ ! -f "$INSTALLED_ROM" ]
 then
   if [ ! -f "$DOWNLOADED_ROM" ]
   then
     curl -o "$DOWNLOADED_ROM" "$ROM_URL" || exit
   fi
-  unzip "$DOWNLOADED_ROM" || exit
-  mkdir -p "$FIRMWARE_DIR"
-  install "$HOME"/Downloads/rom03gd "$INSTALLED_ROM" || exit
+  unzip "$DOWNLOADED_ROM" -d $(dirname "$DOWNLOADED_ROM") || exit
+  mkdir -p $(dirname "$INSTALLED_ROM")
+  install $(dirname "$DOWNLOADED_ROM")/Rom03gd "$INSTALLED_ROM" || exit
+  rm -rf $(dirname "$DOWNLOADED_ROM")/Rom03gd
 fi
 
-mkdir -p "$HOME"/.local/share/gsplus
-
-if [ ! -f "$HOME"/.local/share/icons/"$DOWNLOADED_ICON" ]
+if [ ! -f "$INSTALLED_ICON" ]
 then
-  curl -o "$HOME"/Downloads/"$DOWNLOADED_ICON" "$ICON_URL" || exit
-  install "$HOME"/Downloads/"$DOWNLOADED_ICON" "$HOME"/.local/share/icons || exit
+  mkdir -p $(dirname "$INSTALLED_ICON")
+  curl -o "$INSTALLED_ICON" "$ICON_URL" || exit
 fi
-
-mkdir -p "$HOME"/.local/share/applications
-mkdir -p $(dirname "$GSOS_INSTALLED_DISK")
 
 if [ ! -f "$GSOS_INSTALLED_DISK" ]
 then
+	mkdir -p $(dirname "$GSOS_INSTALLED_DISK")
 	curl -o "$GSOS_INSTALLED_DISK" "$GSOS_DISK_URL"
 fi
 
-cat <<EOF > ~/.local/share/applications/gsplus.desktop
+if [ ! -f "$DESKTOP_FILE" ]
+then
+	mkdir -p $(dirname "$DESKTOP_FILE")
+	cat <<EOF > "$DESKTOP_FILE"
 [Desktop Entry]
 Name=GS+
 Exec=$INSTALLED_PROGRAM
@@ -107,17 +108,21 @@ Type=Application
 StartupNotify=true
 Terminal=false
 Comment=Apple IIgs Emulator
-Path=$HOME/.local/share/gsplus
+Path=$HOME
 Categories=Emulator
 Encoding=UTF-8
-Icon=$HOME/.local/share/icons/"$DOWNLOADED_ICON"
+Icon=$INSTALLED_ICON
 #
 # See here for a list of valid categories:
 # https://specifications.freedesktop.org/menu-spec/latest/apa.html
 EOF
-update-desktop-database ~/.local/share/applications/ || exit
+	update-desktop-database ~/.local/share/applications/ || exit
+fi
 
-cat <<EOF > "$HOME"/.local/share/gsplus/config.txt
+if [ ! -f "$CONFIG_FILE" ]
+then
+	mkdir -p $(dirname "$CONFIG_FILE")
+	cat <<EOF > "$CONFIG_FILE"
 # GSplus configuration file version 0.14
 
 s5d1 =
@@ -172,7 +177,7 @@ bram3[d0] = ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
 bram3[e0] = ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
 bram3[f0] = ff ff ff ff ff ff ff ff ff ff ff ff d9 27 73 8d
 EOF
+fi
 
-
-gsplus -config "$HOME"/.local/share/gsplus/config.txt
+"$INSTALLED_PROGRAM" -config "$CONFIG_FILE"
 
