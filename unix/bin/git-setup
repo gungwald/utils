@@ -6,6 +6,7 @@ git config --global user.email "bill_chatfield@yahoo.com"
 
 # Turn on user and password storage.
 git config --global credential.helper store
+git config --global credential."https://github.com".username gungwald
 
 # Set to UNIX functionality: no change on checkout, convert CRLF to LF on commit.
 git config --global core.autocrlf input
