@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# TODO - Allow for reconfiguring - writing files even if they exist
+# TODO - Look in Dropbox for HD
+
 URL=http://apple2.gs/downloads/plusbuilds/0.14/gsplus-ubuntu-sdl.tar.bz2
 ROM_URL="ftp://ftp.apple.asimov.net/pub/apple_II/emulators/rom_images/gsrom03.zip"
 DOWNLOADED_FILE="$HOME"/Downloads/gsplus.tar.bz2
@@ -25,7 +28,7 @@ then
     then
         # Need to build it
         # Pretty much only Debian supports non-x86_64 now.
-        sudo apt install -y libpcap-dev libfreetype6-dev libsdl2-dev \
+        sudo apt install -y g++ libpcap-dev libfreetype6-dev libsdl2-dev \
             libsdl2-image-dev re2c libreadline-dev cmake || exit
         if [ ! -d "$HOME"/git/gsplus ]
         then
@@ -103,7 +106,7 @@ then
 	cat <<EOF > "$DESKTOP_FILE"
 [Desktop Entry]
 Name=GS+
-Exec=$INSTALLED_PROGRAM
+Exec=$INSTALLED_PROGRAM -config "$CONFIG_FILE"
 Type=Application
 StartupNotify=true
 Terminal=false
