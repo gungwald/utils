@@ -1,2 +1,8 @@
 #!/bin/sh
 uname -rs
+distroInfoFile=/etc/os-release
+if [ -f "$distroInfoFile" ]
+then
+	. "$distroInfoFile"
+	printf "%s %s\n" "$NAME" "$VERSION"
+fi
