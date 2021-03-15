@@ -1,0 +1,6 @@
+#!/bin/sh
+dnf repoquery \
+  --show-duplicates \
+  --queryformat \
+    '%{name}-%{epoch}:%{version}-%{release}.%{arch} : %{reponame}' \
+  "$@"
