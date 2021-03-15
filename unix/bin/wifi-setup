@@ -1,8 +1,7 @@
 #!/bin/sh
 
 SSID=Gungwald
-PASSWORD="Kind words bring life"
-CONNECTION=Wireless1
+CONNECTION="$SSID"
 
 selectInterface() 
 {
@@ -67,7 +66,12 @@ deleteConnectionIfExists()
 	fi
 }
 
+
+
 INTERFACE=`chooseInterface`
+
+printf "Enter password for %s: " "$SSID"
+read -r PASSWORD
 
 # Delete the connection that is about to be created if it already exists.
 deleteConnectionIfExists "$CONNECTION"
