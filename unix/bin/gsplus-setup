@@ -8,113 +8,97 @@ ROM_URL="ftp://ftp.apple.asimov.net/pub/apple_II/emulators/rom_images/gsrom03.zi
 DOWNLOADED_FILE="$HOME"/Downloads/gsplus.tar.bz2
 DOWNLOADED_ROM="$HOME"/Downloads/gsrom03.zip
 ICON_URL=http://apple2.gs/plus/img/gsp_icon_webhead_256.png
-DOWNLOADED_ICON="$HOME"/Downloads/gsplus.png
 INSTALLED_ICON="$HOME"/.local/share/icons/gsplus.png
 GIT_URL=https://github.com/digarok/gsplus
 OS=$(uname -s)
 CPU=$(uname -p)
 INSTALLED_PROGRAM="$HOME"/.local/bin/gsplus
-INSTALLED_ROM="$HOME"/.local/share/firmware/apple-iigs-rom3.rom 
+INSTALLED_ROM="$HOME"/.local/share/firmware/apple-iigs-rom3.rom
 GSOS_DISK_URL="ftp://ftp.apple.asimov.net/pub/apple_II/images/gs/os/gsos/Apple_IIGS_System_6.0.4/Live.Install.po"
 GSOS_DISK=apple-iigs-gsos-6.0.4.po
 GSOS_INSTALLED_DISK="$HOME"/.local/var/"$GSOS_DISK"
-DROPBOX_DISK="$HOME"/Dropbox/var/apple2gs/???
-CONFIG_FILE="$HOME"/.local/share/gsplus/config.txt
-DESKTOP_FILE="$HOME"/.local/share/applications/gsplus.desktop
+DROPBOX_DISK="$HOME"/Dropbox/var/apple2gs/gsos-system-6.0.4.po
+CONFIG_FILE="${XDG_CONFIG_HOME:~/.config}"/gsplus/gsplus.conf
 
-if [ $# -gt 0 -a "$1" = "--reconfigure" ]
-then
-	RECONFIGURE=true
+if [ $# -gt 0 ] && [ "$1" = "--reconfigure" ]; then
+  RECONFIGURE=true
 else
-	RECONFIGURE=false
+  RECONFIGURE=false
 fi
 
-if [ ! -f "$INSTALLED_PROGRAM" ]
-then
-    mkdir -p "$(dirname "$INSTALLED_PROGRAM")"
-    if [ "$OS" = Linux -a "$CPU" != x86_64 ]
-    then
-        # Need to build it
-        # Pretty much only Debian supports non-x86_64 now.
-        sudo apt install -y g++ libpcap-dev libfreetype6-dev libsdl2-dev \
-            libsdl2-image-dev re2c libreadline-dev cmake || exit
-        if [ ! -d "$HOME"/git/gsplus ]
-        then
-            (
-            cd "$HOME"/git || exit
-            git clone "$GIT_URL" || exit
-            cd gsplus || exit
-            cat <<EOF >> CMakeLists.txt
+if [ ! -f "$INSTALLED_PROGRAM" ]; then
+  mkdir -p "$(dirname "$INSTALLED_PROGRAM")"
+  if [ "$OS" = Linux ] && [ "$CPU" != x86_64 ]; then
+    # Need to build it
+    # Pretty much only Debian supports non-x86_64 now.
+    sudo apt install -y g++ libpcap-dev libfreetype6-dev libsdl2-dev \
+      libsdl2-image-dev re2c libreadline-dev cmake || exit
+    if [ ! -d "$HOME"/git/gsplus ]; then
+      (
+        cd "$HOME"/git || exit
+        git clone "$GIT_URL" || exit
+        cd gsplus || exit
+        cat <<EOF >>CMakeLists.txt
 include_directories(include/SDL2)
 include_directories(include/freetype2)
 EOF
-            )
-        fi
-
-        if [ ! -f build/bin/GSplus ]
-        then
-            (
-	    cd "$HOME"/git/gsplus
-            mkdir -p build
-            cd build
-	    if [ ! -f Makefile ]
-            then
-                cmake .. || exit
-	    fi
-            make || exit
-            )
-        fi
-        install "$HOME"/git/gsplus/build/bin/GSplus \
-            "$INSTALLED_PROGRAM"
-    else
-        if [ ! -f "$DOWNLOADED_FILE" ]
-        then
-            curl -o "$DOWNLOADED_FILE" "$URL"
-        fi
-        tar -xvjf "$DOWNLOADED_FILE" -C "$HOME"/Downloads
-        install "$HOME"/Downloads/gsplus-ubuntu-sdl/gsplus "$INSTALLED_PROGRAM"
-        rm -rf "$HOME"/Downloads/gsplus-ubuntu-sdl
-
-	if rpm --query SDL2_image
-	then
-	  echo SDL2_image already installed
-	else
-	  sudo dnf install -y SDL2_image || exit
-	fi
+      )
     fi
+
+    if [ ! -f build/bin/GSplus ]; then
+      (
+        cd "$HOME"/git/gsplus || exit
+        mkdir -p build
+        cd build || exit
+        if [ ! -f Makefile ]; then
+          cmake .. || exit
+        fi
+        make || exit
+      )
+    fi
+    install "$HOME"/git/gsplus/build/bin/GSplus \
+      "$INSTALLED_PROGRAM"
+  else
+    if [ ! -f "$DOWNLOADED_FILE" ]; then
+      curl -o "$DOWNLOADED_FILE" "$URL"
+    fi
+    tar -xvjf "$DOWNLOADED_FILE" -C "$HOME"/Downloads
+    install "$HOME"/Downloads/gsplus-ubuntu-sdl/gsplus "$INSTALLED_PROGRAM"
+    rm -rf "$HOME"/Downloads/gsplus-ubuntu-sdl
+
+    if rpm --query SDL2_image; then
+      echo SDL2_image already installed
+    else
+      sudo dnf install -y SDL2_image || exit
+    fi
+  fi
 fi
 
-if [ ! -f "$INSTALLED_ROM" ]
-then
-  if [ ! -f "$DOWNLOADED_ROM" ]
-  then
+if [ ! -f "$INSTALLED_ROM" ]; then
+  if [ ! -f "$DOWNLOADED_ROM" ]; then
     curl -o "$DOWNLOADED_ROM" "$ROM_URL" || exit
   fi
-  unzip "$DOWNLOADED_ROM" -d $(dirname "$DOWNLOADED_ROM") || exit
-  mkdir -p $(dirname "$INSTALLED_ROM")
-  install $(dirname "$DOWNLOADED_ROM")/Rom03gd "$INSTALLED_ROM" || exit
-  rm -rf $(dirname "$DOWNLOADED_ROM")/Rom03gd
+  unzip "$DOWNLOADED_ROM" -d "$(dirname "$DOWNLOADED_ROM")" || exit
+  mkdir -p "$(dirname "$INSTALLED_ROM")"
+  install "$(dirname "$DOWNLOADED_ROM")"/Rom03gd "$INSTALLED_ROM" || exit
+  rm -rf "$(dirname "$DOWNLOADED_ROM")"/Rom03gd
 fi
 
-if [ ! -f "$INSTALLED_ICON" ]
-then
-  mkdir -p $(dirname "$INSTALLED_ICON")
+if [ ! -f "$INSTALLED_ICON" ]; then
+  mkdir -p "$(dirname "$INSTALLED_ICON")"
   curl -o "$INSTALLED_ICON" "$ICON_URL" || exit
 fi
 
-if [ -f "$DROPBOX_DISK" ]
-then
-	GSOS_INSTALLED_DISK="$DROPBOX_DISK"
-elif [ ! -f "$GSOS_INSTALLED_DISK" ]
-then
-	mkdir -p $(dirname "$GSOS_INSTALLED_DISK")
-	curl -o "$GSOS_INSTALLED_DISK" "$GSOS_DISK_URL"
+if [ -f "$DROPBOX_DISK" ]; then
+  GSOS_INSTALLED_DISK="$DROPBOX_DISK"
+elif [ ! -f "$GSOS_INSTALLED_DISK" ]; then
+  mkdir -p "$(dirname "$GSOS_INSTALLED_DISK")"
+  curl -o "$GSOS_INSTALLED_DISK" "$GSOS_DISK_URL"
 fi
 
-if [ "$RECONFIGURE" = "true" -o ! -f "$DESKTOP_FILE" ]
-then
-	mkdir -p $(dirname "$DESKTOP_FILE")
-	cat <<EOF > "$DESKTOP_FILE"
+PGM_BASENAME="$(basename "$0")"
+DESKTOP_TMP="$(mktemp --directory --tmpdir "$PGM_BASENAME".XXXXXXX.tmp)"/gsplus.desktop
+cat <<EOF >"$DESKTOP_TMP"
 [Desktop Entry]
 Name=GS+
 Exec=$INSTALLED_PROGRAM -config "$CONFIG_FILE"
@@ -130,13 +114,14 @@ Icon=$INSTALLED_ICON
 # See here for a list of valid categories:
 # https://specifications.freedesktop.org/menu-spec/latest/apa.html
 EOF
-	update-desktop-database ~/.local/share/applications/ || exit
-fi
+xdg-desktop-menu install --novendor --mode user "$DESKTOP_TMP"
+#  update-desktop-database ~/.local/share/applications/ || exit
+rm "$DESKTOP_TMP"
+rmdir "$(dirname "$DESKTOP_TMP")"
 
-if [ "$RECONFIGURE" = "true" -o ! -f "$CONFIG_FILE" ]
-then
-	mkdir -p $(dirname "$CONFIG_FILE")
-	cat <<EOF > "$CONFIG_FILE"
+if [ "$RECONFIGURE" = "true" ] || [ ! -f "$CONFIG_FILE" ]; then
+  mkdir -p "$(dirname "$CONFIG_FILE")"
+  cat <<EOF >"$CONFIG_FILE"
 # GSplus configuration file version 0.14
 
 s5d1 =
@@ -194,4 +179,3 @@ EOF
 fi
 
 #"$INSTALLED_PROGRAM" -config "$CONFIG_FILE"
-
