@@ -1,30 +1,29 @@
 #!/bin/sh
 
-# TODO - Allow for reconfiguring - writing files even if they exist
-# TODO - Look in Dropbox for HD
-
+PACKAGE_VENDOR=gungwald
+PROGRAM_BASENAME=gsplus
 URL=http://apple2.gs/downloads/plusbuilds/0.14/gsplus-ubuntu-sdl.tar.bz2
 ROM_URL="ftp://ftp.apple.asimov.net/pub/apple_II/emulators/rom_images/gsrom03.zip"
-DOWNLOADED_FILE="$HOME"/Downloads/gsplus.tar.bz2
+DOWNLOADED_FILE="$HOME"/Downloads/"$PROGRAM_BASENAME".tar.bz2
 DOWNLOADED_ROM="$HOME"/Downloads/gsrom03.zip
+SHARE_DIR=${XDG_DATA_HOME:-~/.local/share}
 ICON_URL=http://apple2.gs/plus/img/gsp_icon_webhead_256.png
-INSTALLED_ICON="$HOME"/.local/share/icons/gsplus.png
+ICON_NAME="$PACKAGE_VENDOR"-"$PROGRAM_BASENAME"
+ICON_BASENAME="$ICON_NAME"-256x256.png
+DOWNLOADED_ICON="$HOME"/Downloads/"$ICON_BASENAME"
 GIT_URL=https://github.com/digarok/gsplus
 OS=$(uname -s)
 CPU=$(uname -p)
-INSTALLED_PROGRAM="$HOME"/.local/bin/gsplus
-INSTALLED_ROM="$HOME"/.local/share/firmware/apple-iigs-rom3.rom
+ARCH_ID="$(uname -m)-$(uname -s)"
+INSTALLED_PROGRAM="$HOME"/.local/lib/"$ARCH_ID"/"$PROGRAM_BASENAME"
+INSTALLED_ROM="$SHARE_DIR"/firmware/apple-iigs-rom3.rom
 GSOS_DISK_URL="ftp://ftp.apple.asimov.net/pub/apple_II/images/gs/os/gsos/Apple_IIGS_System_6.0.4/Live.Install.po"
 GSOS_DISK=apple-iigs-gsos-6.0.4.po
 GSOS_INSTALLED_DISK="$HOME"/.local/var/"$GSOS_DISK"
 DROPBOX_DISK="$HOME"/Dropbox/var/apple2gs/gsos-system-6.0.4.po
-CONFIG_FILE="${XDG_CONFIG_HOME:~/.config}"/gsplus/gsplus.conf
-
-if [ $# -gt 0 ] && [ "$1" = "--reconfigure" ]; then
-  RECONFIGURE=true
-else
-  RECONFIGURE=false
-fi
+CONFIG_FILE=${XDG_CONFIG_HOME:-~/.config}/"$PROGRAM_BASENAME"/"$PROGRAM_BASENAME".conf
+USER_BIN_DIR="$HOME"/.local/bin
+START_SCRIPT="$USER_BIN_DIR"/"$PROGRAM_BASENAME"
 
 if [ ! -f "$INSTALLED_PROGRAM" ]; then
   mkdir -p "$(dirname "$INSTALLED_PROGRAM")"
@@ -84,10 +83,10 @@ if [ ! -f "$INSTALLED_ROM" ]; then
   rm -rf "$(dirname "$DOWNLOADED_ROM")"/Rom03gd
 fi
 
-if [ ! -f "$INSTALLED_ICON" ]; then
-  mkdir -p "$(dirname "$INSTALLED_ICON")"
-  curl -o "$INSTALLED_ICON" "$ICON_URL" || exit
+if [ ! -f "$DOWNLOADED_ICON" ]; then
+  curl -o "$DOWNLOADED_ICON" "$ICON_URL" || exit
 fi
+xdg-icon-resource install --size 256 "$DOWNLOADED_ICON" "$ICON_NAME"
 
 if [ -f "$DROPBOX_DISK" ]; then
   GSOS_INSTALLED_DISK="$DROPBOX_DISK"
@@ -97,11 +96,11 @@ elif [ ! -f "$GSOS_INSTALLED_DISK" ]; then
 fi
 
 PGM_BASENAME="$(basename "$0")"
-DESKTOP_TMP="$(mktemp --directory --tmpdir "$PGM_BASENAME".XXXXXXX.tmp)"/gsplus.desktop
+DESKTOP_TMP="$(mktemp --directory --tmpdir "$PGM_BASENAME".XXXXXXX.tmp)"/"$PACKAGE_VENDOR"-"$PROGRAM_BASENAME".desktop
 cat <<EOF >"$DESKTOP_TMP"
 [Desktop Entry]
 Name=GS+
-Exec=$INSTALLED_PROGRAM -config "$CONFIG_FILE"
+Exec=$START_SCRIPT
 Type=Application
 StartupNotify=true
 Terminal=false
@@ -109,19 +108,18 @@ Comment=Apple IIgs Emulator
 Path=$HOME
 Categories=Emulator
 Encoding=UTF-8
-Icon=$INSTALLED_ICON
+Icon=$ICON_NAME
 #
 # See here for a list of valid categories:
 # https://specifications.freedesktop.org/menu-spec/latest/apa.html
 EOF
-xdg-desktop-menu install --novendor --mode user "$DESKTOP_TMP"
+xdg-desktop-menu install "$DESKTOP_TMP"
 #  update-desktop-database ~/.local/share/applications/ || exit
 rm "$DESKTOP_TMP"
 rmdir "$(dirname "$DESKTOP_TMP")"
 
-if [ "$RECONFIGURE" = "true" ] || [ ! -f "$CONFIG_FILE" ]; then
-  mkdir -p "$(dirname "$CONFIG_FILE")"
-  cat <<EOF >"$CONFIG_FILE"
+mkdir -p "$(dirname "$CONFIG_FILE")"
+cat <<EOF >"$CONFIG_FILE"
 # GSplus configuration file version 0.14
 
 s5d1 =
@@ -176,6 +174,9 @@ bram3[d0] = ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
 bram3[e0] = ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
 bram3[f0] = ff ff ff ff ff ff ff ff ff ff ff ff d9 27 73 8d
 EOF
-fi
 
-#"$INSTALLED_PROGRAM" -config "$CONFIG_FILE"
+mkdir -p "$USER_BIN_DIR"
+cat <<EOF >"$START_SCRIPT"
+#!/bin/sh
+exec "$INSTALLED_PROGRAM" -config "$CONFIG_FILE"
+EOF
