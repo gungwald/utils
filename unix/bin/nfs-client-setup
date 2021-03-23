@@ -1,46 +1,42 @@
 #!/bin/sh
 
-MY_UID=$(id -u $LOGNAME)
-MY_GID=$(id -g $LOGNAME)
-DIR_TO_SHARE="$HOME/Dropbox"
-EXPORTS=/etc/exports
-EXPORTS_LINE="$DIR_TO_SHARE *.local(rw,async,root_squash,anonuid=$MY_UID,anongid=$MY_GID)"
+. /etc/os-release
 
-# Append our line to /etc/exports if it does not already exist.
-if grep -q "$DIR_TO_SHARE" "$EXPORTS"
-then
-    echo $EXPORTS already configured.
-else
-    echo $EXPORTS_LINE | sudo tee -a "$EXPORTS" || exit 1
-fi
-
-# Install NFS if it is not already installed.
-if [ -f /usr/sbin/rpc.nfsd ]
+# Install NFS client if it is not already installed.
+if [ -f /sbin/rpcbind ]
 then
     echo nfs is already installed
 else
-    sudo dnf -y install nfs-utils || exit 1
+    if [ "$ID" = fedora ]; then
+        sudo dnf -y install nfs-utils || exit
+    else
+        sudo apt install -y nfs-common || exit
+    fi
 fi
 
+# rpc.statd is suppose to be running to handle locks.
+# But there is no service defined to start it.
+# rpc.statd needs rpcbind for the nfs server to find it.
+
 # Enable it if it is not already enabled.
-if systemctl is-enabled -q nfs-server
+if systemctl is-enabled -q rpcbind
 then
-    echo nfs-server is already enabled
+    echo rpcbind is already enabled
 else
-    sudo systemctl enable rpcbind nfs-server || exit 1
+    sudo systemctl enable rpcbind || exit
 fi
 
 # Start it if it is not already started.
-if systemctl is-active -q nfs-server
+if systemctl is-active -q rpcbind
 then
-    echo nfs-server is already running
+    echo rpcbind is already running
 else
-    sudo systemctl start rpcbind nfs-server || exit 1
+    sudo systemctl start rpcbind || exit
 fi
 
 # Configure the firewall to permit nfs.
 # TODO - Check if already configured before configuring.
-sudo firewall-cmd --add-service=nfs --permanent && \
-    sudo firewall-cmd --add-service=rpc-bind --permanent && \
-    sudo firewall-cmd --reload
+# TODO - Need to use ufw command for Debian
+sudo firewall-cmd --add-service=rpc-bind --permanent && \
+	sudo firewall-cmd --reload
 
