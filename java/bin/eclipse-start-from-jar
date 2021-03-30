@@ -1,0 +1,10 @@
+#!/bin/sh
+MAIN_JAR=`find /usr/share/java -name "equinox?launcher*" | head -1`
+ECLIPSEHOME=/usr/lib/eclipse
+FW="-Dosgi.framework=/usr/lib/eclipse/plugins"
+if [ -n "$MAIN_JAR" ]
+then
+	java "$FW" -jar "$MAIN_JAR" "$@"
+else
+	echo Could not find equinox-launcher.jar
+fi

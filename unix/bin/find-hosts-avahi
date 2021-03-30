@@ -7,40 +7,43 @@ cutLastField()
 
 findHostsOnLinux()
 {
-	avahi-browse --all --terminate | cut -d ' ' -f 3- - | cutLastField
+    avahi-browse --all --terminate | cut -d ' ' -f 3- - | cutLastField
 }
 
 OS=$(uname -s)
 
-case $OS in
+case "$OS" in
     Darwin)
         dns-sd -B _ssh._tcp
         ;;
     Linux)
-		if which avahi-browse
-		then
-			true
-		else
-			echo The avahi-browse command is not installed.
-			. /etc/os-release || exit $?
-			if [ $ID = "fedora" -o $ID_LIKE = "Fedora" ]
-			then
-				echo Attempting to install avahi-utils package.
-				sudo sudo dnf install avahi-utils || exit $?
-			elif [ $ID = "debian" -o $ID = "ubuntu" -o $ID_LIKE = "debian" -O $ID_LIKE = "ubuntu" ]
-			then
-				echo Attempting to install avahi-tools package.
-				sudo sudo apt install avahi-tools || exit $?
-			else
-				echo Add code to install avahi-browse on $ID.
-				exit 1
-			fi
-		fi
-		findHostsOnLinux || exit $?
+        if which avahi-browse
+        then
+            true
+        else
+            echo The avahi-browse command is not installed.
+            . /etc/os-release || exit
+            if [ "$ID" = "fedora" -o "$ID_LIKE" = "Fedora" ]
+            then
+                echo Attempting to install avahi-tools package.
+                sudo sudo dnf install avahi-tools || exit
+            elif [ "$ID" = "debian" -o "$ID" = "ubuntu" \
+                    -o "$ID_LIKE" = "debian" \
+                    -o "$ID_LIKE" = "ubuntu" ]
+            then
+                echo Attempting to install avahi-utils package.
+                sudo sudo apt install avahi-utils || exit
+            else
+                echo Add code to install avahi-browse on "$ID".
+                exit 1
+            fi
+        fi
+        findHostsOnLinux || exit
         ;;
-	*)
-		echo Add code for the $OS operating system.
-		echo DUDE\!
-		echo How could you forget about $OS\?
+    *)
+        echo Add code for the "$OS" operating system.
+        echo DUDE\!
+        echo How could you forget about "$OS"\?
+        ;;
 esac
 
