@@ -2,41 +2,43 @@
 
 . /etc/os-release
 
-# Install NFS client if it is not already installed.
-if [ -f /sbin/rpcbind ]
-then
-    echo nfs is already installed
-else
-    if [ "$ID" = fedora ]; then
-        sudo dnf -y install nfs-utils || exit
+if [ "$ID" = "ubuntu" ]; then
+    if dpkg -s nfs-common > /dev/null 2>&1; then
+        echo Ubuntu system already has nfs-common installed.
     else
         sudo apt install -y nfs-common || exit
     fi
+elif [ "$ID" = fedora ]; then
+	if [ -f /sbin/rpcbind ]
+	then
+	    echo nfs is already installed
+	else
+	    sudo dnf -y install nfs-utils || exit
+	fi
+
+	# rpc.statd is suppose to be running to handle locks.
+	# But there is no service defined to start it.
+	# rpc.statd needs rpcbind for the nfs server to find it.
+
+	# Enable it if it is not already enabled.
+	if systemctl is-enabled -q rpcbind
+	then
+	    echo rpcbind is already enabled
+	else
+	    sudo systemctl enable rpcbind || exit
+	fi
+
+	# Start it if it is not already started.
+	if systemctl is-active -q rpcbind
+	then
+	    echo rpcbind is already running
+	else
+	    sudo systemctl start rpcbind || exit
+	fi
+
+	# Configure the firewall to permit nfs.
+	# TODO - Check if already configured before configuring.
+	# TODO - Need to use ufw command for Debian
+	sudo firewall-cmd --add-service=rpc-bind --permanent && \
+		sudo firewall-cmd --reload
 fi
-
-# rpc.statd is suppose to be running to handle locks.
-# But there is no service defined to start it.
-# rpc.statd needs rpcbind for the nfs server to find it.
-
-# Enable it if it is not already enabled.
-if systemctl is-enabled -q rpcbind
-then
-    echo rpcbind is already enabled
-else
-    sudo systemctl enable rpcbind || exit
-fi
-
-# Start it if it is not already started.
-if systemctl is-active -q rpcbind
-then
-    echo rpcbind is already running
-else
-    sudo systemctl start rpcbind || exit
-fi
-
-# Configure the firewall to permit nfs.
-# TODO - Check if already configured before configuring.
-# TODO - Need to use ufw command for Debian
-sudo firewall-cmd --add-service=rpc-bind --permanent && \
-	sudo firewall-cmd --reload
-

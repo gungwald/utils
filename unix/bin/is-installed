@@ -31,7 +31,10 @@ if [ "$OS" = Darwin ]
 then
     if which port
     then
-    	port installed "$@"
+        for package in "$@"
+        do
+    	    port installed "$package"
+        done
     elif which brew
     then
         echo I don\'t know how to determine this for \"brew\". Fix me.
@@ -43,10 +46,20 @@ then
     loadLinuxSelfIdentification
     if isRpmBased
     then
-    	rpm --query "$@"
+        for package in "$@"
+        do
+    	    rpm --query "$package"
+        done
     elif isDebianBased
     then
-        dpkg -l "$@" 
+        for package in "$@"
+        do
+            if dpkg -s "$package" > /dev/null 2>&1; then
+                echo "$package" is installed
+            else
+                echo "$package" is not installed
+            fi
+        done
     else
         echo I don\'t know how to determine this for $ID. Fix me.
     fi
