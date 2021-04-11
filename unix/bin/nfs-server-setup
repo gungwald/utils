@@ -1,8 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 
 isInstalled()
 {
-    dnf list --installed "$1" | grep -q "^$1\."
+    if [ "$ID" = "fedora" ]
+    then
+        dnf list --installed "$1" | grep -q "^$1\."
+    elif [ "$ID" = "ubuntu" ]
+    then
+        dpkg -s "$1" > /dev/null 2>&1
+    fi
 }
 
 isFirewallServiceActive()
@@ -16,67 +22,119 @@ DIR_TO_SHARE="$HOME/Dropbox"
 EXPORTS=/etc/exports
 EXPORTS_LINE="$DIR_TO_SHARE *.local(rw,async,root_squash,anonuid=$MY_UID,anongid=$MY_GID)"
 
-# Parallel arrays
-declare -a PROGRAMS=(rpc.nfsd rpc.mountd rpcbind)
-declare -a PACKAGES=(nfs-utils nfs-utils rpcbind)
-declare -a SERVICES=(nfs-server nfs-mountd rpcbind)
-declare -a FIREWALL_SERVICES=(nfs mountd rpc-bind)
+. /etc/os-release
+
+if [ "$ID" = "fedora" ]
+then
+    # Parallel arrays
+    declare -a PROGRAMS=(rpc.nfsd rpc.mountd rpcbind)
+    declare -a PACKAGES=(nfs-utils nfs-utils rpcbind)
+    declare -a SERVICES=(nfs-server nfs-mountd rpcbind)
+    declare -a FIREWALL_SERVICES=(nfs mountd rpc-bind)
+
+    echo Installing packages:
+    for PACKAGE in ${PACKAGES[@]}
+    do
+        if isInstalled $PACKAGE
+        then
+            echo Package $PACKAGE is already installed.
+        else
+            sudo dnf -y install $PACKAGE || exit 1
+        fi
+    done
+
+    echo Enabling services:
+    for SERVICE in ${SERVICES[@]}
+    do
+        if systemctl is-enabled -q $SERVICE
+        then
+            echo Service $SERVICE is already enabled.
+        else
+            echo Enabling service $SERVICE.
+            sudo systemctl enable $SERVICE || exit 1
+        fi
+    done
+
+    echo Starting services:
+    for SERVICE in ${SERVICES[@]}
+    do
+        if systemctl is-active -q $SERVICE
+        then
+            echo Service $SERVICE is already running.
+        else
+            echo Starting service $SERVICE.
+            sudo systemctl start $SERVICE || exit 1
+        fi
+    done
+
+    echo Configuring firewall:
+    for SERVICE in ${FIREWALL_SERVICES[@]}
+    do
+        if isFirewallServiceActive $SERVICE
+        then
+            echo Service $SERVICE is already configured in firewall.
+        else
+            echo Adding service $SERVICE to active firewall configuration.
+            sudo firewall-cmd --add-service=$SERVICE || exit 1
+            echo Adding service $SERVICE to permanent firewall configuration.
+            sudo firewall-cmd --add-service=$SERVICE --permanent || exit 1
+        fi
+    done
+elif [ "$ID" = "ubuntu" ]
+then
+    # Parallel arrays
+    declare -a PACKAGES=(nfs-kernel-server)
+    declare -a SERVICES=(nfs-kernel-server)
+    declare -a FIREWALL_SERVICES=(nfs)
+
+    echo Installing packages:
+    for PACKAGE in ${PACKAGES[@]}
+    do
+        if isInstalled $PACKAGE
+        then
+            echo Package $PACKAGE is already installed.
+        else
+            sudo apt -y install $PACKAGE || exit 1
+        fi
+    done
+
+    echo Enabling services:
+    for SERVICE in ${SERVICES[@]}
+    do
+        if systemctl is-enabled -q $SERVICE
+        then
+            echo Service $SERVICE is already enabled.
+        else
+            echo Enabling service $SERVICE.
+            sudo systemctl enable $SERVICE || exit 1
+        fi
+    done
+
+    echo Starting services:
+    for SERVICE in ${SERVICES[@]}
+    do
+        if systemctl is-active -q $SERVICE
+        then
+            echo Service $SERVICE is already running.
+        else
+            echo Starting service $SERVICE.
+            sudo systemctl start $SERVICE || exit 1
+        fi
+    done
+
+    echo Configuring firewall:
+    sudo ufw allow from 192.168.0.0/24 to any port nfs
+    sudo ufw enable
+fi
 
 # Append our line to /etc/exports if it does not already exist.
+# Should be done after installing packages because that can create
+# an /etc/exports, like in Ubuntu.
 echo Configuring exports:
-if grep -q "$DIR_TO_SHARE" "$EXPORTS"
+if test -f "$EXPORTS" && grep -q "$DIR_TO_SHARE" "$EXPORTS" 
 then
     echo $EXPORTS already configured.
 else
     echo $EXPORTS_LINE | sudo tee -a "$EXPORTS" || exit 1
 fi
-
-echo Installing packages:
-for PACKAGE in ${PACKAGES[@]}
-do
-    if isInstalled $PACKAGE
-    then
-        echo Package $PACKAGE is already installed.
-    else
-        sudo dnf -y install $PACKAGE || exit 1
-    fi
-done
-
-echo Enabling services:
-for SERVICE in ${SERVICES[@]}
-do
-    if systemctl is-enabled -q $SERVICE
-    then
-        echo Service $SERVICE is already enabled.
-    else
-        echo Enabling service $SERVICE.
-        sudo systemctl enable $SERVICE || exit 1
-    fi
-done
-
-echo Starting services:
-for SERVICE in ${SERVICES[@]}
-do
-    if systemctl is-active -q $SERVICE
-    then
-        echo Service $SERVICE is already running.
-    else
-        echo Starting service $SERVICE.
-        sudo systemctl start $SERVICE || exit 1
-    fi
-done
-
-echo Configuring firewall:
-for SERVICE in ${FIREWALL_SERVICES[@]}
-do
-    if isFirewallServiceActive $SERVICE
-    then
-        echo Service $SERVICE is already configured in firewall.
-    else
-        echo Adding service $SERVICE to active firewall configuration.
-        sudo firewall-cmd --add-service=$SERVICE || exit 1
-        echo Adding service $SERVICE to permanent firewall configuration.
-        sudo firewall-cmd --add-service=$SERVICE --permanent || exit 1
-    fi
-done
 
