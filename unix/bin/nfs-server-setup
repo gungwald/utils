@@ -20,7 +20,7 @@ MY_UID=$(id -u $LOGNAME)
 MY_GID=$(id -g $LOGNAME)
 DIR_TO_SHARE="$HOME/Dropbox"
 EXPORTS=/etc/exports
-EXPORTS_LINE="$DIR_TO_SHARE *.local(rw,async,root_squash,anonuid=$MY_UID,anongid=$MY_GID)"
+EXPORTS_LINE="$DIR_TO_SHARE 192.168.0.0/24(rw,async,root_squash,anonuid=$MY_UID,anongid=$MY_GID)"
 
 . /etc/os-release
 
@@ -123,8 +123,16 @@ then
     done
 
     echo Configuring firewall:
-    sudo ufw allow from 192.168.0.0/24 to any port nfs
+    # Port 2049
+    sudo ufw allow nfs
+    # Standard port for portmap, process named rpcbind: 111
+    sudo ufw allow sunrpc
+    # Random port assigned to rpc.mountd in /etc/default/nfs-kernel-server 13205
+    sudo ufw allow 13205
     sudo ufw enable
+
+    sudo sed -i.orig 's/--manage-gids/"--manage-gids -p 13205' \
+        /etc/default/nfs-kernel-server
 fi
 
 # Append our line to /etc/exports if it does not already exist.
@@ -137,4 +145,7 @@ then
 else
     echo $EXPORTS_LINE | sudo tee -a "$EXPORTS" || exit 1
 fi
+
+# Rexport
+sudo exportfs -r
 
