@@ -297,6 +297,9 @@ autocmd FileType HTML nmap F :%!tidy -i -q<CR>
 " buffer.
 autocmd FileType XML nmap F :!xmltidy "%" "  "<CR>
 
+" This is https://github.com/gungwald/utils
+autocmd FileType sql nmap F :%!bash -c format-sql.groovy 2>~/vim.stdout.txt<CR>
+
 " ------------------------------------------------------ 
 " 
 "   Jython
