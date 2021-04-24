@@ -1,0 +1,3 @@
+#!/bin/sh
+echo Creating search index for man pages...
+sudo catman -w

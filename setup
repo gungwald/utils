@@ -30,7 +30,7 @@ topDir="$(dirname "$myName")"
 # .profile is not read if .bash_profile exists...
 for profileBasename in .bash_profile .profile; do
   profile="$HOME"/"$profileBasename"
-  if [ -e "$profile" ]; then
+  if [ -f "$profile" ]; then
     break
   fi
 done
