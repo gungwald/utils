@@ -1,9 +1,9 @@
 #!/bin/sh
-BIN_DIR=$(dirname "$0")
+BIN_DIR=`dirname "$0"`
 if [ "$BIN_DIR" = "." ]
 then
-    BIN_DIR=$(pwd)
+    BIN_DIR=`pwd`
 fi
-TOP_DIR=$(dirname "$BIN_DIR")
+TOP_DIR=`dirname "$BIN_DIR"`
 LIB_DIR="$TOP_DIR"/lib
 exec java -cp "$LIB_DIR"/print-properties.jar PrintProperties
