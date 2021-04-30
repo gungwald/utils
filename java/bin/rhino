@@ -1,12 +1,18 @@
 #!/bin/sh
 
-BIN_DIR=$(dirname "$0")
-if [ "$BIN_DIR" = "." ]; then
-    BIN_DIR=$(pwd)
-fi
+getAbsolutePath()
+{
+    if [ -d "$1" ]
+    then
+        (cd "$1" ; pwd)
+    else
+        (cd `dirname "$1"` ; echo `pwd`/`basename "$1"`)
+    fi
+}
 
-TOP_DIR=$(dirname "$BIN_DIR")
+THIS_SCRIPT_ABS_PATH=`getAbsolutePath "$0"`
+THIS_SCRIPT_ABS_DIR=`dirname "$THIS_SCRIPT_ABS_PATH"`
+TOP_DIR=`dirname "$THIS_SCRIPT_ABS_DIR"`
 LIB_DIR="$TOP_DIR"/lib
-SELF=$(basename "$0")
 
-exec java -jar "$LIB_DIR"/"$SELF".jar "$@"
+exec java -jar "$LIB_DIR"/js.jar "$@"
