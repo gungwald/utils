@@ -19,7 +19,7 @@
 DOCUMENTATION_URL=https://macintoshgarden.org/sites/macintoshgarden.org/files/apps/Java_SE_6_Release_1_DP_5_-_Developer_Docs.dmg
 INSTALLER_BASENAME=Java_SE_6_Release_1_DP_6.dmg
 INSTALLER_URL=https://macintoshgarden.org/sites/macintoshgarden.org/files/apps/"$INSTALLER_BASENAME"
-INSTALLER_DIR="$HOME"/Desktop/Installers/Java/6
+INSTALLER_DIR="$HOME"/Desktop
 INSTALLER="$INSTALLER_DIR/$INSTALLER_BASENAME"
 INSTALLER_VOLUME="/Volumes/Java SE 6 Release 1"
 INSTALLER_PKG=JavaSE6Release1.pkg
@@ -35,6 +35,7 @@ then
     echo Installer has already been downloaded.
 else
     echo Downloading installer...
+    mkdir -p "$INSTALLER_DIR"
     curl -o "$INSTALLER" "$INSTALLER_URL" || exit
 fi
 

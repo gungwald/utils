@@ -3,7 +3,7 @@
 REMOTE_HOST=mammut-americanum.local
 REMOTE_MOUNT=$REMOTE_HOST:/home/bill/Dropbox
 LOCAL_DIR="$HOME"/Dropbox
-OS=$(uname -s)
+OS=`uname -s`
 
 if [ ! -d "$LOCAL_DIR" ]
 then
@@ -19,5 +19,8 @@ case $OS in
     Linux)
         # Can't get nfsvers=4 to work yet...
         sudo mount -t nfs -o nfsvers=3 $REMOTE_MOUNT "$LOCAL_DIR"
+        ;;
+    SunOS)
+        sudo mount -F nfs $REMOTE_MOUNT "$LOCAL_DIR"
         ;;
 esac

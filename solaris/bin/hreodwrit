@@ -1,2 +1,25 @@
 #!/bin/sh
-exec java -jar $HOME/lib/hreodwrit.jar "$@"
+
+getAbsolutePath()
+{
+  if [ -d "$1" ]
+  then
+    (cd "$1" ; pwd )
+  else
+    (cd `dirname "$1"` ; echo `pwd`/`basename "$1"`)
+  fi
+}
+
+THIS_SCRIPT_DIR=`dirname "$0"`
+THIS_SCRIPT_ABS_DIR=`getAbsolutePath "$THIS_SCRIPT_DIR"`
+TOP_DIR=`dirname "$THIS_SCRIPT_ABS_DIR"`
+JAR_DIR="$TOP_DIR"/lib
+
+#if [ `uname -s` = "SunOS" ]
+#then
+  #OPTS=-d64
+#else
+  #OPTS=
+#fi
+
+java $OPTS -jar "$JAR_DIR"/hreodwrit.jar "$@"

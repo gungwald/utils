@@ -2,40 +2,29 @@
 
 # Adds local profile to users home profile.
 
-absolutePath() {
-  if [ -z "$1" ]; then
-    echo Cannot get absolute path of empty file name 1>&2
-    exit 1
-  fi
-  if [ -d "$1" ]; then
-    (
-      cd "$1" || exit
-      pwd
-    )
-  elif [ -f "$1" ]; then
-    (
-      cd "$(dirname "$1")" || exit
-      echo "$(pwd)/$(basename "$1")"
-    )
+getAbsolutePath() {
+  if [ -d "$1" ]
+  then
+    (cd "$1" || exit ; pwd)
   else
-    echo Cannot get absolute path of "$1", not regular file or directory 1>&2
-    exit 1
+    (cd `dirname "$1"` || exit ; echo `pwd`/`basename "$1"`)
   fi
 }
 
-myName="$(absolutePath "$0")"
-topDir="$(dirname "$myName")"
+myName=`getAbsolutePath "$0"`
+topDir=`dirname "$myName"`
 
 # Determine which profile to use.
 # .profile is not read if .bash_profile exists...
 for profileBasename in .bash_profile .profile; do
   profile="$HOME"/"$profileBasename"
-  if [ -e "$profile" ]; then
+  if [ -f "$profile" ]; then
     break
   fi
 done
 
-if grep -q "Added by $myName" "$profile"; then
+if grep "Added by $myName" "$profile" > /dev/null
+then
   echo Already setup in "$profile". To update, first manually delete lines in
   echo "$profile" that source "$topDir"/profile and then rerun $0.
 else

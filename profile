@@ -20,7 +20,10 @@ isNotInPath() {
     echo $PATH | grep -qv "$1"
 }
 
-dedupPath
+if [ `uname -s` != "SunOS" ]
+then
+  dedupPath
+fi
 
 for subDir in "$topDir"/*; do
   if [ -d "$subDir" ]; then

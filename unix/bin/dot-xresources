@@ -1,0 +1,41 @@
+Vim*useSchemes:			all
+Vim*sgiMode:			true
+Vim*useEnhancedFSB:		true
+Vim.foreground:			Black
+Vim.background:			Wheat
+Vim*fontList:			7x13
+Vim.menuFont:	     -*-courier-medium-r-*-*-10-*-*-*-*-*-*-*
+Vim.menuFontSet:     -*-courier-medium-r-*-*-10-*-*-*-*-*-*-*
+Vim*scrollBackground:		LightBlue
+Vim*scrollForeground:		Blue
+
+/*
+#reverseVideo	Boolean: should reverse video be used?
+#    background		Color of background.
+#    foreground		Color of normal text.
+#    scrollBackground	Color of trough portion of scrollbars.
+#    scrollForeground	Color of slider and arrow portions of scrollbars.
+#    menuBackground	Color of menu backgrounds.
+#    menuForeground	Color of menu foregrounds.
+#    tooltipForeground	Color of tooltip and balloon foreground.
+#    tooltipBackground	Color of tooltip and balloon background.
+
+#    font		Name of font used for normal text.
+#    boldFont		Name of font used for bold text.
+#    italicFont		Name of font used for italic text.
+#    boldItalicFont	Name of font used for bold, italic text.
+#    menuFont		Name of font used for the menus, used when compiled
+#			without the |+xfontset| feature
+#    menuFontSet		Name of fontset used for the menus, used when compiled
+#			with the |+xfontset| feature
+#    tooltipFont		Name of the font used for the tooltip and balloons.
+#			When compiled with the |+xfontset| feature this is a
+#			fontset name.
+
+#    geometry		Initial geometry to use for gvim's window (default
+#			is same size as terminal that started it).
+#    scrollbarWidth	Thickness of scrollbars.
+#    borderWidth		Thickness of border around text area.
+#    menuHeight		Height of the menu bar (only for Athena).
+#
+*/
