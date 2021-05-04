@@ -212,18 +212,25 @@ endif
 " Set font. To do this again, get your font set in the GUI the way you want
 " and then run the command ":set guifont?" to see what the font specification
 " is. Then copy the font specification to the value of guifont below.
+" Use ":set guifont=*" to get a selection dialog in some versions.
+" The guifont property can be set to a comma separated list of font names.
+" Font names are different depending on which GUI is being used.
 if has('gui_running')
     if g:os == "Darwin"
         set guifont=Monaco:h18
-    elseif g:os == "Linux"
+    elseif has("gui_gtk2") || has("gui_gnome")
         set guifont=Monospace\ 13
-    elseif g:os == "Windows"
+    elseif has("x11")
+        set guifont=10x20,fixed
+        " -xos4-*-*-*-*-*-32-*-*-*-c-*-*-*
+        ",10x20,fixed
+    elseif has("gui_win32")
         "set guifont=Lucida_Console:h12:cANSI
         "set guifont=ProggySquareTTSZ:h18:cANSI
         "set guifont=Lucida_Console:h8:cANSI
         "set guifont=PR_Number_3:h10:cANSI
         "set guifont=FreeMono:h16
-        set guifont=monofur:h15:cANSI:qDRAFT
+        set guifont=monofur:h15:cANSI:qDRAFT,Lucida_Console:h15:cANSI
     endif
 endif
 
@@ -298,7 +305,8 @@ autocmd FileType HTML nmap F :%!tidy -i -q<CR>
 autocmd FileType XML nmap F :!xmltidy "%" "  "<CR>
 
 " This is https://github.com/gungwald/utils
-autocmd FileType sql nmap F :%!bash -c format-sql.groovy 2>~/vim.stdout.txt<CR>
+autocmd FileType sql nmap F :%!bash -c format-sql.groovy 
+    \ 2>~/.format-sql-groovy-stderr.txt<CR>
 
 " ------------------------------------------------------ 
 " 
