@@ -17,26 +17,26 @@ BEGIN {
     # of Perl. The $@ variable must be checked.
     eval "use Net::GitHub::V3";
     if ($@) {
-        #say STDERR $@;
-        say STDERR "Please install Perl module Net::GitHub";
-        say STDERR "    Fedora: sudo dnf install perl-Net-GitHub";
-        say STDERR "    CPAN:   sudo cpan -i Net::GitHub";
+        #print STDERR $@;
+        print STDERR "Please install Perl module Net::GitHub\n";
+        print STDERR "    Fedora: sudo dnf install perl-Net-GitHub\n";
+        print STDERR "    CPAN:   sudo cpan -i Net::GitHub\n";
         $isModuleMissing = 1;
     }
     eval "use Try::Tiny";
     if ($@) {
-        #say STDERR $@;
-        say STDERR "Please install Perl module Try::Tiny";
-        say STDERR "    Fedora: sudo dnf install perl-Try-Tiny";
-        say STDERR "    CPAN:   sudo cpan -i Try::Tiny";
+        #print STDERR $@;
+        print STDERR "Please install Perl module Try::Tiny\n";
+        print STDERR "    Fedora: sudo dnf install perl-Try-Tiny\n";
+        print STDERR "    CPAN:   sudo cpan -i Try::Tiny\n";
         $isModuleMissing = 1;
     }
     eval "use Exception::Class ('ModuleInterfaceException')";
     if ($@) {
-        #say STDERR $@;
-        say STDERR "Please install Perl module Exception::Class";
-        say STDERR "    Fedora: sudo dnf install perl-Exception-Class";
-        say STDERR "    CPAN:   sudo cpan -i Exception::Class";
+        #print STDERR $@;
+        print STDERR "Please install Perl module Exception::Class\n";
+        print STDERR "    Fedora: sudo dnf install perl-Exception-Class\n";
+        print STDERR "    CPAN:   sudo cpan -i Exception::Class\n";
         $isModuleMissing = 1;
     }
     if ($isModuleMissing) {
