@@ -32,7 +32,7 @@ case $OS in
 		;;
 
 	*BSD*)
-		echo Add code for $OS to this script.
+		echo $OS is cool, but I don\'t know how to display package contents
 		;;
 
 	*Win* | *win*)
