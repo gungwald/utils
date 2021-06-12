@@ -22,11 +22,11 @@ case $OS in
 			fedora | rhel | centos)
 				rpm -q -l "$@"
 				;;
-			debian)
+			debian | ubuntu)
 				dpkg-query --listfiles "$@"
 				;;
 			*)
-				echo Add code for $ID_LIKE Leenukes
+				echo Add code for $ID Leenukes
 				;;
 		esac
 		;;
