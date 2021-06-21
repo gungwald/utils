@@ -1,0 +1,35 @@
+#!/bin/sh
+
+CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
+
+unset MESSAGE_PREFIX
+if [ "$CURRENT_BRANCH" != "master" ] && [ "$CURRENT_BRANCH" != "main" ]
+then
+	MESSAGE_PREFIX="$CURRENT_BRANCH: "
+	echo Message will be automatically prefixed with $MESSAGE_PREFIX
+fi
+
+unset COMMIT_MESSAGE
+while [ -z "$COMMIT_MESSAGE" ]
+do
+	printf "Enter commit message: "
+	read COMMIT_MESSAGE
+done
+
+echo **************************
+echo Running: git add .
+echo **************************
+git add .
+
+
+echo **************************
+echo Running: git commit -m MSG
+echo **************************
+git commit -m "$MESSAGE_PREFIX$COMMIT_MESSAGE"
+
+
+echo **************************
+echo Running: git push
+echo **************************
+git push
+
