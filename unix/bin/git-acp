@@ -16,20 +16,20 @@ do
 	read COMMIT_MESSAGE
 done
 
-echo **************************
+echo '**************************'
 echo Running: git add .
-echo **************************
+echo '**************************'
 git add .
 
 
-echo **************************
+echo '**************************'
 echo Running: git commit -m MSG
-echo **************************
+echo '**************************'
 git commit -m "$MESSAGE_PREFIX$COMMIT_MESSAGE"
 
 
-echo **************************
+echo '**************************'
 echo Running: git push
-echo **************************
+echo '**************************'
 git push
 
