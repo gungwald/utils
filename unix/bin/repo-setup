@@ -1,0 +1,13 @@
+#!/bin/sh
+
+. /etc/os-release
+
+if [ $ID = "debian" ] || [ $ID_LIKE = "debian" ]
+then
+	sudo apt install vim-gtk3 gnome-tweaks gnome-shell-extension-*
+elif [ $ID = "fedora" ] || [ $ID_LIKE = "fedora" ]
+then
+	sudo dnf install vim gnome-tweaks gnome-shell-extension-* gnome-extension-app ffmpeg cc65
+fi
+
+echo To activate Gnome extensions press ALT-F2 r to restart Gnome Shell.
