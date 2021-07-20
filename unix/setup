@@ -1,0 +1,26 @@
+#!/bin/sh
+
+getAbsolutePath()
+{
+	if [ -d "$1" ]
+	then
+		( cd "$1" ; `pwd` )
+	else
+		( cd `dirname "$1"` ; echo `pwd`/`basename "$1"` )
+	fi
+}
+
+SELF=`getAbsolutePath "$0"`
+
+if [ -e ~/.vimrc ] 
+then
+	if [ -h ~/.vimrc ]
+		rm ~/.vimrc
+	else
+		echo ~/.vimrc exists and is not a synbolic link.
+		exit
+	fi
+fi
+
+ln -s "$SELF"/bin/dot-vimrc ~/.vimrc
+

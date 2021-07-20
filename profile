@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ $# -eq 0 ]; then
-  echo $0: Missing directory parameter
+  echo Usage: $0 absolute-directory-name
   exit 1
 fi
 
@@ -13,7 +13,7 @@ dedup() {
 }
 
 dedupPath() {
-  PATH=`echo $PATH | tr ':' '\n' | dedup | tr '\n' ':'`
+  PATH=`echo $PATH | tr ':' '\n' | dedup | tr '\n' ':' | head --bytes=-1`
 }
 
 isNotInPath() {
