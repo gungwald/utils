@@ -1,13 +1,23 @@
 #!/usr/bin/env perl
 
-# Attempts to fix the error: "could not do untrusted question as no klass support"
+# Attempts to fix the error: "could not do untrusted question as no klass
+# support"
+# Bill Chatfield - GPL2
+
+# The problem is caused by repos that have GPG disabled, probably because
+# their packages are unsigned. The gpgcheck=0 in repo file is the direct 
+# cause of the error. But, you can't just set it to 1 because then any 
+# packages will fail to upgrade because they're likely unsigned.
+
+my $iniPackage = "perl-Config-INI";
+my $isIniInstalled = (system("rpm --query --quiet $iniPackage") >> 8) == 0;
+if (! $isIniInstalled) {
+    print "Required package $iniPackage will be installed.\n";
+    system("sudo dnf install $iniPackage");
+}
 
 use Config::INI::Reader;
 
-# The problems is repos that have GPG disabled, probably because their packages
-# are unsigned. The gpgcheck=0 in repo file is the direct cause of the error.
-# But, you can't just set it to 1 because then any packages will fail to upgrade
-# because they're likely unsigned.
 my @repoFiles=`grep -lw 'gpgcheck=0' /etc/yum.repos.d/*`;
 my $foundRepoToDisable = 0;
 for my $repoFile (@repoFiles) {
