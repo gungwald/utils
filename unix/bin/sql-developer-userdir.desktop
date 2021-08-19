@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=SQL Developer 21
+Exec=/home/dev/opt/sqldeveloper/sqldeveloper.sh
+Type=Application
+StartupNotify=true
+Comment=Oracle SQL Developer IDE Version 21
+Path=/home/dev
+Icon=/home/dev/opt/sqldeveloper/icon.png
