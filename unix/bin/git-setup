@@ -12,4 +12,4 @@ git config --global credential."https://github.com".username gungwald
 git config --global core.autocrlf input
 
 # Turn off the annoying message printed during a pull request.
-git config pull.rebase false
+git config --global pull.rebase false

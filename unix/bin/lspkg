@@ -22,17 +22,17 @@ case $OS in
 			fedora | rhel | centos)
 				rpm -q -l "$@"
 				;;
-			debian)
+			debian | ubuntu)
 				dpkg-query --listfiles "$@"
 				;;
 			*)
-				echo Add code for $ID_LIKE Leenukes
+				echo Add code for $ID Leenukes
 				;;
 		esac
 		;;
 
 	*BSD*)
-		echo Add code for $OS to this script.
+		echo $OS is cool, but I don\'t know how to display package contents
 		;;
 
 	*Win* | *win*)

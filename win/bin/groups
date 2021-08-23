@@ -1,0 +1,18 @@
+#!/bin/sh
+
+getAbsolutePath()
+{
+    if [ -d "$1" ]
+    then
+        (cd "$1" ; pwd)
+    else
+        (cd `dirname "$1"` ; echo `pwd`/`basename "$1"`)
+    fi
+}
+
+THIS_SCRIPT=`getAbsolutePath "$0"`
+THIS_DIR=`dirname "$THIS_SCRIPT"`
+PARENT_DIR=`dirname "$THIS_DIR"`
+SCRIPTS_DIR="$PARENT_DIR"/scripts
+SCRIPT="$SCRIPTS_DIR"/`basename "$THIS_SCRIPT"`.js
+cscript //nologo `cygpath --windows "$SCRIPT"`

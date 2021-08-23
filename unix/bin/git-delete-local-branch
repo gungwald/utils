@@ -1,0 +1,8 @@
+#!/bin/sh
+if [ $# -gt 0 ]
+then
+  git branch -d "$1"
+else
+  echo You must provide a branch name
+fi
+

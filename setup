@@ -35,3 +35,11 @@ else
   } >>"$profile"
   echo "$profile" updated
 fi
+
+for subDir in "$topDir"/*; do
+  if [ -d "$subDir" ]; then
+    if [ -f "$subDir"/setup ]; then
+      . "$subDir"/setup
+    fi
+  fi
+done
