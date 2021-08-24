@@ -26,11 +26,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/java/bin/delete-tree.groovy" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/unix/bin/git-delete-local-branch" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils.iml" beforeDir="false" afterPath="$PROJECT_DIR$/utils.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/scripts/relative-complement.sl" beforeDir="false" afterPath="$PROJECT_DIR$/java/scripts/relative-complement.sl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,10 +184,10 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Groovy.delete-tree" />
       <item itemvalue="Perl.extract-links-from-html.pl" />
       <item itemvalue="Perl.github-search-repos.pl" />
       <item itemvalue="Perl.solaris-download-gnu-devel.pl" />
-      <item itemvalue="Groovy.delete-tree" />
     </list>
     <recent_temporary>
       <list>

@@ -29,6 +29,16 @@ sub removeBlankLines
     return $1;
 }    
 
+if (size(@ARGV) != 2) {
+    println();
+    println("Usage: relative-complement file1 file2");
+    println();
+    println("    Computes line-by-line difference: file1 \\ file2");
+    println("    https://en.wiktionary.org/wiki/relative_complement");
+    println();
+    exit();
+}
+
 $fileNameA = @ARGV[0];
 $fileNameB = @ARGV[1];
 
