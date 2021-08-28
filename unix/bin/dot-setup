@@ -10,7 +10,22 @@ then
     thisDir=$(pwd)
 fi
 
-for dotFile in .bash_profile .profile .vimrc .inputrc .kshrc
+if [ -f ~/.bash_profile ]
+then
+	cat "$thisDir"/dot-profile >> ~/.bash_profile
+fi
+
+if [ -f ~/.profile ]
+then
+	cat "$thisDir"/dot-profile >> ~/.profile
+fi
+
+if [ -f ~/.kshrc ]
+then
+	cat "$thisDir"/dot-kshrc >> ~/.kshrc
+fi
+
+for dotFile in .vimrc .inputrc
 do
     # Remove a symbolic link so it can be recreated. We must check for
     # a symbolic link first because the -f test for a regular file will
