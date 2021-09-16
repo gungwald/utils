@@ -10,3 +10,6 @@ HEREDOC
 [ $? -ne 0 ] && exit
 
 sudo dnf install -y nautilus-dropbox
+
+dropbox start -i
+
