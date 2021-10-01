@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Executable Jar Runner
+# This is for running jar files from a file manager, not launching an app from the application menu
+NoDisplay=true
+Exec=java -jar %f
+Terminal=true
+MimeType=application/x-java-archive;
