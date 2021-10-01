@@ -1,0 +1,17 @@
+// BeanShell script to install the Maven wrapper into a Maven project
+
+// This is required on Windows to run a .bat file, which is what the mvn
+// command is.
+prefix = System.getProperty("os.name").startsWith("Windows") ? "cmd /c " : "";
+
+/*
+    Apache Maven 2.0 to 2.1.0 requires Java 1.4
+    Apache Maven 2.2.0 to 3.1.1 requires Java 1.5
+    Apache Maven 3.2.1 to 3.2.5 requires Java 1.6
+    Apache Maven 3.3.1 and newer requires Java 7
+*/
+mavenVersion = "3.1.1";
+mvn = prefix + "mvn -N io.takari:maven:wrapper -Dmaven=" + mavenVersion;
+print(mvn);
+exec(mvn);
+
