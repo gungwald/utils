@@ -1,0 +1,2 @@
+#!/bin/sh
+git log --after=2021-01-01 --reverse --decorate=full
