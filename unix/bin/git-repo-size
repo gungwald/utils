@@ -1,0 +1,3 @@
+#!/bin/sh
+git count-objects --verbose --human-readable
+
