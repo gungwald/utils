@@ -8,9 +8,9 @@ then
 
   if [ "$ID" = "debian" -o "$ID_LIKE" = "debian" ]
   then
-    # update-java-alternatives --set DOES NOT WORK!!!!!!!!!!
-    sudo update-alternatives --config java
-    sudo update-alternatives --config javac
+    echo Run these commands:
+    echo sudo update-java-alternatives --list
+    echo sudo update-java-alternatives --set /path/to/one/of/the/jvms/from/list
   elif [ "$ID" = "fedora" -o "$ID_LIKE" = "fedora" ]
   then
     sudo alternatives --config java
