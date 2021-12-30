@@ -17,7 +17,8 @@ dedupPath() {
 }
 
 isNotInPath() {
-    echo $PATH | grep -qv "$1"
+    # Grep's -q switch is not present on Solaris 8.
+    echo $PATH | grep -v "$1" > /dev/null
 }
 
 if [ `uname -s` != "SunOS" ]
