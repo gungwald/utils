@@ -3,21 +3,23 @@
 # Reference this from .profile or .bash_profile or make a link to it.
 
 GITDIR=$HOME/git
-UTILSBIN=$GITDIR/utils/bin
-JAVAUTILSBIN=$GITDIR/java-windows-integration/bin
+UTILSBIN=$GITDIR/utils/unix/bin
+JAVAUTILSBIN=$GITDIR/utils/java/bin
 DROPBOXBIN=$HOME/Dropbox/bin
 
 isKornShell()
-{
+(
+	SHELL_BASENAME=`basename "$SHELL"`
 	# This function will implicitly return the result of this expression.
- 	[ "${SHELL: -3}" = "ksh" ]
-}
+ 	[ "$SHELL_BASENAME" = "ksh" ] || [ "$SHELL_BASENAME" = "pdksh" ]
+)
 
 isBash()
-{
+(
+	SHELL_BASENAME=`basename "$SHELL"`
 	# This function will implicitly return the result of this expression.
- 	[ "${SHELL: -4}" = "bash" ]
-}
+ 	[ "$SHELL_BASENAME" = "bash" ]
+)
 
 hasAliasCommand()
 {
@@ -26,12 +28,12 @@ hasAliasCommand()
 
 isMacOSX()
 {
-	[ $(uname -s) = "Darwin" ]
+	[ `uname -s` = "Darwin" ]
 }
     
 notContains() 
 {
-	echo $1 | grep -qv "$2"
+	echo $1 | grep -v "$2" > /dev/null
 }
 
 readLine() 
@@ -77,7 +79,7 @@ fixKornShell()
 	if isKornShell
 	then
 		echo Identified Korn Shell. Adding pushd, popd, and dirs commands.
-		. $UTILSBIN/dirstack.ksh
+		. "$UTILSBIN"/dirstack.ksh
 	fi
 }
 	
@@ -110,7 +112,7 @@ setupPath()
 
 	# /usr/local/(s)bin are for Tiger Brew. They should come
 	# bethree /bin and /usr/bin.
-	for dir in $HOME/bin $UTILSBIN /usr/local/bin /usr/local/sbin $JAVAUTILSBIN $DROPBOXBIN $HOME/.local/bin
+	for dir in $HOME/bin /usr/local/bin /usr/local/sbin $DROPBOXBIN $HOME/.local/bin
 	do
 		if [ -d "$dir" ] && notContains "$PATH" "$dir"
 		then
@@ -126,7 +128,7 @@ setupPrompt()
 	then
 		PS1='[exit-status=$?]
 
-$LOGNAME @ $HOSTNAME $PWD
+$LOGNAME @ `hostname -s` $PWD
 $ '
 	elif isBash
 	then
@@ -153,4 +155,10 @@ fi
 EDITOR=$VISUAL
 export EDITOR
 
+
+unset GITDIR
+unset UTILSBIN
+unset JAVAUTILSBIN
+unset DROPBOXBIN
+unset LINE
 

@@ -21,7 +21,8 @@ isNotInPath() {
     echo $PATH | grep -v "$1" > /dev/null
 }
 
-if [ `uname -s` != "SunOS" ]
+UNAME_S=`uname -s`
+if [ "$UNAME_S" != "SunOS" ] && [ "$UNAME_S" != "OpenBSD" ]
 then
   dedupPath
 fi
@@ -42,3 +43,8 @@ for subDir in "$topDir"/*; do
 done
 
 export PATH
+unset topDir
+unset binDir
+unset subDir
+unset UNAME_S
+
