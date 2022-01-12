@@ -20,7 +20,7 @@ MY_UID=$(id -u $LOGNAME)
 MY_GID=$(id -g $LOGNAME)
 DIR_TO_SHARE="$HOME/Dropbox"
 EXPORTS=/etc/exports
-EXPORTS_LINE="$DIR_TO_SHARE 192.168.0.0/24(rw,async,root_squash,anonuid=$MY_UID,anongid=$MY_GID)"
+EXPORTS_LINE="$DIR_TO_SHARE 192.168.0.0/24(rw,async,root_squash,anonuid=$MY_UID,anongid=$MY_GID) fe80:0000:0000:0000:0000:0000:0000:0000/64(rw,async,root_squash,anonuid=$MY_UID,anongid=$MY_GID)"
 
 . /etc/os-release
 
