@@ -7,51 +7,58 @@ CONTROLLER_DIR="$HOME"/bin
 CONTROLLER_FILE="$CONTROLLER_DIR"/dropbox
 CONTROLLER_FILE_URL="https://www.dropbox.com/download?dl=packages/dropbox.py"
 SERVICE_FILE=/etc/systemd/system/dropbox@.service
-SERVICE_FILE_URL="https://github.com/joeroback/dropbox/blob/bcd403fbb4e9976beb9466c427291c7249cdd787/dropbox@.service"
+SERVICE_FILE_URL="https://raw.githubusercontent.com/joeroback/dropbox/master/dropbox%40.service"
 SERVICE=dropbox@$LOGNAME
 DAEMON_URL="https://www.dropbox.com/download?plat=lnx.x86_64"
 DAEMON="$HOME"/.dropbox-dist/dropboxd
+SCRIPT=`basename "$0"`
+
+msg()
+{
+    echo $SCRIPT: $*
+}
 
 if [ `id -u` -eq 0 ]
 then
-    echo `basename "$0"`: must be run as a regular user with sudo privileges.
+    msg must be run as a regular user with sudo privileges.
     exit 1
 fi
 
 # Install dropbox controller script.
 if [ -f "$CONTROLLER_FILE" ]
 then
-    echo $CONTROLLER_FILE is already installed.
+    msg $CONTROLLER_FILE is already installed.
 else
-    echo Installing dropbox controller script $CONTROLLER_FILE.
-    mkdir -p "$CONTROLLER_DIR"
-    wget --output-document="$CONTROLLER_FILE" "$CONTROLLER_FILE_URL"
-    chmod a+x "$CONTROLLER_FILE"
+    msg Installing dropbox controller script $CONTROLLER_FILE.
+    mkdir -p "$CONTROLLER_DIR" || exit
+    wget --output-document="$CONTROLLER_FILE" "$CONTROLLER_FILE_URL" || exit
+    chmod a+x "$CONTROLLER_FILE" || exit
 fi
 
 # Install/enable dropbox autostart service.
 if [ -f "$SERVICE_FILE" ]
 then
-    echo $SERVICE_FILE is already installed.
+    msg $SERVICE_FILE is already installed.
 else
-    echo Installing dropbox service file $SERVICE_FILE.
-    wget --output-document="$SERVICE_FILE" "$SERVICE_FILE_URL"
-    echo Reloading services.
-    sudo systemctl daemon-reload
-    echo Enabling dropbox service: $SERVICE
-    sudo systemctl enable "$SERVICE"
+    msg Installing dropbox service file $SERVICE_FILE.
+    sudo wget --output-document="$SERVICE_FILE" "$SERVICE_FILE_URL" || exit
+    msg Reloading services.
+    sudo systemctl daemon-reload || exit
+    msg Enabling dropbox service: $SERVICE
+    sudo systemctl enable "$SERVICE" || exit
 fi
 
 # Install/start dropbox daemon.
 if [ -f "$DAEMON" ]
 then
-    echo Dropbox daemon $DAEMON is already installed.
-    echo To start it run: sudo systemctl start \"$SERVICE\"
+    msg Dropbox daemon $DAEMON is already installed.
 else
     cd "$HOME"
     wget -O - "$DAEMON_URL" | tar xzf -
     "$DAEMON"
 fi
+
+msg To start dropbox run: sudo systemctl start $SERVICE
 
 # The above starts a process will will ask you to go to a url that has a long
 # random string. You can't do it with lynx because dropbox.com requires
