@@ -1,0 +1,12 @@
+#!/bin/sh
+
+getAbsDirName()
+{
+	(cd `dirname "$1"` ; pwd)
+}
+
+scriptDir=`getAbsDirName "$0"`
+parentDir=`dirname "$scriptDir"`
+classesDir="$parentDir"/classes
+
+java -cp "$classesDir" PlafLister
