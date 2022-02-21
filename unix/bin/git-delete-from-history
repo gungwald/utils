@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Must have package installed: sudo dnf install git-filter-repo
+
+for f in "$@"
+do
+    git filter-repo --invert-paths --path "$f"
+done

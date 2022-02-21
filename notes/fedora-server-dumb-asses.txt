@@ -1,0 +1,26 @@
+Can't resolve .local hosts
+	- nslookup, host, dig - only query DNS, not mDNS, /etc/hosts, other any other
+	- resolvectl mdns - claims there is no mdns lookup active, which is wrong
+	  It is wrong because resolvectl only queries the setup of systemd-resolved(.service)
+	  not the real setup which is in /etc/nsswitch.conf.
+	- getent hosts woolly-rhino.local - Test name resolution of glibc which is 
+	  configured via /etc/nsswitch.conf
+	  Even though mdns_minimal is on the hosts line of /etc/nsswitch.conf, it still
+	  doesn't work
+	- The nss-mdns package has to be installed - still doesn't work
+	- Need to configure firewall: 
+		sudo firewall-cmd --add-service=mdns
+		sudo firewall-cmd --add-service=mdns --permanent
+	- Still doesn't work - need to start the service. It is enabled by install but not
+	  started.....duh....
+		sudo systemctl start avahi-daemon
+Hostname.local can't be resolved by other hosts
+	- avahi packages needs installed - still doesn't work
+	- The above firewall configuration
+	- Still doesn't work - see starting service above
+Hostname is set to fedora - there is nothing in /etc/hostname
+	- Can be set by:
+		1. hostnamectl - sets transient hostname and /etc/hostname
+		2. hostname - only sets transient hostname
+		3. /etc/hostname
+Console scrollback doesn't work

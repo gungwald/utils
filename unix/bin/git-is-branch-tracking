@@ -1,0 +1,10 @@
+#!/bin/sh
+
+IS_TRACKING=`git checkout`
+if [ -z "$IS_TRACKING" ]
+then
+	echo Current branch is not tracking a remote branch.
+else
+	echo $IS_TRACKING
+fi
+

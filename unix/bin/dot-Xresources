@@ -1,3 +1,8 @@
+/* The default blue of old Motif */
+*.background: rgb:72/9f/ff
+*.foreground: Black
+*.highlightColor: Black
+
 Vim*useSchemes:			all
 Vim*sgiMode:			true
 Vim*useEnhancedFSB:		true

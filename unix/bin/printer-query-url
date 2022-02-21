@@ -1,0 +1,2 @@
+#!/bin/sh
+lpinfo --include-schemes dnssd -v

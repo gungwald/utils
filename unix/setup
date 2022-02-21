@@ -11,10 +11,12 @@ getAbsolutePath()
 }
 
 SELF=`getAbsolutePath "$0"`
+MY_DIR=`dirname "$SELF"`
 
 if [ -e ~/.vimrc ] 
 then
 	if [ -h ~/.vimrc ]
+	then
 		rm ~/.vimrc
 	else
 		echo ~/.vimrc exists and is not a synbolic link.
@@ -22,5 +24,5 @@ then
 	fi
 fi
 
-ln -s "$SELF"/bin/dot-vimrc ~/.vimrc
+ln -s "$MY_DIR"/bin/dot-vimrc ~/.vimrc
 
