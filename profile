@@ -13,7 +13,12 @@ dedup() {
 }
 
 dedupPath() {
-  PATH=`echo $PATH | tr ':' '\n' | dedup | tr '\n' ':' | head --bytes=-1`
+  # MacOS 12.3.1's head command can't handle negative values so it can't
+  # be used to remove the trailing colon. The ${PATH%?} is POSIX and
+  # works in every shell except old Bourne shells. It is also faster
+  # than running an external process like 'head'.
+  PATH=`echo $PATH | tr ':' '\n' | dedup | tr '\n' ':'`
+  PATH=`echo ${PATH%?}`
 }
 
 isNotInPath() {
