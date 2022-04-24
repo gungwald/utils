@@ -7,12 +7,14 @@ fi
 
 topDir="$1"
 
-dedup() {
+dedup() 
+{
   # Magic
   awk '!visited[$0]++'
 }
 
-dedupPath() {
+dedupPath() 
+{
   # MacOS 12.3.1's head command can't handle negative values so it can't
   # be used to remove the trailing colon. The ${PATH%?} is POSIX and
   # works in every shell except old Bourne shells. It is also faster
@@ -21,9 +23,22 @@ dedupPath() {
   PATH=`echo ${PATH%?}`
 }
 
-isNotInPath() {
+isNotInPath() 
+{
     # Grep's -q switch is not present on Solaris 8.
     echo $PATH | grep -v "$1" > /dev/null
+}
+
+removeEmptyElements()
+(
+    # Remove empty entries in a PATH or MANPATH type variable by replacing
+    # each instance of two consecutive colons by one colon.
+    echo $1 | sed s/::/:/g
+)
+
+removeEmptyPathElements()
+{
+    PATH=`removeEmptyElements "$PATH"`
 }
 
 UNAME_S=`uname -s`
