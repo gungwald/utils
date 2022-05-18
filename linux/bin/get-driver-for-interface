@@ -1,0 +1,22 @@
+#!/bin/sh
+
+printDriverForInterface()
+(
+	interface=$1
+	driverDir=`readlink /sys/class/net/$interface/device/driver`
+	driver=`basename "$driverDir"`
+	printf "driver=%s interface=%s\n" "$driver" "$interface"
+)
+
+if [ $# -gt 0 ]
+then
+	for interface in "$@"
+	do
+		printDriverForInterface $interface
+	done
+else
+	for interface in `ls /sys/class/net`
+	do
+		printDriverForInterface $interface
+	done
+fi
