@@ -29,6 +29,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="Added font download">
+      <change afterPath="$PROJECT_DIR$/unix/bin/find-in-path.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +59,6 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file:///tmp/mozilla_bill0/RXTextUtilities.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/java/scripts/lslaf.bsh" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/java/src/Makefile" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/java/src/PlafLister.java" root0="FORCE_HIGHLIGHTING" />
