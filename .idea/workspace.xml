@@ -28,9 +28,8 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="Added font download">
-      <change afterPath="$PROJECT_DIR$/unix/bin/find-in-path.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="Added find-in-path">
+      <change beforePath="$PROJECT_DIR$/unix/bin/find-in-path" beforeDir="false" afterPath="$PROJECT_DIR$/unix/bin/find-in-path" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -236,7 +235,14 @@
       <option name="project" value="LOCAL" />
       <updated>1604525039151</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added find-in-path">
+      <created>1652879306756</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1652879306756</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -269,6 +275,7 @@
     <MESSAGE value="Made it an Intellij project" />
     <MESSAGE value="Improve name of script" />
     <MESSAGE value="Added font download" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added font download" />
+    <MESSAGE value="Added find-in-path" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added find-in-path" />
   </component>
 </project>

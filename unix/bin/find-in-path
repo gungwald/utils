@@ -4,14 +4,17 @@
 findInDirectory() (
   SEARCH_TERM="$1"
   DIRECTORY="$2"
-  cd "$DIRECTORY" >/dev/null 2>&1 || echo $DIRECTORY: \(no such directory\)
-  # shellcheck disable=SC2046
-  printf "%s: %s\n" `pwd` "`ls *"$SEARCH_TERM"* 2>/dev/null | tr '\n' ' '`"
+  if cd "$DIRECTORY" >/dev/null 2>&1; then
+    # shellcheck disable=SC2046
+    printf "%s: %s\n" $(pwd) "$(ls *"$SEARCH_TERM"* 2>/dev/null | tr '\n' ' ')"
+  else
+    echo $DIRECTORY: \(no such directory\)
+  fi
 )
 
 findInPath() {
   SEARCH_TERM="$1"
-  for directoryFromPath in `echo $PATH | tr ':' ' '`; do
+  for directoryFromPath in $(echo $PATH | tr ':' ' '); do
     findInDirectory "$SEARCH_TERM" "$directoryFromPath"
   done
 }
