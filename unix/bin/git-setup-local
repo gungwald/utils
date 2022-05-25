@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# This is always the same.
+git config user.name "Bill Chatfield"
+git config user.email "bill_chatfield@yahoo.com"
+
+# Turn on user and password storage.
+#git config credential.helper store
+#git config credential."https://github.com".username gungwald
+
+# Set to UNIX functionality: no change on checkout, convert CRLF to LF on commit.
+git config core.autocrlf input
+
+# Turn off the annoying message printed during a pull request.
+git config pull.rebase true
