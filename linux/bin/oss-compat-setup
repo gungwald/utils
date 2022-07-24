@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# "sudo cat" and "sudo echo" don't work because the redirect is done before
+# the command is run.
+
+moduleLoadFile=/etc/modules-load.d/oss-compat.conf
+
+for ossSoundModule in snd-mixer-oss snd-pcm-oss
+do
+	# Permanent solution after reboot.
+	if grep -q "$ossSoundModule" "$moduleLoadFile"
+	then
+		echo $ossSoundModule is already in $moduleLoadFile
+	else
+		echo $ossSoundModule | sudo tee -a "$moduleLoadFile" > /dev/null
+	fi
+
+	# Fix it for this boot.
+	if lsmod | tr '_' '-' | grep -q $ossSoundModule
+	then
+		echo $ossSoundModule is already loaded.
+	else
+		sudo modprobe $ossSoundModule
+	fi
+done
+
