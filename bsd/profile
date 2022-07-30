@@ -1,0 +1,8 @@
+
+isSupported() {
+  if [ $(uname -s) = OpenBSD ]; then
+    true
+  else
+    false
+  fi
+}

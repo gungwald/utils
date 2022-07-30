@@ -1,6 +1,6 @@
 #!/bin/sh
 
-REMOTE_HOST=mammut-americanum.local
+REMOTE_HOST=mammut-americanum
 REMOTE_DIR=/home/bill/Dropbox
 REMOTE_MOUNT=$REMOTE_HOST:$REMOTE_DIR
 LOCAL_DIR="$HOME"/Dropbox
@@ -25,8 +25,6 @@ case $OS in
         sudo mount -F nfs $REMOTE_MOUNT "$LOCAL_DIR"
         ;;
     OpenBSD)
-        REMOTE_IP=`avahi-resolve-host-name -4 "$REMOTE_HOST" | cut -f 2` || exit
-	REMOTE_MOUNT="$REMOTE_IP:$REMOTE_DIR"
 	# The -T option to specify TCP instead of UDP is required.
         doas mount -t nfs -o -T $REMOTE_MOUNT "$LOCAL_DIR"
 esac
