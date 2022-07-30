@@ -1,44 +1,111 @@
 #!/bin/sh
 
-. /etc/os-release
+# Fedroikka Lignux notes:
+# rpc.statd is suppose to be running to handle locks.
+# But there is no service defined to start it.
+# rpc.statd needs rpcbind for the nfs server to find it.
 
-if [ "$ID" = "ubuntu" ]; then
-    if dpkg -s nfs-common > /dev/null 2>&1; then
-        echo Ubuntu system already has nfs-common installed.
-    else
-        sudo apt install -y nfs-common || exit
-    fi
-elif [ "$ID" = fedora ]; then
-	if [ -f /sbin/rpcbind ]
+isDebianPackageInstalled()
+(
+	package="$1"
+	# The function will return the result of the last command.
+	dpkg -s "$package" > /dev/null 2>&1
+)
+
+installDebianPackage()
+(
+	package="$1"
+	if isDebianPackageInstalled "$package"
 	then
-	    echo nfs is already installed
+		echo Package $package is already installed.
 	else
-	    sudo dnf -y install nfs-utils || exit
+		sudo apt install -y "$package" || exit
 	fi
+)
 
-	# rpc.statd is suppose to be running to handle locks.
-	# But there is no service defined to start it.
-	# rpc.statd needs rpcbind for the nfs server to find it.
+isRpmPackageInstalled()
+(
+	package="$1"
+	# The function will return the result of the last command.
+	rpm --query --quiet "$package"
+)
 
-	# Enable it if it is not already enabled.
-	if systemctl is-enabled -q rpcbind
+installRpmPackage()
+(
+	package="$1"
+        if isRpmPackageInstalled "$package"
 	then
-	    echo rpcbind is already enabled
+		echo Package $package is already installed.
 	else
-	    sudo systemctl enable rpcbind || exit
+		sudo dnf -y install "$package" || exit
 	fi
+)
 
-	# Start it if it is not already started.
-	if systemctl is-active -q rpcbind
+enableSystemdService()
+(
+	service="$1"
+	if systemctl is-enabled -q "$service"
 	then
-	    echo rpcbind is already running
+		echo "$service" service is already enabled.
 	else
-	    sudo systemctl start rpcbind || exit
+		sudo systemctl enable "$service" || exit
 	fi
+)
 
-	# Configure the firewall to permit nfs.
+startSystemService()
+(
+	service="$1"
+	if systemctl is-active -q "$service"
+	then
+		echo "$service" service is already running.
+	else
+		sudo systemctl start "$service" || exit
+	fi
+)
+
+openFirewalldServicePort()
+(
 	# TODO - Check if already configured before configuring.
-	# TODO - Need to use ufw command for Debian
-	sudo firewall-cmd --add-service=rpc-bind --permanent && \
-		sudo firewall-cmd --reload
-fi
+	sudo firewall-cmd --add-service=rpc-bind --permanent && sudo firewall-cmd --reload
+)
+
+openUfwServicePort()
+(
+	# TODO - Implement this
+)
+
+writeMissingOptionError()
+(
+	echo Dude! How could you forget about $1?
+)
+
+OS=`uname -s`
+
+case "$OS" in
+	OpenBSD)
+		echo "$OS is ready to be an NFS client by default."
+		;;
+
+	Linux)
+		. /etc/os-release
+		case "$ID" in
+			ubuntu|debian)
+				installDebianPackage nfs-common
+				;;
+			fedora|redhat|centos)
+				installRpmPackage nfs-utils
+				enableSystemdService rpcbind
+				startSystemdService rpcbind
+				openFirewalldServicePort rpc-bind
+				;;
+			*)
+				writeMissingOptionError "$ID"
+				;;
+		esac
+		;;
+
+	*)
+		writeMissingOptionError "$OS"
+		;;
+esac
+
