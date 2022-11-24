@@ -9,14 +9,23 @@
 # cause of the error. But, you can't just set it to 1 because then any 
 # packages will fail to upgrade because they're likely unsigned.
 
-my $iniPackage = "perl-Config-INI";
-my $isIniInstalled = (system("rpm --query --quiet $iniPackage") >> 8) == 0;
-if (! $isIniInstalled) {
-    print "Required package $iniPackage will be installed.\n";
-    system("sudo dnf install $iniPackage");
+BEGIN {
+	my $mod = qw(Config::INI::Reader);
+	eval "use $mod";
+	if ($@) {
+		warn "Couldn\'t load module $mod: $@\n";
+		my $iniPackage = "perl-Config-INI";
+		my $isIniInstalled = (system("rpm --query --quiet $iniPackage") >> 8) == 0;
+		if ($isIniInstalled) {
+			warn "Don't know what to do because required package is already installed: $iniPackage\n";
+			exit(1);
+		} else {
+		    print "Required package $iniPackage will be installed.\n";
+		    system("sudo dnf -y install $iniPackage");
+		}
+	}
+	$mod->import();
 }
-
-use Config::INI::Reader;
 
 my @repoFiles=`grep -lw 'gpgcheck=0' /etc/yum.repos.d/*`;
 my $foundRepoToDisable = 0;
