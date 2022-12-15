@@ -14,6 +14,7 @@ then
   elif [ "$ID" = "fedora" -o "$ID_LIKE" = "fedora" ]
   then
     sudo alternatives --config java
+    sudo alternatives --config javac
   else
     echo Don\'t know how for "$ID" "$OS"
   fi
