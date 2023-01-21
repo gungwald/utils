@@ -24,16 +24,16 @@ if (WScript.FullName.search(/WScript/i) >= 0) {
 }
 
 // Get the current user.
-var activeDirectory = new ActiveXObject("ADSystemInfo");
-var userName = activeDirectory.UserName;
-var userUrl = "LDAP://" + userName;
-var user = GetObject(userUrl);
+var adSystemInfo = new ActiveXObject("ADSystemInfo");
+var userDistinguishedName = adSystemInfo.UserName;
+var userDnUrl = "LDAP://" + userDistinguishedName;
+var adUser = GetObject(userDnUrl);
 
-WScript.StdOut.WriteLine("Active Directory groups for " + userName + ":");
+WScript.StdOut.WriteLine("Active Directory groups for " + userDistinguishedName + ":");
 WScript.StdOut.WriteLine();
 
 // Find all the groups for this user.
-var groups = user.GetEx("memberOf").toArray();
+var groups = adUser.GetEx("memberOf").toArray();
 var group;
 for (var i = 0; i < groups.length; i++) {
     group = groups[i].split(/,/)[0].split(/=/)[1];

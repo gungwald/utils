@@ -28,9 +28,14 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="Lower case a whole file">
+    <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="Implement command line args">
+      <change afterPath="$PROJECT_DIR$/win/scripts/dn-for-user.vbs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/ToLowerCase.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/ToLowerCase.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java/src/ToLowerCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/src/ToLowerCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/win/bin/groups-old.bat" beforeDir="false" afterPath="$PROJECT_DIR$/win/bin/groups.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/win/bin/groups.js" beforeDir="false" afterPath="$PROJECT_DIR$/win/scripts/groups-for-win-explorer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/win/scripts/groups.js" beforeDir="false" afterPath="$PROJECT_DIR$/win/scripts/groups.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +86,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/java/bin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/win/scripts" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -95,8 +100,12 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/win/scripts" />
       <recent name="$PROJECT_DIR$/java/bin" />
       <recent name="$PROJECT_DIR$/unix/bin" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/win/scripts" />
     </key>
   </component>
   <component name="RunManager" selected="Groovy.delete-tree">
@@ -251,11 +260,29 @@
       <option name="project" value="LOCAL" />
       <updated>1673973934131</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Implement command line args">
+      <created>1673983814292</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1673983814292</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -286,6 +313,7 @@
     <MESSAGE value="Added font download" />
     <MESSAGE value="Added find-in-path" />
     <MESSAGE value="Lower case a whole file" />
-    <option name="LAST_COMMIT_MESSAGE" value="Lower case a whole file" />
+    <MESSAGE value="Implement command line args" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement command line args" />
   </component>
 </project>

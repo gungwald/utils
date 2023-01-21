@@ -6,15 +6,18 @@ import java.io.IOException;
 public class ToLowerCase {
     public static void main(String[] args) {
         try {
-            if (args.length == 0) {
-                toLowerCase(new BufferedReader(new InputStreamReader(System.in)));
-            } else {
-                for (int i = 0; i < args.length; i++) {
-                    toLowerCase(new BufferedReader(new InputStreamReader(new FileInputStream(args[i]))));
-                }
-            }
+            toLowerCase(args);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    public static void toLowerCase(String[] args) throws IOException {
+        if (args.length == 0) {
+            toLowerCase(new BufferedReader(new InputStreamReader(System.in)));
+        } else {
+            for (int i = 0; i < args.length; i++) {
+                toLowerCase(new BufferedReader(new InputStreamReader(new FileInputStream(args[i]))));
+            }
         }
     }
     public static void toLowerCase(BufferedReader in) throws IOException {
