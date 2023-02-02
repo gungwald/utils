@@ -1,8 +1,11 @@
 CLASSES_DIR=../classes
-CLASSES=$(CLASSES_DIR)/MavenJarProjectCreator.class $(CLASSES_DIR)/Executor.class $(CLASSES_DIR)/ToLowerCase.class $(CLASSES_DIR)/BuildSqlInList.class
+CLASSES=$(CLASSES_DIR)/MavenJarProjectCreator.class $(CLASSES_DIR)/Executor.class $(CLASSES_DIR)/ToLowerCase.class $(CLASSES_DIR)/BuildSqlInList.class $(CLASSES_DIR)/SetDiff.class
 JAVAC=$(HOME)/Dropbox/opt/j2sdk1.4.2/j2sdk1.4.2_19/bin/javac
 
 all: $(CLASSES)
+
+$(CLASSES_DIR)/SetDiff.class: SetDiff.java
+	$(JAVAC) -d $(CLASSES_DIR) SetDiff.java
 
 $(CLASSES_DIR)/BuildSqlInList.class: BuildSqlInList.java
 	$(JAVAC) -d $(CLASSES_DIR) BuildSqlInList.java

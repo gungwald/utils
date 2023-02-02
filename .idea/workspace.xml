@@ -29,7 +29,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="The rest of them">
-      <change afterPath="$PROJECT_DIR$/java/bin/build-sql-in-list.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/java/src/SetDiff.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/production/Java Source/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/src/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/java/src/Makefile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,24 +78,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/java/bin" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.path.for.package.eslint" value="project" />
-    <property name="node.js.path.for.package.tslint" value="project" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/java/bin" />
@@ -102,8 +94,11 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/win/scripts" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
   </component>
-  <component name="RunManager" selected="Application.BuildSqlInList">
+  <component name="RunManager" selected="Application.SetDiff">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -123,6 +118,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SetDiff" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="SetDiff" />
+      <module name="Java Source" />
+      <option name="PROGRAM_PARAMETERS" value="1.txt 2.txt" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/java/src" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="delete-tree" type="GroovyScriptRunConfiguration" factoryName="Groovy" temporary="true">
       <module name="utils" />
       <setting name="path" value="file://$PROJECT_DIR$/java/bin/delete-tree.groovy" />
@@ -134,29 +138,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="extract-links-from-html.pl" type="#PerlConfigurationType" factoryName="Perl" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
-      <option name="allowRunningInParallel" value="false" />
-      <option name="alternativeSdkName" />
-      <option name="compileTimeBreakpointsEnabled" value="false" />
-      <option name="consoleCharset" value="UTF-8" />
-      <option name="envs">
-        <map />
-      </option>
-      <option name="initCode" value="" />
-      <option name="nonInteractiveModeEnabled" value="false" />
-      <option name="passParentEnvs" value="true" />
-      <option name="perlParameters" value="" />
-      <option name="programParameters" />
-      <option name="projectPathOnTarget" />
-      <option name="scriptCharset" value="utf8" />
-      <option name="scriptPath" value="$PROJECT_DIR$/bin/extract-links-from-html.pl" />
-      <option name="selectedOptions">
-        <list />
-      </option>
-      <option name="startMode" value="RUN" />
-      <option name="useAlternativeSdk" value="false" />
-      <option name="workingDirectory" />
-      <method v="2" />
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Java Source" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Java Source" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="github-search-repos.pl" type="#PerlConfigurationType" factoryName="Perl" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
       <option name="allowRunningInParallel" value="false" />
@@ -207,11 +200,13 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Application.SetDiff" />
       <item itemvalue="Application.BuildSqlInList" />
       <item itemvalue="Groovy.delete-tree" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.SetDiff" />
         <item itemvalue="Application.BuildSqlInList" />
         <item itemvalue="Groovy.delete-tree" />
       </list>
