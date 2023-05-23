@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# This will work when the whole computer is stuck because
+# the remote machine is having trouble.
+
+LOCAL_DIR="$HOME"/Dropbox
+
+sudo umount -fl "$LOCAL_DIR"
