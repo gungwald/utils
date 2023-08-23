@@ -11,12 +11,14 @@ absdirname() (
   pwd
 )
 
-BIN_DIR=`absdirname "$0"`
-TOP_DIR=`dirname "$BIN_DIR"`
-SCRIPT_DIR="$TOP_DIR"/scripts
+CURR_DIR=`absdirname "$0"`
+PARENT_DIR=`dirname "$CURR_DIR"`
+SCRIPT_DIR="$CURR_DIR"/scripts
+BIN_DIR="$CURR_DIR"/bin
 
 for SCRIPT in `ls "$SCRIPT_DIR"/*"$SCRIPT_EXTENSION"`
 do
   SCRIPT_LINK=`basename "$SCRIPT" "$SCRIPT_EXTENSION"`
+  rm -f "$BIN_DIR"/"$SCRIPT_LINK"
   ln -s "$SCRIPT" "$BIN_DIR"/"$SCRIPT_LINK"
 done
