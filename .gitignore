@@ -27,3 +27,7 @@ Release/
 .DS_Store
 bin\start-oozie-job-knox 
 bin\start-oozie-job-direct 
+
+# JEdit
+\#Untitled*
+

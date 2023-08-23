@@ -1,4 +1,10 @@
 #!/bin/sh
 
-BRANCH_NAME=`git rev-parse --abbrev-ref HEAD`
-git push -u origin "$BRANCH_NAME"
+# This is needed when you have finished development on a new feature branch
+# locally and you need to push it to a remote system like github for the first
+# time. The branch exists locally but not in the remote system yet. This
+# command pushes to the remote, creates the remote branch with the same name,
+# and sets up the remote branch as the default push target.
+
+BRANCH_NAME=`git rev-parse --abbrev-ref HEAD` # Get name of local branch
+git push -u origin "$BRANCH_NAME"               # Create remote with same name
