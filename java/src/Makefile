@@ -1,5 +1,5 @@
 CLASSES_DIR=../classes
-CLASSES=$(CLASSES_DIR)/MavenJarProjectCreator.class $(CLASSES_DIR)/Executor.class $(CLASSES_DIR)/ToLowerCase.class $(CLASSES_DIR)/BuildSqlInList.class $(CLASSES_DIR)/SetDiff.class
+CLASSES=$(CLASSES_DIR)/MavenJarProjectCreator.class $(CLASSES_DIR)/Executor.class $(CLASSES_DIR)/ToLowerCase.class $(CLASSES_DIR)/BuildSqlInList.class $(CLASSES_DIR)/SetDiff.class $(CLASSES_DIR)/RemoveBlankLines.class
 JAVAC=$(HOME)/Dropbox/opt/j2sdk1.4.2/j2sdk1.4.2_19/bin/javac
 
 all: $(CLASSES)
@@ -18,6 +18,9 @@ $(CLASSES_DIR)/Executor.class: Executor.java
 
 $(CLASSES_DIR)/ToLowerCase.class: ToLowerCase.java
 	$(JAVAC) -d $(CLASSES_DIR) ToLowerCase.java
+
+$(CLASSES_DIR)/RemoveBlankLines.class: RemoveBlankLines.java
+	$(JAVAC) -d $(CLASSES_DIR) RemoveBlankLines.java
 
 clean:
 	$(RM) $(CLASSES)

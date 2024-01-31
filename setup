@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# TODO - Create one bin directory with links to appropriate bin directories
+
 # Adds local profile to users home profile.
 
 getAbsolutePath() {

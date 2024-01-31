@@ -218,8 +218,8 @@ endif
 if has('gui_running')
     if g:os == "Darwin"
         set guifont=Monaco:h18
-    elseif has("gui_gtk2") || has("gui_gnome")
-        set guifont=Monospace\ 13
+    elseif has("gui_gtk2") || has("gui_gtk3") || has("gui_gnome")
+        set guifont=Anonymous\ Pro\ 11,Monospace\ 13
     elseif has("x11")
         set guifont=10x20,fixed
         " -xos4-*-*-*-*-*-32-*-*-*-c-*-*-*
@@ -319,6 +319,9 @@ autocmd FileType sql nmap F :%!bash -c format-sql.groovy
 autocmd BufRead,BufNewFile *.jy setlocal filetype=python 
 
 autocmd BufRead,BufNewFile *.bsh setlocal filetype=java 
+
+" 6502 Assembly Language syntax highlighting
+" Copy asm65816.vim into ~/.vim/syntax/
 au BufNewFile,BufRead *.asm set filetype=asm65816
 au BufNewFile,BufRead *.s set filetype=asm65816
 

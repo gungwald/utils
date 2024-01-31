@@ -29,10 +29,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="The rest of them">
-      <change afterPath="$PROJECT_DIR$/java/src/SetDiff.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/java/src/RemoveBlankLines.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/perl/scripts/dedup-seq.pl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/perl5local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/perl5local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/production/Java Source/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java/src/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/java/src/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup" beforeDir="false" afterPath="$PROJECT_DIR$/setup" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +49,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Perl5 script" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -78,13 +82,9 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="PERL5_MAIN_SETTINGS" />
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/java/bin" />
@@ -98,7 +98,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SetDiff">
+  <component name="RunManager" selected="Makefile Target.Makefile">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -114,6 +114,13 @@
       <option name="MAIN_CLASS_NAME" value="BuildSqlInList" />
       <module name="Java Source" />
       <option name="PROGRAM_PARAMETERS" value="$USER_HOME$/Apple2-Printer.txt" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RemoveBlankLines" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="RemoveBlankLines" />
+      <module name="Java Source" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -138,41 +145,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="Java Source" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="Java Source" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="github-search-repos.pl" type="#PerlConfigurationType" factoryName="Perl" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
-      <option name="allowRunningInParallel" value="false" />
-      <option name="alternativeSdkName" />
-      <option name="compileTimeBreakpointsEnabled" value="false" />
-      <option name="consoleCharset" value="UTF-8" />
-      <option name="envs">
-        <map />
-      </option>
-      <option name="initCode" value="" />
-      <option name="nonInteractiveModeEnabled" value="false" />
-      <option name="passParentEnvs" value="true" />
-      <option name="perlParameters" value="" />
-      <option name="programParameters" value="java" />
-      <option name="projectPathOnTarget" />
-      <option name="scriptCharset" value="utf8" />
-      <option name="scriptPath" value="$PROJECT_DIR$/bin/github-search-repos.pl" />
-      <option name="selectedOptions">
-        <list />
-      </option>
-      <option name="startMode" value="RUN" />
-      <option name="useAlternativeSdk" value="false" />
-      <option name="workingDirectory" value="" />
+    <configuration name="Makefile" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/java/src/Makefile" target="" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
       <method v="2" />
     </configuration>
     <configuration name="solaris-download-gnu-devel.pl" type="#PerlConfigurationType" factoryName="Perl" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
@@ -200,12 +176,16 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Application.RemoveBlankLines" />
       <item itemvalue="Application.SetDiff" />
       <item itemvalue="Application.BuildSqlInList" />
       <item itemvalue="Groovy.delete-tree" />
+      <item itemvalue="Makefile Target.Makefile" />
+      <item itemvalue="Perl.solaris-download-gnu-devel.pl" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Makefile Target.Makefile" />
         <item itemvalue="Application.SetDiff" />
         <item itemvalue="Application.BuildSqlInList" />
         <item itemvalue="Groovy.delete-tree" />
@@ -339,5 +319,9 @@
     <MESSAGE value="BuildSqlInList" />
     <MESSAGE value="The rest of them" />
     <option name="LAST_COMMIT_MESSAGE" value="The rest of them" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
