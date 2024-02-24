@@ -215,11 +215,13 @@ endif
 " Use ":set guifont=*" to get a selection dialog in some versions.
 " The guifont property can be set to a comma separated list of font names.
 " Font names are different depending on which GUI is being used.
+" Substituting underscores for spaces does not work.
 if has('gui_running')
     if g:os == "Darwin"
         set guifont=Monaco:h18
     elseif has("gui_gtk2") || has("gui_gtk3") || has("gui_gnome")
-        set guifont=Anonymous\ Pro\ 11,Monospace\ 13
+        " OpenIndiana has gui_gtk3 and the OCR font
+        set guifont=OCR\ A\ 18,ProggySquare\ 18,Anonymous\ Pro\ 11,monofur\ 15,Monospace\ 13
     elseif has("x11")
         set guifont=10x20,fixed
         " -xos4-*-*-*-*-*-32-*-*-*-c-*-*-*
