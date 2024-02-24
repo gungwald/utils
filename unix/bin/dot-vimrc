@@ -209,19 +209,37 @@ endif
 "    endif
 "endif
 
+" Find a font in Linux and similar systems
+function! FontExists(font)
+  exec system("fc-list -q '" . a:font ."'")
+  return v:shell_error == 0
+endfunction
+
 " Set font. To do this again, get your font set in the GUI the way you want
 " and then run the command ":set guifont?" to see what the font specification
 " is. Then copy the font specification to the value of guifont below.
 " Use ":set guifont=*" to get a selection dialog in some versions.
 " The guifont property can be set to a comma separated list of font names.
+" But sometimes this doesn't work so coded OS font detection.
 " Font names are different depending on which GUI is being used.
 " Substituting underscores for spaces does not work.
 if has('gui_running')
     if g:os == "Darwin"
         set guifont=Monaco:h18
     elseif has("gui_gtk2") || has("gui_gtk3") || has("gui_gnome")
+        " The comma separated list of fonts doesn't always work on Linux.
+        " This method of finding the fonts works though.
         " OpenIndiana has gui_gtk3 and the OCR font
-        set guifont=OCR\ A\ 18,ProggySquare\ 18,Anonymous\ Pro\ 11,monofur\ 15,Monospace\ 13
+        for font in ['OCR A', 'ProggySquare', 'Anonymous Pro', 'monofur', 'Liberation Mono', 'Monospace']
+            if FontExists(font)
+                let font .= ' 15'
+                echo 'Trying font: ' . font
+                let &guifont = font
+            else
+                echo "Font does not exist: " . font
+            endif
+        endfor
+        "set guifont=ProggySquare\ 18,Anonymous\ Pro\ 11,monofur\ 15,Liberation\ Mono\ 12,Monospace\ 12
     elseif has("x11")
         set guifont=10x20,fixed
         " -xos4-*-*-*-*-*-32-*-*-*-c-*-*-*

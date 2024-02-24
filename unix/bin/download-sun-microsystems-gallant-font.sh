@@ -1,8 +1,11 @@
 #!/bin/sh
 
-whichOutput=`which curl`
-if [ -n "$whichOutput" ]; then
-  curl --insecure --create-dirs --output "$HOME"/.fonts/gallant12x22.ttf https://www.mortec.com.wstub.archive.org/download/gallant12x22/gallant12x22.ttf
+CURL_EXISTS=`which curl`
+
+if [ -n "$CURL_EXISTS" ]
+then
+	curl --insecure --create-dirs --output "$HOME"/.fonts/gallant12x22.ttf \
+		https://archive.org/download/gallant12x22/gallant12x22.ttf
 else
-  echo $0: no curl to do the download with
+	echo ERROR: Curl not found. Please install it.
 fi
