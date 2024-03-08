@@ -1,4 +1,5 @@
 #!/bin/sh
+# shellcheck disable=SC2006
 BIN_DIR=`dirname "$0"`
 if [ "$BIN_DIR" = "." ]
 then
@@ -6,4 +7,10 @@ then
 fi
 TOP_DIR=`dirname "$BIN_DIR"`
 LIB_DIR="$TOP_DIR"/lib
-exec java -cp "$LIB_DIR"/print-properties.jar PrintProperties
+if [ -z "$JAVA_HOME" ]
+then
+  JAVA=java
+else
+  JAVA="$JAVA_HOME"/bin/java
+fi
+exec "$JAVA" -cp "$LIB_DIR"/print-properties.jar PrintProperties

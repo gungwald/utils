@@ -29,13 +29,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="The rest of them">
-      <change afterPath="$PROJECT_DIR$/java/src/RemoveBlankLines.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/perl/scripts/dedup-seq.pl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/perl5local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/perl5local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/production/Java Source/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/src/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/java/src/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup" beforeDir="false" afterPath="$PROJECT_DIR$/setup" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/bin/props" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/share/s-c-6502-assembler.vim" beforeDir="false" afterPath="$PROJECT_DIR$/share/s-c-6502-assembler.vim" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +78,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="PERL5_MAIN_SETTINGS" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">

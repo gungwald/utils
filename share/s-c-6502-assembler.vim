@@ -36,28 +36,29 @@ syn keyword asmSallyUndoc anc arr asr asx ax7 axe brk dcp jam las lax rla rra sa
 syn keyword asmMerlinPseudoOps mx .ma .em pmc <<< >>> 
 syn keyword asmMerlinSettings xc typ lst equz .eq dw asc ds db da dw ddb dfb adr adrl hex str rev fls inv dci tr skp ttl pag lstdo dat cyc ast dum dend dsk var use obj rel exp dfb sav do fin kbd err chk if else ent ext
 
-syn match asmLabel		"^[a-z_][a-z0-9_]*"
-syn match asmComment		";.*$" contains=asmTodo
-syn match asmComment		"^\*.*$" contains=asmTodo
-syn match asmMerlinLocal ":[a-z_][a-z0-9_]*"
-syn match asmMerlinVariable "][a-z_][a-z0-9_]*"
-syn keyword asmTodo	contained todo fixme xxx warning danger note notice bug author date
-syn region asmString		start=+"+ skip=+\\"+ end=+"+
-syn keyword asmSettings		opt .or typ
+syn match asmComment		"^\*.*$"
+"syn match asmComment		"^\*.*$" contains=asmTodo
+"syn match asmLabel		"^[a-z_][a-z0-9_]*"
+"syn match asmComment		";.*$" contains=asmTodo
+"syn match asmMerlinLocal ":[a-z_][a-z0-9_]*"
+"syn match asmMerlinVariable "][a-z_][a-z0-9_]*"
+"syn keyword asmTodo	contained todo fixme xxx warning danger note notice bug author date
+"syn region asmString		start=+"+ skip=+\\"+ end=+"+
+"syn keyword asmSettings		opt .or typ
 
-syn match decNumber	"\<\d\+\>"
-syn match hexNumber	"\$\x\+\>" " 'bug', but adding \< doesn't behave!
-syn match binNumber	"%[01]\+\>" 
-syn match asmImmediate	"#\$\x\+\>"
-syn match asmImmediate	"#\d\+\>"
-syn match asmImmediate	"<\$\x\+\>"
-syn match asmImmediate	"<\d\+\>"
-syn match asmImmediate	">\$\x\+\>"
-syn match asmImmediate	">\d\+\>"
-syn match asmImmediate	"#<\$\x\+\>"
-syn match asmImmediate	"#<\d\+\>"
-syn match asmImmediate	"#>\$\x\+\>"
-syn match asmImmediate	"#>\d\+\>"
+"syn match decNumber	"\<\d\+\>"
+"syn match hexNumber	"\$\x\+\>" " 'bug', but adding \< doesn't behave!
+"syn match binNumber	"%[01]\+\>" 
+"syn match asmImmediate	"#\$\x\+\>"
+"syn match asmImmediate	"#\d\+\>"
+"syn match asmImmediate	"<\$\x\+\>"
+"syn match asmImmediate	"<\d\+\>"
+"syn match asmImmediate	">\$\x\+\>"
+"syn match asmImmediate	">\d\+\>"
+"syn match asmImmediate	"#<\$\x\+\>"
+"syn match asmImmediate	"#<\d\+\>"
+"syn match asmImmediate	"#>\$\x\+\>"
+"syn match asmImmediate	"#>\d\+\>"
 
 "
 "syn case match
@@ -65,23 +66,23 @@ if !exists("did_asm65_syntax_inits")
   let did_rgb_asm_syntax_inits = 1
 
   " The default methods for highlighting.  Can be overridden later
-  hi link asmLabel	Label
-  hi link asmString	String
+"  hi link asmLabel	Label
+"  hi link asmString	String
   hi link asmComment	Comment
-  hi link asmSettings	Statement
-  hi link asmMerlinSettings	Statement
-  hi link asm65Op Statement
-  hi link asm65c02Op Statement
-  hi link asm65816Op Statement
-  hi link asmSallyUndoc Special
-  hi link asmMerlinPseudoOps Special
-  hi link asmMerlinLocal Function 
-  hi link asmMerlinVariable Type 
-  hi link asm65Reg Identifier
-  hi link asm65Branch Conditional
-  hi link asm65c02Branch Conditional
-  hi link asm65816Branch Conditional
-  hi link asmTodo Debug
+"  hi link asmSettings	Statement
+"  hi link asmMerlinSettings	Statement
+"  hi link asm65Op Statement
+"  hi link asm65c02Op Statement
+"  hi link asm65816Op Statement
+"  hi link asmSallyUndoc Special
+"  hi link asmMerlinPseudoOps Special
+"  hi link asmMerlinLocal Function 
+"  hi link asmMerlinVariable Type 
+"  hi link asm65Reg Identifier
+"  hi link asm65Branch Conditional
+"  hi link asm65c02Branch Conditional
+"  hi link asm65816Branch Conditional
+"  hi link asmTodo Debug
 
   hi link asmImmediate Special
 
