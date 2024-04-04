@@ -28,9 +28,8 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="The rest of them">
-      <change beforePath="$PROJECT_DIR$/java/bin/props" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/share/s-c-6502-assembler.vim" beforeDir="false" afterPath="$PROJECT_DIR$/share/s-c-6502-assembler.vim" afterDir="false" />
+    <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="Make props use JAVA_HOME">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +77,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$USER_HOME$/IdeaProjects/meetings-proxy" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
@@ -263,7 +263,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675288445033</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Make props use JAVA_HOME">
+      <created>1709917380695</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1709917380695</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -313,7 +320,8 @@
     <MESSAGE value="Fixed some stuff" />
     <MESSAGE value="BuildSqlInList" />
     <MESSAGE value="The rest of them" />
-    <option name="LAST_COMMIT_MESSAGE" value="The rest of them" />
+    <MESSAGE value="Make props use JAVA_HOME" />
+    <option name="LAST_COMMIT_MESSAGE" value="Make props use JAVA_HOME" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
