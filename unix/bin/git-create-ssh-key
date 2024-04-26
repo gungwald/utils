@@ -13,7 +13,7 @@ while [ -z "$email" ]; do
     echo Select an e-mail address
     echo 1\) $PERS_EMAIL
     echo 2\) $WORK_EMAIL
-    echo Choose:
+    echo -n Choose:
     read -r RESPONSE
     if [ "$RESPONSE" = "1" ]; then
         email="$PERS_EMAIL"
