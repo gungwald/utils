@@ -16,7 +16,18 @@ else
 	read response
 	if [ "$response" = "y" ]
 	then
-		sudo dnf install python2.7
+		if [ `uname -s` = 'SunOS' ]
+		then
+			osRelease=`uname -r`
+			if [ "$osRelease" = '11.5' ]
+			then
+				sudo pkg install python_27
+			else
+				echo Figure out how to install pissthon in SunOS $osRelease
+			fi
+		else
+			sudo dnf install python2.7
+		fi
 	fi
 fi
 
