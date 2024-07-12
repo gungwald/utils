@@ -28,8 +28,7 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="Make props use JAVA_HOME">
-      <change afterPath="$PROJECT_DIR$/unix/bin/git-create-ssh-key" afterDir="false" />
+    <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="Fix key gen cosmetics">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -271,7 +270,28 @@
       <option name="project" value="LOCAL" />
       <updated>1709917380695</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Key generator">
+      <created>1714149525463</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1714149525463</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Fix key gen errors">
+      <created>1714160827291</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1714160827291</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Fix key gen cosmetics">
+      <created>1714160989069</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1714160989069</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -322,7 +342,10 @@
     <MESSAGE value="BuildSqlInList" />
     <MESSAGE value="The rest of them" />
     <MESSAGE value="Make props use JAVA_HOME" />
-    <option name="LAST_COMMIT_MESSAGE" value="Make props use JAVA_HOME" />
+    <MESSAGE value="Key generator" />
+    <MESSAGE value="Fix key gen errors" />
+    <MESSAGE value="Fix key gen cosmetics" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix key gen cosmetics" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
