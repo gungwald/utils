@@ -28,8 +28,9 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="Fix key gen cosmetics">
+    <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="List local &amp; remove branches">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/win/bin/add-to-path.bat" beforeDir="false" afterPath="$PROJECT_DIR$/win/bin/add-to-path.bat" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -291,7 +292,14 @@
       <option name="project" value="LOCAL" />
       <updated>1714160989069</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="List local &amp; remove branches">
+      <created>1720814535411</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1720814535411</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -345,7 +353,8 @@
     <MESSAGE value="Key generator" />
     <MESSAGE value="Fix key gen errors" />
     <MESSAGE value="Fix key gen cosmetics" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix key gen cosmetics" />
+    <MESSAGE value="List local &amp; remove branches" />
+    <option name="LAST_COMMIT_MESSAGE" value="List local &amp; remove branches" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
