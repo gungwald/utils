@@ -28,9 +28,9 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="List local &amp; remove branches">
+    <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="Fix end-of-PATH corruption with spaces and extra semicolons">
+      <change afterPath="$PROJECT_DIR$/unix/bin/git-list-commit-files.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/win/bin/add-to-path.bat" beforeDir="false" afterPath="$PROJECT_DIR$/win/bin/add-to-path.bat" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +79,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$USER_HOME$/IdeaProjects/meetings-proxy" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -299,7 +299,14 @@
       <option name="project" value="LOCAL" />
       <updated>1720814535411</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Fix end-of-PATH corruption with spaces and extra semicolons">
+      <created>1720896850961</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1720896850962</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -354,7 +361,8 @@
     <MESSAGE value="Fix key gen errors" />
     <MESSAGE value="Fix key gen cosmetics" />
     <MESSAGE value="List local &amp; remove branches" />
-    <option name="LAST_COMMIT_MESSAGE" value="List local &amp; remove branches" />
+    <MESSAGE value="Fix end-of-PATH corruption with spaces and extra semicolons" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix end-of-PATH corruption with spaces and extra semicolons" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
