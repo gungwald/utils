@@ -28,12 +28,8 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="Added git commands">
-      <change afterPath="$PROJECT_DIR$/unix/bin/create-readme.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/bin/mvn-create-jar-project.bsh" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/mvn-create-jar-project.bsh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/bin/org-dashnine-sleep" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/org-dashnine-sleep" afterDir="false" />
+    <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="Create a README file with all the programs">
+      <change beforePath="$PROJECT_DIR$/java/bin/org.dashnine.sleep" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/org.dashnine.sleep" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -307,7 +303,14 @@
       <option name="project" value="LOCAL" />
       <updated>1729335549347</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Create a README file with all the programs">
+      <created>1730958814215</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1730958814216</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -364,7 +367,8 @@
     <MESSAGE value="List local &amp; remove branches" />
     <MESSAGE value="Fix end-of-PATH corruption with spaces and extra semicolons" />
     <MESSAGE value="Added git commands" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added git commands" />
+    <MESSAGE value="Create a README file with all the programs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create a README file with all the programs" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
