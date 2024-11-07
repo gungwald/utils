@@ -21,7 +21,7 @@
 //      Debyan: sudo apt install bsh
 //      Windows:git clone https://github.com/gungwald/bsh.git; install.bat
 
-final int EXIT_SUCCESS = 0;
+import java.io.BufferedReader;final int EXIT_SUCCESS = 0;
 final int EXIT_FAILURE = 1;
 
 int exitCode = EXIT_SUCCESS;

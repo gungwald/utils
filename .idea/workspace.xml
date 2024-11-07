@@ -28,9 +28,12 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="Fix end-of-PATH corruption with spaces and extra semicolons">
-      <change afterPath="$PROJECT_DIR$/unix/bin/git-list-commit-files.sh" afterDir="false" />
+    <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="Added git commands">
+      <change afterPath="$PROJECT_DIR$/unix/bin/create-readme.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/bin/mvn-create-jar-project.bsh" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/mvn-create-jar-project.bsh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/bin/org-dashnine-sleep" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/org-dashnine-sleep" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +53,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -78,14 +80,14 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$USER_HOME$/IdeaProjects/meetings-proxy" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/unix/bin" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/unix/bin" />
       <recent name="$PROJECT_DIR$/java/bin" />
       <recent name="$PROJECT_DIR$/win/scripts" />
-      <recent name="$PROJECT_DIR$/unix/bin" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/win/scripts" />
@@ -94,7 +96,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Makefile Target.Makefile">
+  <component name="RunManager" selected="Shell Script.create-readme.sh">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -147,28 +149,19 @@
       </makefile>
       <method v="2" />
     </configuration>
-    <configuration name="solaris-download-gnu-devel.pl" type="#PerlConfigurationType" factoryName="Perl" temporary="true" nameIsGenerated="true" show_console_on_std_err="false" show_console_on_std_out="false">
-      <option name="allowRunningInParallel" value="false" />
-      <option name="alternativeSdkName" />
-      <option name="compileTimeBreakpointsEnabled" value="false" />
-      <option name="consoleCharset" value="UTF-8" />
-      <option name="envs">
-        <map />
-      </option>
-      <option name="initCode" value="" />
-      <option name="nonInteractiveModeEnabled" value="false" />
-      <option name="passParentEnvs" value="true" />
-      <option name="perlParameters" value="" />
-      <option name="programParameters" />
-      <option name="projectPathOnTarget" />
-      <option name="scriptCharset" value="utf8" />
-      <option name="scriptPath" value="$PROJECT_DIR$/perl/scripts/solaris-download-gnu-devel.pl" />
-      <option name="selectedOptions">
-        <list />
-      </option>
-      <option name="startMode" value="RUN" />
-      <option name="useAlternativeSdk" value="false" />
-      <option name="workingDirectory" />
+    <configuration name="create-readme.sh" type="ShConfigurationType" temporary="true">
+      <option name="SCRIPT_TEXT" value="" />
+      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
+      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/unix/bin/create-readme.sh" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$/unix/bin" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+      <option name="INTERPRETER_PATH" value="/bin/bash" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <option name="EXECUTE_SCRIPT_FILE" value="true" />
+      <envs />
       <method v="2" />
     </configuration>
     <list>
@@ -177,10 +170,11 @@
       <item itemvalue="Application.BuildSqlInList" />
       <item itemvalue="Groovy.delete-tree" />
       <item itemvalue="Makefile Target.Makefile" />
-      <item itemvalue="Perl.solaris-download-gnu-devel.pl" />
+      <item itemvalue="Shell Script.create-readme.sh" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Shell Script.create-readme.sh" />
         <item itemvalue="Makefile Target.Makefile" />
         <item itemvalue="Application.SetDiff" />
         <item itemvalue="Application.BuildSqlInList" />
@@ -306,7 +300,14 @@
       <option name="project" value="LOCAL" />
       <updated>1720896850962</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Added git commands">
+      <created>1729335549347</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1729335549347</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -362,7 +363,8 @@
     <MESSAGE value="Fix key gen cosmetics" />
     <MESSAGE value="List local &amp; remove branches" />
     <MESSAGE value="Fix end-of-PATH corruption with spaces and extra semicolons" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix end-of-PATH corruption with spaces and extra semicolons" />
+    <MESSAGE value="Added git commands" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added git commands" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
