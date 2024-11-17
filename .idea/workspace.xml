@@ -28,8 +28,16 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="Create a README file with all the programs">
-      <change beforePath="$PROJECT_DIR$/java/bin/org.dashnine.sleep" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/org.dashnine.sleep" afterDir="false" />
+    <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="Cleanup">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/bin/dos2unix" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/dos2unix" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/bin/dos2unix.bat" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/dos2unix.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/bin/dos2unix.js" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/dos2unix.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/bin/download-latest-cacerts.sh" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/download-latest-cacerts.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/bin/eclipse-start-from-jar" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/eclipse-start-from-jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/bin/wine95file" beforeDir="false" afterPath="$PROJECT_DIR$/linux/bin/wine95file" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/solaris/bin/set-resolution-1152x900" beforeDir="false" afterPath="$PROJECT_DIR$/solaris/bin/set-resolution-1152x900" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -310,7 +318,14 @@
       <option name="project" value="LOCAL" />
       <updated>1730958814216</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Cleanup">
+      <created>1730991700644</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1730991700644</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -344,6 +359,13 @@
                   </entry>
                 </map>
               </option>
+              <option name="COLUMN_ID_WIDTH">
+                <map>
+                  <entry key="Table.Default.Author.ColumnIdWidth" value="132" />
+                  <entry key="Table.Default.Date.ColumnIdWidth" value="112" />
+                  <entry key="Table.Space.CommitStatus.ColumnIdWidth" value="34" />
+                </map>
+              </option>
             </State>
           </value>
         </entry>
@@ -368,7 +390,8 @@
     <MESSAGE value="Fix end-of-PATH corruption with spaces and extra semicolons" />
     <MESSAGE value="Added git commands" />
     <MESSAGE value="Create a README file with all the programs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create a README file with all the programs" />
+    <MESSAGE value="Cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleanup" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

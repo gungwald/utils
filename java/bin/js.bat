@@ -3,6 +3,8 @@
 @rem assumed to be the script to run.
 @rem
 
+@rem Desc:Runs a script with the Rhino JavaScript interpreter
+
 @echo off
 
 @rem Check for a script argument.

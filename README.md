@@ -34,13 +34,12 @@
 | DiffJarBatchImpl.bat |  |
 | diff-jar-java-impl.bat |  |
 | dirname.bat |  |
-| dos2unix |  |
-| dos2unix.bat |  |
-| dos2unix.js |  |
-| dos2unix-perl.bat |  |
-| download-latest-cacerts.sh |  |
-| eclipse-start-from-jar |  |
-| escape |  |
+| dos2unix | Converts a text file from DOS/Win format to UNIX format |
+| dos2unix.bat | Converts a text file from DOS/Win format to UNIX format |
+| dos2unix.js | Windows Script Host implementation of dos2unix |
+| download-latest-cacerts.sh | Creates new Java JKS cacerts from latest Mozilla certificates database |
+| eclipse-start-from-jar | Start Eclipse from the platform-independent jar |
+| escape | URI encodes all arguments or stdin (rhino impl) |
 | escape.bat |  |
 | est |  |
 | findclass.bat |  |
@@ -80,7 +79,7 @@
 | JoinAllLinesToClipboard.bat |  |
 | jps |  |
 | jps.bat |  |
-| js.bat |  |
+| js.bat | Runs a script with the Rhino JavaScript interpreter |
 | jsc.bat |  |
 | jtidy.bat |  |
 | jver.bat |  |

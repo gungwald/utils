@@ -12,5 +12,6 @@
 
 # The last number is the refresh rate.
 RESOLUTION=r1152x900x60
+# shellcheck disable=SC2046
 /usr/platform/`uname -i`/sbin/eeprom output-device=screen:$RESOLUTION
 echo Firmware set to $RESOLUTION. A reboot is required for it to take effect.
