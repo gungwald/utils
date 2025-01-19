@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# This is needed for the Dell Precision M6300
+
+SOURCE_DIR=https://www.lwfinger.com/b43-firmware
+DOWNLOAD_DIR="$HOME/Downloads"
+TARGET_DIR=/lib/firmware
+FW_V5=5.100.138
+FW_V6=6.30.163.46
+# The v6 firmware does not work, so don't bother
+FW_VERSION=FW_V5
+FW=broadcom-wl-"$FW_VERSION"
+FW_ARCHIVE="$FW".tar.bz2
+
+if [ "$FW_VERSION" = "$FW_V5" ]
+then
+	FW_OBJ_FILE_CONTAINER="$FW"/linux/wl_apsta.o
+elif [ "$FW_VERSION" = "$FW_V6" ] 
+	FW_OBJ_FILE_CONTAINER="$FW".wl_apsta.o
+else
+	echo Unrecognized firmware version
+	exit
+fi
+
+# Download the firmware
+mkdir -p "$DOWNLOAD_DIR" || exit
+cd "$DOWNLOAD_DIR" || exit
+wget "$SOURCE_DIR"/"$FW_ARCHIVE" || exit
+tar xjf "$FW_ARCHIVE" || exit
+
+# Cut the firmware out of the Windows driver and copy it into the proper Linux location
+sudo b43-fwcutter -w "$TARGET_DIR" "$FW_OBJ_FILE_CONTAINER" || exit
+
+# Reload the driver into the kernel so it can find the new firmware
+sync && sync || exit
+sudo modprobe -r b43
+sudo modprobe b43

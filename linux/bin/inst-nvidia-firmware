@@ -1,0 +1,16 @@
+#!/bin/sh
+# Adds NVidia proprietary firmware to provide acceleration on
+# Dell Precision M6300 with NVidia G84GLM [Quadro FX 1600M] (rev a1)
+# - Recognized by Linux as nv84_xuc00f in dmesg
+# - NV proprietary driver doesn't support this GPU anymore?
+# For the M6300, this fixes Gnome on Wayland but breaks it on X
+# This doesn't really apply to any other machine I have. It would
+# only work on a machine with an older NVidia GPU
+mkdir /tmp/nouveau
+cd /tmp/nouveau
+wget https://raw.github.com/envytools/firmware/master/extract_firmware.py
+wget http://us.download.nvidia.com/XFree86/Linux-x86/325.15/NVIDIA-Linux-x86-325.15.run
+sh NVIDIA-Linux-x86-325.15.run --extract-only
+python extract_firmware.py
+sudo mkdir -p /lib/firmware/nouveau
+sudo cp -d nv* vuc-* /lib/firmware/nouveau/

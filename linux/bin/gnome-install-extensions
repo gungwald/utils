@@ -1,0 +1,5 @@
+#!/bin/sh
+# There is a conflict between the applet and the regular system monitor.
+# We want the applet.
+sudo dnf install --exclude=gnome-shell-extension-system-monitor gnome-shell-extension-*
+echo Now type ALT-F2 \'r\' to restart Gnome Shell to make extensions available.

@@ -1,0 +1,3 @@
+#!/bin/sh
+sudo dnf install f*-backgrounds-base f*-backgrounds-gnome f*-backgrounds-extras-base f*-backgrounds-extras-gnome
+
