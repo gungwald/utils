@@ -1,4 +1,7 @@
 #!/bin/sh
+#
+# DON'T DO THIS BECAUSE IT CAUSES THE X SERVER TO HANG
+#
 # Adds NVidia proprietary firmware to provide acceleration on
 # Dell Precision M6300 with NVidia G84GLM [Quadro FX 1600M] (rev a1)
 # - Recognized by Linux as nv84_xuc00f in dmesg
@@ -14,3 +17,4 @@ sh NVIDIA-Linux-x86-325.15.run --extract-only
 python extract_firmware.py
 sudo mkdir -p /lib/firmware/nouveau
 sudo cp -d nv* vuc-* /lib/firmware/nouveau/
+

@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# DON'T DO THIS BECAUSE THE NVIDIA DRIVER HANGS UP AND IT IS NOT SUPPORTED
+#
+# Installs NVidia proprietary GPU driver for
+# Dell Precision M6300 with NVidia G84GLM [Quadro FX 1600M] (rev a1)
+# - Recognized by Linux as nv84_xuc00f in dmesg
+# Driver name: 340.xx
+# This doesn't really apply to any other machine I have.
+# rpmfusion.org repo must already be setup
+
+sudo dnf update -y
+echo Building and installing driver. This may take 5 minutes.
+sudo dnf install xorg-x11-drv-nvidia-340xx akmod-nvidia-340xx
+sudo dnf install xorg-x11-drv-nvidia-340xx-cuda #optional for cuda up to 6.5 support
+

@@ -4,7 +4,7 @@
 
 use strict;
 use warnings;
-use Net::GitHub;
+use Net::GitHub; # Install perl-Net-GitHub in Fedora
 
 my $github = Net::GitHub->new(  # Net::GitHub::V3
 	version => 3,
