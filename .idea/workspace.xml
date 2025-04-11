@@ -30,14 +30,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c32e1670-e8ca-4dfd-bf42-d750821ff306" name="Default Changelist" comment="Cleanup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/bin/dos2unix" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/dos2unix" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/bin/dos2unix.bat" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/dos2unix.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/bin/dos2unix.js" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/dos2unix.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/bin/download-latest-cacerts.sh" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/download-latest-cacerts.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/bin/eclipse-start-from-jar" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/eclipse-start-from-jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/bin/wine95file" beforeDir="false" afterPath="$PROJECT_DIR$/linux/bin/wine95file" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/solaris/bin/set-resolution-1152x900" beforeDir="false" afterPath="$PROJECT_DIR$/solaris/bin/set-resolution-1152x900" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unix/bin/lsdisks" beforeDir="false" afterPath="$PROJECT_DIR$/unix/bin/lsdisks" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,16 +70,23 @@
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="1eZYLxQK8Nu1XxurDO1NocI2d3E" />
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/unix/bin" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/bill/git/rune&quot;
+  }
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/unix/bin" />
@@ -169,9 +169,9 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Application.BuildSqlInList" />
       <item itemvalue="Application.RemoveBlankLines" />
       <item itemvalue="Application.SetDiff" />
-      <item itemvalue="Application.BuildSqlInList" />
       <item itemvalue="Groovy.delete-tree" />
       <item itemvalue="Makefile Target.Makefile" />
       <item itemvalue="Shell Script.create-readme.sh" />
@@ -179,7 +179,6 @@
     <recent_temporary>
       <list>
         <item itemvalue="Shell Script.create-readme.sh" />
-        <item itemvalue="Makefile Target.Makefile" />
         <item itemvalue="Application.SetDiff" />
         <item itemvalue="Application.BuildSqlInList" />
         <item itemvalue="Groovy.delete-tree" />
@@ -348,6 +347,13 @@
         <entry key="MAIN">
           <value>
             <State>
+              <option name="COLUMN_ID_WIDTH">
+                <map>
+                  <entry key="Table.Default.Author.ColumnIdWidth" value="132" />
+                  <entry key="Table.Default.Date.ColumnIdWidth" value="112" />
+                  <entry key="Table.Space.CommitStatus.ColumnIdWidth" value="34" />
+                </map>
+              </option>
               <option name="FILTERS">
                 <map>
                   <entry key="branch">
@@ -357,13 +363,6 @@
                       </list>
                     </value>
                   </entry>
-                </map>
-              </option>
-              <option name="COLUMN_ID_WIDTH">
-                <map>
-                  <entry key="Table.Default.Author.ColumnIdWidth" value="132" />
-                  <entry key="Table.Default.Date.ColumnIdWidth" value="112" />
-                  <entry key="Table.Space.CommitStatus.ColumnIdWidth" value="34" />
                 </map>
               </option>
             </State>
