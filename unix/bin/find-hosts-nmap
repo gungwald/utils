@@ -1,8 +1,10 @@
 #!/bin/sh
 if [ $(id -u) -ne 0 ]
 then
-    echo This scan requires root access. Restarting with Su-Su-Sussudio.
+    echo This scan requires root access. Restarting with Su-Su-Su-dio.
     exec sudo "$0" "$@"
 fi
-echo SEARCHING HOSTS ON 192.168.0.X
-nmap -v -O --osscan-guess -sT 192.168.0.2-50
+echo SEARCHING HOSTS ON 192.168.1.1/24
+# Simple ping scan
+#nmap -sn 192.168.1.1/24
+nmap -O --osscan-guess -sT 192.168.1.1/24
