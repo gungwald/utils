@@ -2,13 +2,16 @@
 
 setlocal
 
-call setvars.bat
-jrunscript -cp %JAR_DIR%\sleep.jar -l sleep %SCRIPT_DIR%\which.sl %*
+set TOP_DIR=%~dp0..
+set JAR_DIR=%TOP_DIR%\lib
+set SCRIPT_DIR=%TOP_DIR%\scripts
+
+java -jar %JAR_DIR%\which.jar %*
 goto :EOF
 
 rem Alternative scripts and start methods:
 perl %SCRIPT_DIR%\which.pl %*
-java -jar %JAR_DIR%\sleep.jar %SCRIPT_DIR%\which.sl %*
+jrunscript -cp %JAR_DIR%\sleep.jar -l sleep %SCRIPT_DIR%\which.sl %*
 
 endlocal
 

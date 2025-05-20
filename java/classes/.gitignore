@@ -1,3 +1,4 @@
+/BuildSqlInList.class
 /CommandLineProgram.class
 /Executor.class
 /JavaCryptographicExtensionStrength.class
@@ -5,3 +6,6 @@
 /Makefile
 /MavenJarProjectCreator.class
 /PlafLister.class
+/RemoveBlankLines.class
+/SetDiff.class
+/ToLowerCase.class

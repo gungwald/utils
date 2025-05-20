@@ -1,4 +1,4 @@
-rem @echo off
+@echo off
 
 rem Script:  add-to-path.bat
 rem Author:  Bill Chatfield

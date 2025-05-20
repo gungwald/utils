@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ccaac11d-d8ef-427a-a5f7-a4812544abf8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/basic/setup.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/java/setup.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/perl/setup.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/setup.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/win/scripts/findJava.js.vbsedit" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/win/setup.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/bin/findjvms.bat" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/findjvms.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/bin/which.bat" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/which.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/BuildSqlInList.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/BuildSqlInList.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/CommandLineProgram.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/CommandLineProgram.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/Executor.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/Executor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/JavaCryptographicExtensionStrength.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/JavaCryptographicExtensionStrength.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/KeystoreLister.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/KeystoreLister.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/MavenJarProjectCreator.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/MavenJarProjectCreator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/PlafLister.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/PlafLister.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/SetDiff.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/SetDiff.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/ToLowerCase.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/ToLowerCase.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/BuildSqlInList.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/CommandLineProgram.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/Executor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/JavaCryptographicExtensionStrength.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/KeystoreLister.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/MavenJarProjectCreator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/PlafLister.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/RemoveBlankLines.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/SetDiff.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/ToLowerCase.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/libexec/findjava.bat" beforeDir="false" afterPath="$PROJECT_DIR$/java/libexec/findjava.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/win/bin/add-to-path.bat" beforeDir="false" afterPath="$PROJECT_DIR$/win/bin/add-to-path.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/win/bin/lsdrives.bat" beforeDir="false" afterPath="$PROJECT_DIR$/win/bin/lsdrives.bat" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;gungwald&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:gungwald/utils&quot;,
+    &quot;accountId&quot;: &quot;46e338f1-7d5c-47ff-92a3-0b7baaab1e09&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2vxnZaAFiQb1h0HEcV3i2TJFZ2Y" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/bill/git/utils/perl"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/perl" />
+      <recent name="$PROJECT_DIR$/basic" />
+      <recent name="$PROJECT_DIR$/java" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ccaac11d-d8ef-427a-a5f7-a4812544abf8" name="Changes" comment="" />
+      <created>1745095648922</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1745095648922</updated>
+    </task>
+    <servers />
+  </component>
+</project>
