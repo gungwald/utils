@@ -13,9 +13,9 @@ public class JavaCryptographicExtensionStrength {
         try {
             int keyLen = Cipher.getMaxAllowedKeyLength("AES");
             if (keyLen == JCE_UNLIMITED_STRENGTH) {
-                System.out.printf("%d (unlimited)%n", keyLen);
+                System.out.println(keyLen + " (unlimited)");
             } else {
-                System.out.printf("%d%n", keyLen);
+                System.out.println(keyLen);
             }
         } catch (Exception e) {
             e.printStackTrace();

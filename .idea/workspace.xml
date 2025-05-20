@@ -4,41 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ccaac11d-d8ef-427a-a5f7-a4812544abf8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basic/setup.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java/setup.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/perl/setup.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/setup.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/win/scripts/findJava.js.vbsedit" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/win/setup.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/bin/findjvms.bat" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/findjvms.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/bin/which.bat" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/which.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/.gitignore" afterDir="false" />
+    <list default="true" id="ccaac11d-d8ef-427a-a5f7-a4812544abf8" name="Changes" comment="Make Windows work better">
+      <change afterPath="$PROJECT_DIR$/java/bin/which-sleep.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/bin/classver.bat" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/classver.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/java/classes/BuildSqlInList.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/BuildSqlInList.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java/classes/CommandLineProgram.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/CommandLineProgram.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java/classes/Executor.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/Executor.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java/classes/JavaCryptographicExtensionStrength.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/JavaCryptographicExtensionStrength.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java/classes/KeystoreLister.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/KeystoreLister.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/classes/Makefile" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/java/classes/MavenJarProjectCreator.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/MavenJarProjectCreator.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java/classes/PlafLister.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/PlafLister.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java/classes/SetDiff.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/SetDiff.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java/classes/ToLowerCase.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/ToLowerCase.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/BuildSqlInList.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/CommandLineProgram.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/Executor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/JavaCryptographicExtensionStrength.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/KeystoreLister.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/MavenJarProjectCreator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/PlafLister.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/RemoveBlankLines.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/SetDiff.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/production/Java Source/ToLowerCase.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/libexec/findjava.bat" beforeDir="false" afterPath="$PROJECT_DIR$/java/libexec/findjava.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/win/bin/add-to-path.bat" beforeDir="false" afterPath="$PROJECT_DIR$/win/bin/add-to-path.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/win/bin/lsdrives.bat" beforeDir="false" afterPath="$PROJECT_DIR$/win/bin/lsdrives.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/src/JavaCryptographicExtensionStrength.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/src/JavaCryptographicExtensionStrength.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/src/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/java/src/Makefile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,6 +54,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Makefile Target.all.executor": "Run",
+    "Makefile Target.clean.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
@@ -87,6 +71,26 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
+  <component name="RunManager" selected="Makefile Target.all">
+    <configuration name="all" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/java/src/Makefile" target="all" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="clean" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/java/src/Makefile" target="clean" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Makefile Target.all" />
+        <item itemvalue="Makefile Target.clean" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -96,6 +100,30 @@
       <option name="presentableId" value="Default" />
       <updated>1745095648922</updated>
     </task>
+    <task id="LOCAL-00001" summary="Make Windows work better">
+      <option name="closed" value="true" />
+      <created>1747716612013</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1747716612014</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Make Windows work better" />
+    <option name="LAST_COMMIT_MESSAGE" value="Make Windows work better" />
   </component>
 </project>

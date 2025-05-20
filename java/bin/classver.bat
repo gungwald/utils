@@ -1,4 +1,4 @@
-@echo off
+rem @echo off
 
 setlocal
 
@@ -7,7 +7,10 @@ set THIS_DIR=%~dp0
 set LIB_DIR=%THIS_DIR%..\lib
 
 rem Find the highest version of the jar.
-for %%j in ("%LIB_DIR%\%THIS%-*.jar") do (
+rem May fail if there are spaces in LIB_DIR. Not sure how to solve it
+rem because quotes also cause it to fail.
+set JAR=
+for %%j in (%LIB_DIR%\%THIS%-*.jar) do (
 	set JAR=%%j
 )
 
