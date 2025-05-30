@@ -4,22 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ccaac11d-d8ef-427a-a5f7-a4812544abf8" name="Changes" comment="Make Windows work better">
-      <change afterPath="$PROJECT_DIR$/java/bin/which-sleep.bat" afterDir="false" />
+    <list default="true" id="ccaac11d-d8ef-427a-a5f7-a4812544abf8" name="Changes" comment="Fix Makefile to produce Java 1.1 class files">
+      <change afterPath="$PROJECT_DIR$/win/bin/git-use-win-cert-store.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/bin/classver.bat" beforeDir="false" afterPath="$PROJECT_DIR$/java/bin/classver.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/BuildSqlInList.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/BuildSqlInList.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/CommandLineProgram.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/CommandLineProgram.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/Executor.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/Executor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/JavaCryptographicExtensionStrength.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/JavaCryptographicExtensionStrength.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/KeystoreLister.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/KeystoreLister.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/MavenJarProjectCreator.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/MavenJarProjectCreator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/PlafLister.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/PlafLister.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/SetDiff.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/SetDiff.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/classes/ToLowerCase.class" beforeDir="false" afterPath="$PROJECT_DIR$/java/classes/ToLowerCase.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/src/JavaCryptographicExtensionStrength.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/src/JavaCryptographicExtensionStrength.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/java/src/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/java/src/Makefile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -108,7 +95,31 @@
       <option name="project" value="LOCAL" />
       <updated>1747716612014</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Fix Makefile to produce Java 1.1 class files">
+      <option name="closed" value="true" />
+      <created>1747754613162</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1747754613162</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Fix Makefile to produce Java 1.1 class files">
+      <option name="closed" value="true" />
+      <created>1747754676264</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1747754676264</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Fix Makefile to produce Java 1.1 class files">
+      <option name="closed" value="true" />
+      <created>1747754749036</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1747754749036</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -124,6 +135,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Make Windows work better" />
-    <option name="LAST_COMMIT_MESSAGE" value="Make Windows work better" />
+    <MESSAGE value="Produce Java 1.1 class files" />
+    <MESSAGE value="Fix Makefile to produce Java 1.1 class files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix Makefile to produce Java 1.1 class files" />
   </component>
 </project>
