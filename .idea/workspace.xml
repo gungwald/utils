@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ccaac11d-d8ef-427a-a5f7-a4812544abf8" name="Changes" comment="Fix Makefile to produce Java 1.1 class files">
-      <change afterPath="$PROJECT_DIR$/win/bin/git-use-win-cert-store.bat" afterDir="false" />
+    <list default="true" id="ccaac11d-d8ef-427a-a5f7-a4812544abf8" name="Changes" comment="Git use Windows cert store">
+      <change afterPath="$PROJECT_DIR$/java/bin/manifest.ps1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/java/bin/manifest.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/src/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/java/src/Makefile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,11 +47,13 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/bill/git/utils/perl"
+    "last_opened_file_path": "/home/bill/git/utils/win/bin",
+    "settings.editor.selected.configurable": "advanced.settings"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/win/bin" />
       <recent name="$PROJECT_DIR$/perl" />
       <recent name="$PROJECT_DIR$/basic" />
       <recent name="$PROJECT_DIR$/java" />
@@ -119,7 +121,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747754749036</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Git use Windows cert store">
+      <option name="closed" value="true" />
+      <created>1748638189428</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1748638189428</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -137,6 +147,7 @@
     <MESSAGE value="Make Windows work better" />
     <MESSAGE value="Produce Java 1.1 class files" />
     <MESSAGE value="Fix Makefile to produce Java 1.1 class files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix Makefile to produce Java 1.1 class files" />
+    <MESSAGE value="Git use Windows cert store" />
+    <option name="LAST_COMMIT_MESSAGE" value="Git use Windows cert store" />
   </component>
 </project>
