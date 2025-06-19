@@ -24,7 +24,7 @@ CommandObj.Properties("Page Size") = 900
 SET Recordset = CommandObj.Execute
 
 WHILE (NOT Recordset.EOF)
-   UserDN= Recordset.Fields("DistinguishedName").Value
-   wscript.Echo UserDN   
+   UserDN = Recordset.Fields("DistinguishedName").Value
+   wscript.Echo UserDN
    Recordset.moveNext
 WEND
