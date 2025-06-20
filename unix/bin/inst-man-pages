@@ -8,6 +8,9 @@ case "$OS" in
 			ubuntu)
 				sudo apt install manpages-dev
 				;;
+		  fedora)
+		    sudo dnf install man-pages libstdc++-docs perl-doc
+		    ;;
 			*)
 				echo Implement case for "$NAME" Linux.
 				;;
