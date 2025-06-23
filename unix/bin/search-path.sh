@@ -1,18 +1,7 @@
-#!/bin/sh
-IFS=':'
-for elem in $PATH
+#!/bin/bash
+for pattern in "$@"
 do
-  if [ -d "$elem" ] && find -name '*'"$1"'*'
-  then
-    # shellcheck disable=SC2006
-    IFS="`printf ' \t\n'`"
-    printf "\n%s:\n\n" "$elem"
-    (
-      cd $elem || exit
-      for pattern
-      do
-        ls *"$pattern"*
-      done
-    )
-  fi
+  # Spaces in PATH will break this. You could "tr" the colons to a new line
+  # and then read the directories as input. But, I like it like this.
+  find ${PATH//:/ } -name "*${pattern}*" -print
 done
