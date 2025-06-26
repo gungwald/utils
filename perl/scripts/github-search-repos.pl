@@ -3,8 +3,6 @@
 # Author: Bill Chatfield - https://github.com/gungwald
 
 use strict;
-# Make STDIN, STDOUT, STDERR UTF-8 compatible
-use open ':std', ':encoding(UTF-8)'; 
 use Data::Dumper;
 
 use constant EXIT_SUCCESS => 0;
@@ -15,11 +13,22 @@ BEGIN {
     my $isModuleMissing = 0;
     # Simply checking the return value of eval doesn't work in old versions
     # of Perl. The $@ variable must be checked.
+    # Make STDIN, STDOUT, STDERR UTF-8 compatible
+    eval "use open ':std', ':encoding(UTF-8)'";
+    if ($@) {
+        #print STDERR $@;
+        print STDERR "Please install Perl module 'open'\n";
+        print STDERR "    Fedora: sudo dnf install perl-open\n";
+        print STDERR "    Debian: it should be installed by default\n";
+        print STDERR "    CPAN:   sudo cpan -i open\n";
+        $isModuleMissing = 1;
+    }
     eval "use Net::GitHub::V3";
     if ($@) {
         #print STDERR $@;
         print STDERR "Please install Perl module Net::GitHub\n";
         print STDERR "    Fedora: sudo dnf install perl-Net-GitHub\n";
+        print STDERR "    Debian: sudo apt install libnet-github-perl\n";
         print STDERR "    CPAN:   sudo cpan -i Net::GitHub\n";
         $isModuleMissing = 1;
     }
@@ -28,6 +37,7 @@ BEGIN {
         #print STDERR $@;
         print STDERR "Please install Perl module Try::Tiny\n";
         print STDERR "    Fedora: sudo dnf install perl-Try-Tiny\n";
+        print STDERR "    Debian: sudo apt install libtry-tiny-perl\n";
         print STDERR "    CPAN:   sudo cpan -i Try::Tiny\n";
         $isModuleMissing = 1;
     }
@@ -36,6 +46,7 @@ BEGIN {
         #print STDERR $@;
         print STDERR "Please install Perl module Exception::Class\n";
         print STDERR "    Fedora: sudo dnf install perl-Exception-Class\n";
+        print STDERR "    Debian: sudo apt install libexception-class-perl\n";
         print STDERR "    CPAN:   sudo cpan -i Exception::Class\n";
         $isModuleMissing = 1;
     }
