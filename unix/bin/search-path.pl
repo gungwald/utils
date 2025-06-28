@@ -1,15 +1,13 @@
 #!/usr/bin/perl
 
+use File::Spec::Functions 'path', 'rel2abs'; # Makes script cross-platform
+
 foreach my $pattern (@ARGV) {
-    foreach my $elem (split(/:/, $ENV{PATH})) {
-        if (-d $elem) {
-            chdir($elem);
-            my @matches = glob("*$pattern*");
-            if (@matches) {
-                print "\n$elem:\n\n";
-                foreach my $match (@matches) {
-                    print "$match\n";
-                }
+    foreach my $dir (path()) {
+        if (-d $dir) {
+            chdir($dir);
+            foreach my $match (glob("*$pattern*")) {
+                print rel2abs($match), "\n";
             }
         }
     }
