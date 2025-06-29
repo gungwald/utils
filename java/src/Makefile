@@ -18,7 +18,9 @@ JAVAC=$(HOME)/Dropbox/opt/jdk1.5.0/jdk1.5.0_22/bin/javac
 
 SOURCE_DIR=../src
 CLASSES_DIR=../classes
+# The 1.3 and 1.1 works for something. I can't remember what.
 JFLAGS=-source 1.3 -target 1.1 -g
+JFLAGS=-source 1.5 -target 1.5 -g
 
 COMPILE.java=$(JAVAC) $(JFLAGS)
 OUTPUT_OPTION=-d $(CLASSES_DIR)
