@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# This script is for the situation where an ignore entry is added to
+# .gitignore for something like .idea/ that needs to be kept locally
+# but the file or directory entries had already been added to Git and
+# should be removed from Git.
+
+if [ $# -gt 0 ]
+then
+  git rm -r --cached "$@"
+else
+  echo You must provide something to delete
+fi
