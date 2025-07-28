@@ -1,14 +1,22 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 
-# Bill Chatfield <bill_chatfield@yahoo.com>
+# Author:  Bill Chatfield
+# License: GPL3
 
 use strict;
 use warnings;
 use Net::GitHub; # Install perl-Net-GitHub in Fedora
 
-my $github = Net::GitHub->new(  # Net::GitHub::V3
+# Read token from token file.
+my $tokenFile = "$ENV{HOME}/Dropbox/.github/readonly-token.txt"; 
+open(TOKEN, "<$tokenFile") || die "open $tokenFile: $!\n";
+my $token = <TOKEN>;
+chomp($token);
+close(TOKEN);
+
+my $github = new Net::GitHub(  # Net::GitHub::V3
 	version => 3,
-	access_token => 'dc77a8e3ede6e64f378c5c7f08d06b3d65602f68',
+	access_token => $token,
 	RaiseError => 1
 );
            
