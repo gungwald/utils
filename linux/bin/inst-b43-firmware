@@ -1,14 +1,21 @@
 #!/bin/sh
 
-# This is needed for the Dell Precision M6300
+# This is needed for the Dell Precision M6300. This works in Fedora and maybe
+# in Debian. Use a USB Wifi adapter to make this script work.
 
 SOURCE_DIR=https://www.lwfinger.com/b43-firmware
+# The above is offline.
+SOURCE_DIR=https://github.com/minios-linux/b43-firmware/releases/download/b43-firmware
 DOWNLOAD_DIR="$HOME/Downloads"
 TARGET_DIR=/lib/firmware
-FW_V5=5.100.138
-FW_V6=6.30.163.46
+# Version 5.100.104.2 is verified to work.
 # The v6 firmware does not work, so don't bother
-FW_VERSION=FW_V5
+# v6 is for v6 kernel? I don't know. Maybe it works now?
+# No, v6 doesn't work! More time wasted. Use 5.100.104.2!
+FW_V5=5.100.138
+FW_V5=5.100.104.2
+FW_V6=6.30.163.46
+FW_VERSION="$FW_V5"
 FW=broadcom-wl-"$FW_VERSION"
 FW_ARCHIVE="$FW".tar.bz2
 
@@ -16,6 +23,7 @@ if [ "$FW_VERSION" = "$FW_V5" ]
 then
 	FW_OBJ_FILE_CONTAINER="$FW"/linux/wl_apsta.o
 elif [ "$FW_VERSION" = "$FW_V6" ] 
+then
 	FW_OBJ_FILE_CONTAINER="$FW".wl_apsta.o
 else
 	echo Unrecognized firmware version
@@ -26,10 +34,18 @@ fi
 mkdir -p "$DOWNLOAD_DIR" || exit
 cd "$DOWNLOAD_DIR" || exit
 wget "$SOURCE_DIR"/"$FW_ARCHIVE" || exit
-tar xjf "$FW_ARCHIVE" || exit
+if [ "$(file "$FW_ARCHIVE" | cut -d ' ' -f 2)" != 'bzip2' ]; then
+       echo The downloaded $FW_ARCHIVE is not a bzip2 file. Check the source link.
+       exit
+fi
+mkdir -p "$FW"
+cd "$FW"
+tar xjf ../"$FW_ARCHIVE" || exit
 
+# Yeah, b43-fwcutter must be installed...
 # Cut the firmware out of the Windows driver and copy it into the proper Linux location
 sudo b43-fwcutter -w "$TARGET_DIR" "$FW_OBJ_FILE_CONTAINER" || exit
+sudo chmod o+rx "$TARGET_DIR"/b43
 
 # Reload the driver into the kernel so it can find the new firmware
 sync && sync || exit
