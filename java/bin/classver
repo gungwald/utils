@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 BIN_DIR=`dirname "$0"`
 if [ "$BIN_DIR" = '.' ]; then
@@ -9,7 +9,7 @@ THIS=`basename "$0"`
 
 APP=com.alteredmechanism.classversionextractor.ClassVersionExtractor
 CLASSES_DIR="$HOME"/git/classver/build/classes/main
-MAIN_CLASS_FILE=${APP//.//}.class
+MAIN_CLASS_FILE=${APP//\.///}.class
 VERSION=2.0.0
 JAR="$THIS"-"$VERSION".jar
 
