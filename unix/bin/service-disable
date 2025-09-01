@@ -1,4 +1,5 @@
 #!/bin/sh
+# Desc:Turn off a systemd-controlled service
 set -o errexit
 
 if [ $# -gt 0 ]

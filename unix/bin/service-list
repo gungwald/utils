@@ -1,3 +1,4 @@
 #!/bin/sh
+# Desc:List all systemd-controlled services
 # Sudo is not needed to list the services.
 systemctl list-units *.service

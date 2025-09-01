@@ -1,4 +1,5 @@
 #!/bin/sh
+# Desc:List all systemd-controlled services which depend on a given service
 if [ $# -gt 0 ]
 then
     for svc in "$@"
