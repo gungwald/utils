@@ -131,7 +131,8 @@ listFilesInDebianPackages() (
     then
       echo "$pkg is not installed. Trying apt-file."
       ensureDebianPackageInstalled apt-file
-      sudo apt-file update
+      echo Updating apt-file database. This may take a while...
+      sudo apt-file update >/dev/null
       apt-file list "$pkg"
     elif [ "$dpkgQueryExitCode" -eq "$DPKG_QUERY_ERROR" ]
     then
