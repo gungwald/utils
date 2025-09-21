@@ -121,14 +121,21 @@ listFilesInDebianPackages() (
   # dpkg-query returns exit code 1 if package is not installed.
   # For any other error it returns exit code 2.
   DPKG_NOT_INSTALLED=1
+  DPKG_QUERY_ERROR=2
   # First try dpkg-query, then apt-file if package is not installed.
   for pkg in "$@"
   do
-    dpkg-query --listfiles "$pkg"
-    if [ $? -eq "$DPKG_NOT_INSTALLED" ]
+    dpkg-query --listfiles "$pkg" 2>/dev/null
+    dpkgQueryExitCode=$?
+    if [ "$dpkgQueryExitCode" -eq "$DPKG_NOT_INSTALLED" ]
     then
+      echo "$pkg is not installed. Trying apt-file."
       ensureDebianPackageInstalled apt-file
+      apt-file update
       apt-file list "$pkg"
+    elif [ "$dpkgQueryExitCode" -eq "$DPKG_QUERY_ERROR" ]
+    then
+      fail "Failed to run: dpkg-query --listfiles \"$pkg\":" "$(dpkg-query --listfiles "$pkg" 2>&1)"
     fi
   done
 )
