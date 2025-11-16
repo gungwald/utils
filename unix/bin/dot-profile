@@ -112,7 +112,7 @@ buildPath()
 			path="$dir":"$path"
 		fi
 	done
-  return "$path"
+        echo "$path"
 )
 
 buildPrompt()
@@ -129,7 +129,7 @@ $ '
 	else
 		prompt="$ "
 	fi
-  return "$prompt"
+        echo "$prompt"
 )
 
 fixKornShell
