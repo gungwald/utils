@@ -29,8 +29,27 @@
 #
 ##############################################################################
 
-use English '-no_match_vars';
+use warnings FATAL => 'all';
 use strict;
+
+# On Fedora perl-English is/was not installed by default. They claim to be
+# trying to fix it, but I have an up-to-date system where it is not installed.
+BEGIN {
+    my $mod = qw(English);
+    eval "use $mod";
+    if ($@) {
+        warn "Couldn\'t load module $mod: $@\n";
+        my $iniPackage = "perl-Config-INI";
+        my $isIniInstalled = (system("rpm --query --quiet $iniPackage") >> 8) == 0;
+        if ($isIniInstalled) {
+            die("Don't know what to do because required package is already installed: $iniPackage\n");
+        } else {
+            print "Required package $iniPackage will be installed.\n";
+            system("sudo dnf -y install $iniPackage");
+        }
+    }
+    $mod->import('-no_match_vars');
+}
 
 my $title = $ARGV[0];
 my $exitValue = 0;
