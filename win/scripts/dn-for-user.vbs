@@ -4,8 +4,8 @@ DomainName = "Consonto"
 User = "User1"
 
 SET UsrObj = GETOBJECT("WinNT://" & DomainName & "/" & User & ",user")
-NT4Name = replace(UsrObj.ADsPath,"WinNT://","")
-tempArray = split(nt4Name,"/")
+NT4Name = replace(UsrObj.ADsPath, "WinNT://", "")
+tempArray = split(nt4Name, "/")
 NT4Name = tempArray(1)
 
 QueryFilter = QueryFilter & "(samAccountName=" & NT4Name & ")"
@@ -24,7 +24,7 @@ CommandObj.Properties("Page Size") = 900
 SET Recordset = CommandObj.Execute
 
 WHILE (NOT Recordset.EOF)
-   UserDN = Recordset.Fields("DistinguishedName").Value
-   wscript.Echo UserDN
-   Recordset.moveNext
+    UserDN = Recordset.Fields("DistinguishedName").Value
+    wscript.Echo UserDN
+    Recordset.moveNext
 WEND

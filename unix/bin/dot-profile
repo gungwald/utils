@@ -2,11 +2,6 @@
 
 # Reference this from .profile or .bash_profile or make a link to it.
 
-GITDIR=$HOME/git
-UTILSBIN=$GITDIR/utils/unix/bin
-JAVAUTILSBIN=$GITDIR/utils/java/bin
-DROPBOXBIN=$HOME/Dropbox/bin
-
 isKornShell()
 (
 	SHELL_BASENAME=`basename "$SHELL"`
@@ -58,7 +53,7 @@ split()
 # This works similar to Perl's join command. The
 # name of this function clashes with the standard join command.
 join() 
-{
+(
 	if readLine
 	then
 		printf "%s" "$LINE"
@@ -67,19 +62,19 @@ join()
 			printf "%s%s" "$1" "$LINE" 
 		done
 	fi
-}
+)
 
 removeDuplicateEntries() 
-{
+(
 	split : "$1" | uniq | join :
-}
+)
 
 fixKornShell()
 {
 	if isKornShell
 	then
 		echo Identified Korn Shell. Adding pushd, popd, and dirs commands.
-		. "$UTILSBIN"/dirstack.ksh
+		. "$HOME"/utils/unix/bin/dirstack.ksh
 	fi
 }
 	
@@ -87,12 +82,13 @@ setupAliases()
 {
 	if hasAliasCommand
 	then
-		alias path="echo PATH=$PATH"
-		alias b="pushd $UTILSBIN"
-		alias g="pushd $GITDIR"
-		alias u="pushd $UTILSDIR"
-		alias jb="pushd $JAVAUTILSBIN"
-
+		alias path='echo PATH=$PATH'
+		alias b='pushd "$HOME"/git/utils/unix/bin'
+		alias g='pushd "$HOME"/git'
+		alias u='pushd "$HOME"/git/utils'
+    alias j='pushd "$HOME"/utils/java'
+    alias jb='pushd "$HOME"/utils/java/bin'
+		alias l='ls -latr'
 		if isMacOSX
 		then
 			alias ldd="otool -L"
@@ -103,62 +99,51 @@ setupAliases()
 	fi
 }
 
-setupPath()
-{
-	# Declare local variable. Works in bash & ksh.
-	typeset dir
-
-	PATH=$(removeDuplicateEntries "$PATH")
+buildPath()
+(
+	path=`removeDuplicateEntries "$PATH"`
 
 	# /usr/local/(s)bin are for Tiger Brew. They should come
-	# bethree /bin and /usr/bin.
+	# before /bin and /usr/bin.
 	for dir in $HOME/bin /usr/local/bin /usr/local/sbin $DROPBOXBIN $HOME/.local/bin
 	do
-		if [ -d "$dir" ] && notContains "$PATH" "$dir"
+		if [ -d "$dir" ] && notContains "$path" "$dir"
 		then
-			PATH="$dir":"$PATH"
+			path="$dir":"$path"
 		fi
 	done
-        export PATH
-}
+        echo "$path"
+)
 
-setupPrompt()
-{
+buildPrompt()
+(
 	if isKornShell
 	then
-		PS1='[exit-status=$?]
+		prompt='[exit-status=$?]
 
 $LOGNAME @ `hostname -s` $PWD
 $ '
 	elif isBash
 	then
-		PS1='[exit-status=$?]\n\n\u @ \h \w\n\$ '
+		prompt='[exit-status=$?]\n\n\u @ \h \w\n\$ '
 	else
-		PS1="$ "
+		prompt="$ "
 	fi
-        export PS1
-}
-
+        echo "$prompt"
+)
 
 fixKornShell
 setupAliases
-setupPath
-setupPrompt
+PATH=`buildPath`
+PS1=`buildPrompt`
+export PATH PS1
 
 # VISUAL overrides EDITOR in bash and ksh.
 if [ -f /usr/bin/vim ]
 then
-    export VISUAL=vim
+    VISUAL="vim"
 else
-    VISUAL=vi
+    VISUAL="vi"
 fi
 EDITOR=$VISUAL
-export EDITOR
-
-
-unset GITDIR
-unset UTILSBIN
-unset JAVAUTILSBIN
-unset DROPBOXBIN
-unset LINE
-
+export VISUAL EDITOR

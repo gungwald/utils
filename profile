@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Desc:Sets up PATH to include the bin directories of all
+#      subdirectories of the specified top-level directory
+#      that contain a profile file and are supported on
+#      the current platform.
+
 dedup() 
 {
   # Magic
@@ -19,14 +24,14 @@ dedupPath()
 isNotInPath() 
 {
     # Grep's -q switch is not present on Solaris 8.
-    echo $PATH | grep -v "$1" > /dev/null
+    echo "$PATH" | grep -v "$1" > /dev/null
 }
 
 removeEmptyElements()
 (
     # Remove empty entries in a PATH or MANPATH type variable by replacing
     # each instance of two consecutive colons by one colon.
-    echo $1 | sed s/::/:/g
+    echo "$1" | sed s/::/:/g
 )
 
 removeEmptyPathElements()
@@ -51,11 +56,11 @@ else
 	    if [ -f "$subDir"/profile ]; then
 	      . "$subDir"/profile
 	      if isSupported; then
-		binDir="$subDir"/bin
-		# Avoid duplicate entries in the PATH.
-		if isNotInPath "$binDir"; then
-		  PATH=$PATH:$binDir
-		fi
+          binDir="$subDir"/bin
+          # Avoid duplicate entries in the PATH.
+          if isNotInPath "$binDir"; then
+            PATH=$PATH:$binDir
+          fi
 	      fi
 	    fi
 	  fi

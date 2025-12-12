@@ -1,5 +1,148 @@
 #!/bin/sh
 
+# Desc:List the contents of a package on Mac (port or brew) or Linux (Fedora, RHEL, CentOS, Debian, or Ubuntu).
+# Usage: lspkg <package> [<package> ...]
+# Example: lspkg vim
+# Example: lspkg bash coreutils
+
+# Note: On Linux, the script sources /etc/os-release to determine the distribution.
+# Note: On Linux, the script currently supports Fedora, RHEL, CentOS, Debian, and Ubuntu.
+# Note: On Mac, either MacPorts or Homebrew must be installed.
+# Note: On Fedora/RHEL/CentOS, the package must be installed to list the contents.
+# Note: On Debian/Ubuntu, if the package is not installed, it will try to use apt-file to list the contents.
+
+# TODO - Add support for BSDs (e.g. Midnight, FreeBSD, NetBSD, and OpenBSD, etc.).
+# TODO - Add support for Windows package managers (e.g. Scoop, Chocolatey, Winget, etc.).
+# TODO - Add support for more Mac package managers (e.g. Nix, Conda, etc.).
+# TODO - List package in repository if not installed (e.g. apt-file, dnf repoquery, etc.).
+# TODO - Add option to search for a file in a package (e.g. dnf provides, apt-file search, etc.).
+# TODO - Add support for Flatpak, Snap, and AppImage on Linux.
+# TODO - Add support for BeOS (pkgman).
+# TODO - Add support for Haiku (pkgman).
+# TODO - Add support for OpenIndiana (pkg).
+# TODO - Add support for SerenityOS (pkgman).
+# TODO - Add support for OS/2 (pkg).
+# TODO - Add support for AIX (installp).
+# TODO - Add support for HP-UX (swlist).
+# TODO - Add support for Solaris (pkg).
+# TODO - Add support for RiscOS (pkg).
+# TODO - Add support for AmigaOS (pkg).
+# TODO - Add support for MorphOS (pkg).
+# TODO - Add support for ArcaOS (pkg).
+# TODO - Add support for ReactOS (pkg).
+# TODO - Add support for ChromeOS (crosh).
+# TODO - Add support for Fedora Silverblue (rpm-ostree).
+# TODO - Add support for Atari TOS (pkg).
+# TODO - Add support for Minix (pkgin).
+# TODO - Add support for QNX (pkg).
+# TODO - Add support for OpenWrt (opkg).
+# TODO - Add support for Yocto (opkg).
+# TODO - Add support for Clear Linux (swupd).
+# TODO - Add support for Amazon Linux (yum, dnf).
+# TODO - Add support for Rocky Linux (dnf).
+# TODO - Add support for AlmaLinux (dnf).
+# TODO - Add support for Mint (dpkg, apt).
+# TODO - Add support for Pop!_OS (dpkg, apt).
+# TODO - Add support for Zorin OS (dpkg, apt).
+# TODO - Add support for elementary OS (dpkg, apt).
+# TODO - Add support for Kali Linux (dpkg, apt).
+# TODO - Add support for Parrot OS (dpkg, apt).
+# TODO - Add support for Deepin (dpkg, apt).
+# TODO - Add support for Manjaro (pacman).
+# TODO - Add support for Arch Linux (pacman).
+# TODO - Add support for SUSE Linux (zypper).
+# TODO - Add support for Alpine Linux (apk).
+# TODO - Add support for Gentoo Linux (emerge).
+# TODO - Add support for Slackware Linux (slackpkg).
+# TODO - Add support for Void Linux (xbps).
+# TODO - Add support for NixOS (nix-env).
+# TODO - Add support for Nix packages on Linux and Mac.
+# TODO - Add support for Conda packages on Linux and Mac.
+# TODO - Add support for Python packages (pip).
+# TODO - Add support for Node.js packages (npm).
+# TODO - Add support for Ruby packages (gem).
+# TODO - Add support for Perl packages (cpan).
+# TODO - Add support for PHP packages (composer).
+# TODO - Add support for Go packages (go).
+# TODO - Add support for Rust packages (cargo).
+# TODO - Add support for Java packages (maven, gradle).
+# TODO - Add support for .NET packages (nuget).
+# TODO - Add support for R packages (CRAN).
+# TODO - Add support for Julia packages (Pkg).
+# TODO - Add support for Haskell packages (cabal, stack).
+# TODO - Add support for Lua packages (luarocks).
+# TODO - Add support for Erlang packages (rebar3).
+# TODO - Add support for Elixir packages (mix).
+# TODO - Add support for OCaml packages (opam).
+# TODO - Add support for D packages (dub).
+# TODO - Add support for Crystal packages (shards).
+# TODO - Add support for Swift packages (swift package).
+# TODO - Add support for Kotlin packages (kotlin).
+# TODO - Add support for Scala packages (sbt).
+# TODO - Add support for C/C++ packages (vcpkg, conan).
+# TODO - Add support for Haskell packages (cabal, stack).
+# TODO - Add support for Racket packages (raco).
+# TODO - Add support for Nim packages (nimble).
+# TODO - Add support for Dart packages (pub).
+
+# Function to print an error message and exit.
+fail() {
+  # shellcheck disable=SC2086
+  # shellcheck disable=SC2048
+  echo $* >&2
+  exit 1
+}
+
+# Check if a Debian package is installed.
+isDebianPackageInstalled() (
+  # dpkg-query returns exit code 1 if package is not installed.
+  # For any other error it returns exit code 2.
+  dpkg-query --status "$1" >/dev/null 2>&1
+  isInstalled=$?
+  if [ $? -eq 2 ]
+  then
+    fail "Failed to run: dpkg-query --status \"$1\":" "$(dpkg-query --status "$1" 2>&1)"
+  fi
+  return $isInstalled
+)
+
+# Install a Debian package if it is not already installed.
+ensureDebianPackageInstalled() (
+  if ! isDebianPackageInstalled "$1"
+  then
+    echo "$1 is not installed. Installing it now."
+    sudo sudo apt update
+    sudo sudo apt install -y "$1"
+  fi
+)
+
+# Function to list files in Debian-based packages using dpkg-query or apt-file.
+listFilesInDebianPackages() (
+  # dpkg-query returns exit code 1 if package is not installed.
+  # For any other error it returns exit code 2.
+  DPKG_NOT_INSTALLED=1
+  DPKG_QUERY_ERROR=2
+  # First try dpkg-query, then apt-file if package is not installed.
+  for pkg in "$@"
+  do
+    dpkg-query --listfiles "$pkg" 2>/dev/null
+    dpkgQueryExitCode=$?
+    if [ "$dpkgQueryExitCode" -eq "$DPKG_NOT_INSTALLED" ]
+    then
+      echo "$pkg is not installed. Trying apt-file."
+      ensureDebianPackageInstalled apt-file
+      echo Updating apt-file database. This may take a while...
+      sudo apt-file update >/dev/null
+      apt-file list "$pkg"
+    elif [ "$dpkgQueryExitCode" -eq "$DPKG_QUERY_ERROR" ]
+    then
+      fail "Failed to run: dpkg-query --listfiles \"$pkg\":" "$(dpkg-query --listfiles "$pkg" 2>&1)"
+    fi
+  done
+)
+
+# Main script starts here.
+
 OS=$(uname -s)
 
 case $OS in
@@ -12,7 +155,7 @@ case $OS in
 		then
 			brew list "$@"
 		else
-			echo Stupid Mac. Jobs is not as smart as you thought, huh?
+			echo Stupid Mac. It has no standard package manager. Jobs is not as smart as you thought, huh? Maybe you should install Linux.
 		fi
 		;;
 
@@ -23,7 +166,7 @@ case $OS in
 				rpm -q -l "$@"
 				;;
 			debian | ubuntu)
-				dpkg-query --listfiles "$@"
+			  listFilesInDebianPackages "$@"
 				;;
 			*)
 				echo Add code for $ID Leenukes
