@@ -5,7 +5,7 @@
 
 use strict;
 use warnings;
-use Net::GitHub; # Install perl-Net-GitHub in Fedora
+use Net::GitHub; # perl-Net-GitHub (Fedora), libnet-github-perl (Debian)
 
 # Read token from token file.
 my $tokenFile = "$ENV{HOME}/Dropbox/.github/readonly-token.txt"; 
