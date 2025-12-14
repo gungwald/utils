@@ -1,8 +1,13 @@
 #!/bin/sh
 
+# Desc:Adds local profile to users home profile.
+# Must be idempotent: don't fu(k it up if run multiple times.
+
 # TODO - Create one bin directory with links to appropriate bin directories
 
-# Adds local profile to users home profile.
+# This script will be run on older systems that can't use these standard features.
+# shellcheck disable=SC2046
+# shellcheck disable=SC2006
 
 getAbsolutePath() {
   if [ -d "$1" ]
@@ -16,27 +21,25 @@ getAbsolutePath() {
 myName=`getAbsolutePath "$0"`
 topDir=`dirname "$myName"`
 
-# Determine which profile to use.
-# .profile is not read if .bash_profile exists...
-for profileBasename in .bash_profile .profile; do
+# Both profiles need to be checked since different systems use
+# different profiles. Ksh uses .profile, bash uses .bash_profile.
+utilsProfile="$topDir"/profile
+for profileBasename in .bash_profile .profile
+do
   profile="$HOME"/"$profileBasename"
-  if [ -f "$profile" ]; then
-    break
+  if grep "^\. $utilsProfile" "$profile" > /dev/null
+  then
+    echo "$utilsProfile" is already setup in "$profile". To update, first manually delete lines in
+    echo "$profile that source $utilsProfile and then rerun $0."
+  else
+    {
+      echo
+      echo \# Added by "$myName" on `date`
+      echo . "$utilsProfile" \""$topDir"\"
+    } >>"$profile"
+    echo "$utilsProfile added to $profile."
   fi
 done
-
-if grep "Added by $myName" "$profile" > /dev/null
-then
-  echo Already setup in "$profile". To update, first manually delete lines in
-  echo "$profile" that source "$topDir"/profile and then rerun $0.
-else
-  {
-    echo
-    echo \# Added by "$myName"
-    echo . "$topDir"/profile \""$topDir"\"
-  } >>"$profile"
-  echo "$profile" updated
-fi
 
 for subDir in "$topDir"/*; do
   if [ -d "$subDir" ]; then

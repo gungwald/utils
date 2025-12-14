@@ -1,0 +1,15 @@
+#!/bin/sh
+# Desc:Turn off a systemd-controlled service
+set -o errexit
+
+if [ $# -gt 0 ]
+then
+    for svc in "$@"
+    do
+        systemctl stop "$svc"
+        systemctl disable "$svc"
+    done
+else
+    echo Try again and give me the name of a service. Run service-list to get a list.
+fi
+

@@ -1,3 +1,4 @@
 #!/bin/sh
+# shellcheck disable=SC2006
 binDir=`dirname "$0"` && [ "$binDir" = "." ] && binDir=`pwd`
 java -jar `dirname "$binDir"`/lib/sleep.jar "$@"

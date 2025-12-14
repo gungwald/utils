@@ -1,8 +1,10 @@
 #!/bin/sh
 
+# Desc:Creates new Java JKS cacerts from latest Mozilla certificates database
+
 # TODO - Automatically backup the old cacerts and install the new one
 # TODO - Don't run the Perl script. Download ca-bundle.crt from somewhere,
-#        preferrably from a plain http address, avoiding a catch-22.
+#        preferably from a plain http address, avoiding a catch-22.
 #        Or rewrite mk-ca-bundle.pl in Java.
 # TODO - Rewrite in Java so you don't need Bash. Depends on the above
 #        because Java 1.4 may not have the latest certs installed to make

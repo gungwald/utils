@@ -1,0 +1,12 @@
+#!/bin/sh
+# Desc:List all systemd-controlled services which depend on a given service
+if [ $# -gt 0 ]
+then
+    for svc in "$@"
+    do
+        systemctl list-dependencies --reverse "$svc"
+    done
+else
+    echo Try again and give me the name of a service. Run service-list to get a list.
+fi
+

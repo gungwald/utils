@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Get the name of the current branch.
+currentBranch=`git rev-parse --abbrev-ref HEAD`
+
+# Get all the information about branches and commits without merging or 
+# rebasing.
+git fetch --all
+
+# List the history of the remote version of this branch.
+git log origin/"$currentBranch" --oneline

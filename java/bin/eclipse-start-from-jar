@@ -1,10 +1,12 @@
 #!/bin/sh
-MAIN_JAR=`find /usr/share/java -name "equinox?launcher*" | head -1`
-ECLIPSEHOME=/usr/lib/eclipse
-FW="-Dosgi.framework=/usr/lib/eclipse/plugins"
-if [ -n "$MAIN_JAR" ]
+# Desc:Start Eclipse from the platform-independent jar
+# shellcheck disable=SC2006
+mainJar=`find /usr/share/java -name "equinox?launcher*" | head -1`
+eclipseHome=/usr/lib/eclipse
+frameworkSwitch="-Dosgi.framework=$eclipseHome/plugins"
+if [ -n "$mainJar" ]
 then
-	java "$FW" -jar "$MAIN_JAR" "$@"
+	java "$frameworkSwitch" -jar "$mainJar" "$@"
 else
 	echo Could not find equinox-launcher.jar
 fi

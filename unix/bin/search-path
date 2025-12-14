@@ -1,0 +1,15 @@
+#!/bin/sh
+# This solution handles spaces in PATH directories and works in all POSIX
+# shells such as sh, ksh, dash, and bash. Consider that before trying to
+# "fix" it.
+for searchString in "$@"; do
+  # Split PATH on colons instead of whitespace
+  IFS=:
+  for pathDir in $PATH; do
+    find "$pathDir" -name "*$searchString*" -print
+  done
+done
+
+# This somehow makes the quotes a part of the parameters instead of
+# quoting them...
+#find `echo "$PATH" | tr : '\n' | sed 's/.*/"&"/' | tr '\n' ' '` -name '*$searchString*' -print

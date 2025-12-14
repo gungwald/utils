@@ -1,5 +1,14 @@
 #!/bin/sh
 
+# Desc:Adds dot-profile to users home profile.
+# Must be idempotent: don't fu(k it up if run multiple times.
+
+# TODO - Create one bin directory with links to appropriate bin directories
+
+# This script will be run on older systems that can't use these standard features.
+# shellcheck disable=SC2046
+# shellcheck disable=SC2006
+
 getAbsolutePath()
 {
 	if [ -d "$1" ]
@@ -10,10 +19,11 @@ getAbsolutePath()
 	fi
 }
 
-SELF=`getAbsolutePath "$0"`
-MY_DIR=`dirname "$SELF"`
+myName=`getAbsolutePath "$0"`
+MY_DIR=`dirname "$myName"`
+topDir=`dirname "$myName"`
 
-if [ -e ~/.vimrc ] 
+if [ -e ~/.vimrc ]
 then
 	if [ -h ~/.vimrc ]
 	then
@@ -24,5 +34,24 @@ then
 	fi
 fi
 
-ln -s "$MY_DIR"/bin/dot-vimrc ~/.vimrc
+ln -s "$MY_DIR"/unix/bin/dot-vimrc ~/.vimrc
 
+# Both profiles need to be checked since different systems use
+# different profiles. Ksh uses .profile, bash uses .bash_profile.
+dotProfile="$topDir"/unix/bin/dot-profile
+for profileBasename in .bash_profile .profile
+do
+  profile="$HOME"/"$profileBasename"
+  if grep "^\. $dotProfile" "$profile" > /dev/null
+  then
+    echo Already setup in "$profile". To update, first manually delete lines in
+    echo "$profile that source $topDir/profile and then rerun $0."
+  else
+    {
+      echo
+      echo "# Added by $myName on `date`"
+      echo . "$dotProfile"
+    } >>"$profile"
+    echo "$dotProfile added to $profile."
+  fi
+done

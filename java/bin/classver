@@ -1,12 +1,22 @@
-#!/bin/sh
+#!/bin/bash
 
 BIN_DIR=`dirname "$0"`
-if [ "$BIN_DIR" = "." ]
-then
+if [ "$BIN_DIR" = '.' ]; then
     BIN_DIR=`pwd`
 fi
+TOP_DIR=`dirname "$BIN_DIR"`
+THIS=`basename "$0"`
 
-LIB_DIR=`dirname "$BIN_DIR"`/lib
-SELF=`basename "$0"`
+APP=com.alteredmechanism.classversionextractor.ClassVersionExtractor
+CLASSES_DIR="$HOME"/git/classver/build/classes/main
+MAIN_CLASS_FILE=${APP//\.///}.class
+VERSION=2.0.0
+JAR="$THIS"-"$VERSION".jar
 
-java -jar "$LIB_DIR"/"$SELF".jar "$@"
+if [ -f "$CLASSES_DIR/$MAIN_CLASS_FILE" ]
+then
+    exec java -cp "$CLASSES_DIR" $APP "$@"
+else
+    exec java -jar "$TOP_DIR"/lib/"$JAR" "$@"
+fi
+

@@ -41,13 +41,32 @@ rem //////////////////////////////////////////////////////////////////////////
 
 :searchAllDrives
 
+rem ///////////////////////////////////
+rem Three methods:
+rem 1. Loop over possible drive letters
+rem 1. wmic logicaldisk
+rem 2. Use WSH?
+rem ///////////////////////////////////
+
+rem This works in Wine. Don't change the syntax unless you test it in Wine!
 set /a totalJreCount=0
-for /f "skip=1" %%d in ('wmic logicaldisk where DriveType^=3 get Caption') do (
-    if not "%%d"=="" (
-        call :findJavaFromDir %%d\
-        set /a totalJreCount+=!ERRORLEVEL!
-    )
+wmic logicaldisk 1>NUL 2>NUL
+if %ERRORLEVEL%==0 (
+	for /f "skip=1" %%d in ('wmic logicaldisk where DriveType^=3 get Caption') do (
+	    if not "%%d"=="" (
+	        call :findJavaFromDir %%d\
+	        set /a totalJreCount+=!ERRORLEVEL!
+	    )
+	)
+) else (
+    for %%d in (A B C D E F G H I J K L M N O P Q R S T U V W X Y Z) do (
+		if exist %%d:\\nul (
+	        call :findJavaFromDir %%d:\
+	        set /a totalJreCount+=!ERRORLEVEL!
+	    )
+	)
 )
+
 rem
 rem Print the final summary of what was found.
 rem
@@ -86,7 +105,9 @@ if not defined startDir (
     exit /b !jreCount!
 )
 echo Searching for Java from directory %startDir%
-for /d /r %startDir% %%j in (*jre*) do (
+rem This "pushd" makes it work in Wine's cmd.exe
+pushd %startDir%
+for /d /r %%j in (*jre*) do (
     set javaExe=%%j\bin\java.exe
     if exist "!javaExe!" (
         set /a jreCount+=1
@@ -96,6 +117,7 @@ for /d /r %startDir% %%j in (*jre*) do (
         echo ...Continuing search...
     )
 )
+popd
 echo ----------------------------------------------------------------------------
 if !jreCount!==0 (
     echo Java was not found in !startDir!

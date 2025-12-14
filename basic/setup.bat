@@ -1,0 +1,1 @@
+@%~dp0bin\add-to-path.bat %~dp0bin

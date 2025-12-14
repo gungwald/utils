@@ -1,5 +1,7 @@
 #!/usr/bin/env rhino
 
+// Desc:URI encodes all arguments or stdin (rhino impl)
+
 if (arguments.length > 0) {
     // If there are arguments, decode them.
     for (var i = 0; i < arguments.length; i++) {

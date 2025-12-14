@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Add minimize and maximize buttons on window title bars...
+dconf write /org/gnome/desktop/wm/preferences/button-layout "'appmenu:minimize,maximize,close'"

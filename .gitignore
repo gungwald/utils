@@ -31,7 +31,4 @@ bin\start-oozie-job-direct
 # JEdit
 \#Untitled*
 
-# Intellij
-.idea/workspace.xml
-
-
+.idea/

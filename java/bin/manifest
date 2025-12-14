@@ -1,0 +1,6 @@
+#!/bin/sh
+# Desc:Displays the contents of a MANIFEST.MF inside a jar file
+for jar in "$@"
+do
+  unzip -p "$jar" META-INF/MANIFEST.MF
+done

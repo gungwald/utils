@@ -8,20 +8,23 @@ my $topCpu = 0.0;
 my $currentPid;
 my $currentCmd;
 
+# The "o" switch takes a single parameter that is a list of process properties
+# to include in the output.
 open(TH, "ps -emo 'pid lwp comm pcpu' |") || die "PS command failed: $!\n";
 <TH>;   # Read past the first line which just has the column titles.
 while (<TH>) {
     ($line) = /^\s*(.*?)\s*$/;  # Trim whitespace so that split works.
     ($pid, $tid, $cmd, $cpu) = split(/\s+/, $line);
-    if ($pid eq '-') {
-        if ($cpu > $topCpu) {
+    if ($pid eq '-') { # This is a line containing thread (not process) info
+        # Avoid reporting our own ps process
+        if ($cpu > $topCpu && $currentCmd ne 'ps') {
             $topPid = $currentPid;
             $topCmd = $currentCmd;
             $topTid = $tid;
             $topCpu = $cpu;
         }
     }
-    else {
+    else { # This is a line containing process (not thread) info
         $currentPid = $pid;
         $currentCmd = $cmd;
     }

@@ -1,4 +1,4 @@
-@echo off
+rem @echo off
 
 rem //////////////////////////////////////////////////////////////////////////
 rem
@@ -20,3 +20,10 @@ rem
 echo.
 
 wmic logicaldisk get Caption,Description,FileSystem,Size,VolumeName
+if ERRORLEVEL 1 (
+    for %%d in (A B C D E F G H I J K L M N O P Q R S T U V W X Y Z) do (
+		if exist %%d:\\nul (
+            echo %%d:
+        )
+    )
+)

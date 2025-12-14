@@ -1,0 +1,25 @@
+#!/bin/sh
+
+if [ -e "$HOME"/.ssh/id_ed25519 ]; then
+    echo Key exists. Will not overwrite.
+    exit 1
+fi
+
+PERS_EMAIL="bill_chatfield@yahoo.com"
+WORK_EMAIL="bill.chatfield@cardinalhealth.com"
+
+unset email
+while [ -z "$email" ]; do
+    echo Select an e-mail address
+    echo 1\) $PERS_EMAIL
+    echo 2\) $WORK_EMAIL
+    echo -n Choose:
+    read -r RESPONSE
+    if [ "$RESPONSE" = "1" ]; then
+        email="$PERS_EMAIL"
+    elif [ "$RESPONSE" = "2" ]; then
+        email="$WORK_EMAIL"
+    fi
+done
+
+ssh-keygen -t ed25519 -C "$email"

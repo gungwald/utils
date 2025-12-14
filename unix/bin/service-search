@@ -1,4 +1,5 @@
 #!/bin/sh
+# Desc:Search for systemd-controlled service
 
 EXIT_SUCCESS=0
 EXIT_FAILURE=1

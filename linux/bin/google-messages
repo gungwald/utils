@@ -1,0 +1,4 @@
+#!/bin/sh
+cd $HOME/opt/GoogleMessages-linux-x64
+./GoogleMessages
+

@@ -1,26 +1,40 @@
-CLASSES_DIR=../classes
-CLASSES=$(CLASSES_DIR)/MavenJarProjectCreator.class $(CLASSES_DIR)/Executor.class $(CLASSES_DIR)/ToLowerCase.class $(CLASSES_DIR)/BuildSqlInList.class $(CLASSES_DIR)/SetDiff.class $(CLASSES_DIR)/RemoveBlankLines.class
+# OS specific part
+ifeq ($(OS),Windows_NT)
+    RM = del /F /Q
+    RMDIR = -RMDIR /S /Q
+    MKDIR = -mkdir
+    ERRIGNORE = 2>NUL || true
+    SEP=\\
+else
+    RM = rm -rf
+    RMDIR = rm -rf
+    MKDIR = mkdir -p
+    ERRIGNORE = 2>/dev/null
+    SEP=/
+endif
+
 JAVAC=$(HOME)/Dropbox/opt/j2sdk1.4.2/j2sdk1.4.2_19/bin/javac
+JAVAC=$(HOME)/Dropbox/opt/jdk1.5.0/jdk1.5.0_22/bin/javac
 
-all: $(CLASSES)
+SOURCE_DIR=../src
+CLASSES_DIR=../classes
+# The 1.3 and 1.1 works for something. I can't remember what.
+JFLAGS=-source 1.3 -target 1.1 -g
+JFLAGS=-source 1.5 -target 1.5 -g
 
-$(CLASSES_DIR)/SetDiff.class: SetDiff.java
-	$(JAVAC) -d $(CLASSES_DIR) SetDiff.java
+COMPILE.java=$(JAVAC) $(JFLAGS)
+OUTPUT_OPTION=-d $(CLASSES_DIR)
+SOURCES = $(foreach dir,$(SOURCE_DIR),$(wildcard $(dir)/*.java))
+CLASSES := $(subst $(SOURCE_DIR),$(CLASSES_DIR),$(SOURCES:.java=.class))
 
-$(CLASSES_DIR)/BuildSqlInList.class: BuildSqlInList.java
-	$(JAVAC) -d $(CLASSES_DIR) BuildSqlInList.java
+all: $(CLASSES_DIR) $(CLASSES)
 
-$(CLASSES_DIR)/MavenJarProjectCreator.class: MavenJarProjectCreator.java
-	$(JAVAC) -d $(CLASSES_DIR) MavenJarProjectCreator.java
+$(CLASSES_DIR):
+	$(MKDIR) $(CLASSES_DIR)
 
-$(CLASSES_DIR)/Executor.class: Executor.java
-	$(JAVAC) -d $(CLASSES_DIR) Executor.java
-
-$(CLASSES_DIR)/ToLowerCase.class: ToLowerCase.java
-	$(JAVAC) -d $(CLASSES_DIR) ToLowerCase.java
-
-$(CLASSES_DIR)/RemoveBlankLines.class: RemoveBlankLines.java
-	$(JAVAC) -d $(CLASSES_DIR) RemoveBlankLines.java
+$(CLASSES_DIR)/%.class: %.java
+	$(COMPILE.java) $(OUTPUT_OPTION) $^
 
 clean:
-	$(RM) $(CLASSES)
+	$(RMDIR) $(CLASSES_DIR)
+

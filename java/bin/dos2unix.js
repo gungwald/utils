@@ -1,5 +1,6 @@
 /*  dos2unix.js 
-        
+
+        - Desc:Windows Script Host implementation of dos2unix
         - Converts a text file from DOS to UNIX format
         - Implements in Windows the dos2unix command found on Linux & BSD UNIX
         - Will conform to behavior of UNIX command for operational efficiency

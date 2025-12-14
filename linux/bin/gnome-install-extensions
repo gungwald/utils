@@ -1,0 +1,19 @@
+#!/bin/sh
+
+. /etc/os-release
+OS=`uname -s`
+
+if [ "$OS" = 'Linux' ]; then
+  if [ "$ID" = 'fedora' ]; then
+    # There is a conflict between the applet and the regular system monitor.
+    # We want the applet.
+    sudo dnf install --exclude=gnome-shell-extension-system-monitor gnome-shell-extension-*
+    echo Now type ALT-F2 \'r\' to restart Gnome Shell to make extensions available. I wish this still worked.
+  elif [ "$ID" = 'debian' ]; then
+    sudo apt install gnome-shell-extension*
+  else
+    echo $0: ID=$ID from /etc/os-release has not been configured in this script. Fix that bitch. 1>&2
+  fi
+else
+  echo $0: OS=$OS has not been configured in this script. Fix that bitch. 1>&2
+fi
