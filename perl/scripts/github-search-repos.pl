@@ -3,10 +3,13 @@
 # Author: Bill Chatfield - https://github.com/gungwald
 
 use strict;
+use warnings;
 use Data::Dumper;
 
-use constant EXIT_SUCCESS => 0;
-use constant EXIT_FAILURE => 1;
+my $EXIT_SUCCESS = 0;
+my $EXIT_FAILURE = 1;
+
+sub printRepos($);
 
 # Import non-standard modules or provide instructions for installing them.
 BEGIN {
@@ -15,7 +18,7 @@ BEGIN {
     # of Perl. The $@ variable must be checked.
     # Make STDIN, STDOUT, STDERR UTF-8 compatible
     eval "use open ':std', ':encoding(UTF-8)'";
-    if ($@) {
+    if (defined $@) {
         #print STDERR $@;
         print STDERR "Please install Perl module 'open'\n";
         print STDERR "    Fedora: sudo dnf install perl-open\n";
@@ -24,7 +27,7 @@ BEGIN {
         $isModuleMissing = 1;
     }
     eval "use Net::GitHub::V3";
-    if ($@) {
+    if (defined $@) {
         #print STDERR $@;
         print STDERR "Please install Perl module Net::GitHub\n";
         print STDERR "    Fedora: sudo dnf install perl-Net-GitHub\n";
@@ -33,7 +36,7 @@ BEGIN {
         $isModuleMissing = 1;
     }
     eval "use Try::Tiny";
-    if ($@) {
+    if (defined $@) {
         #print STDERR $@;
         print STDERR "Please install Perl module Try::Tiny\n";
         print STDERR "    Fedora: sudo dnf install perl-Try-Tiny\n";
@@ -42,7 +45,7 @@ BEGIN {
         $isModuleMissing = 1;
     }
     eval "use Exception::Class ('ModuleInterfaceException')";
-    if ($@) {
+    if (defined $@) {
         #print STDERR $@;
         print STDERR "Please install Perl module Exception::Class\n";
         print STDERR "    Fedora: sudo dnf install perl-Exception-Class\n";
@@ -50,13 +53,13 @@ BEGIN {
         print STDERR "    CPAN:   sudo cpan -i Exception::Class\n";
         $isModuleMissing = 1;
     }
-    if ($isModuleMissing) {
-        exit(EXIT_FAILURE);
+    if (defined $isModuleMissing) {
+        exit($EXIT_FAILURE);
     }
 }
 
 my $count = 0;
-sub printRepos($)
+sub printRepos()
 {
     my ($repos) = @_;
     foreach my $repo (@$repos) {
@@ -74,7 +77,7 @@ sub printRepos($)
 
 if (@ARGV == 0) {
     print "Please provide a search string.\n";
-    exit(EXIT_SUCCESS);
+    exit($EXIT_SUCCESS);
 }
 
 my $github = new Net::GitHub::V3(RaiseError => 1);

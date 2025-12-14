@@ -3,16 +3,19 @@
 JAVA6=/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin/java 
 OS=$(uname -s)
 THIS=$(basename "$0")
+MACOS_VER=$(sw_vers -productVersion)
 
 # Check obvious failure scenarios.
-if [ "$OS" = "Darwin" ]
+if [ "$OS" = "Darwin" ] && [ "$MACOS_VER" = "10.4.11" ]
 then
     if [ ! -f "$JAVA6" ]
     then
         echo $THIS: Java 6 is not installed. 1>&2
+        exit
     fi
 else
     echo $THIS: This script only works on MacOS X 10.4.11 1>&2
+    exit
 fi
 
 # From https://stackoverflow.com/questions/3618078/pipe-only-stderr-through-a-filter
