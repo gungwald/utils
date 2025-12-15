@@ -15,5 +15,5 @@ if [ "$OS" = 'Linux' ]; then
     echo $0: ID=$ID from /etc/os-release has not been configured in this script. Fix that bitch. 1>&2
   fi
 else
-  echo $0: OS=$OS has been configured in this script. Fix that bitch. 1>&2
+  echo $0: OS=$OS has not been configured in this script. Fix that bitch. 1>&2
 fi
