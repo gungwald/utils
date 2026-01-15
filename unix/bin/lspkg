@@ -163,7 +163,17 @@ case $OS in
 		. /etc/os-release
 		case $ID in
 			fedora | rhel | centos)
-				rpm -q -l "$@"
+			  # If listing the contents of the packages given on the command line fails...
+				if ! rpm -q -l "$@"
+        then
+          # Rpm prints its own error message
+          printf "Search remote repositories? (Y/n): "
+          read -r answer
+          if [ "$answer" = "y" ] || [ "$answer" = "Y" ] || [ "$answer" = "yes" ] || [ "$answer" = "YES" ] || [ "$answer" = "" ]
+          then
+            dnf repoquery --list "$@"
+          fi
+        fi
 				;;
 			debian | ubuntu)
 			  listFilesInDebianPackages "$@"

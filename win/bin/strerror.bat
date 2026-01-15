@@ -18,7 +18,7 @@ rem     The simplest way to start a script, such as a JavaScript
 rem     (Mozilla Rhino) script is to use a single line batch file,
 rem     such as:
 rem
-rem         @java -jar js.jar myscript.js
+rem         @java -jar rhino.jar myscript.js
 rem
 rem     Limiting the platform-specific batch file to a single line is
 rem     a good way to make sure it contains no application logic. But
@@ -100,7 +100,7 @@ rem
 rem     Name        Ext   Jar            Web Site
 rem     ----        ---   ---            --------
 rem     BeanShell   .bsh  bsh-2.0b4.jar  http://www.beanshell.org/
-rem     JavaScript  .js   js.jar         http://www.mozilla.org/rhino/
+rem     JavaScript  .js   rhino.jar         http://www.mozilla.org/rhino/
 rem     Sleep       .sl   sleep.jar      http://sleep.dashnine.org/
 rem     Perl        .pl   N/A            http://www.perl.org/
 rem 
@@ -138,7 +138,7 @@ rem         +---bin                 (Contains copies of this batch file)
 rem         |       scanlogs.bat    (A copy of this batch file)
 rem         |
 rem         +---lib                 (Contains interpreter jar files)
-rem         |       js.jar          (Required for JavaScript scripts)
+rem         |       rhino.jar          (Required for JavaScript scripts)
 rem         |
 rem         \---scripts             (Contains your scripts)
 rem                 scanlogs.js     (Your JavaScript script)
@@ -157,7 +157,7 @@ rem         |       programE.bat    (A copy of this batch file)
 rem         |
 rem         +---lib                 (Contains interpreter jar files)
 rem         |       bsh-2.0b4.jar   (Required for BeahShell scripts)
-rem         |       js.jar          (Required for JavaScript scripts)
+rem         |       rhino.jar          (Required for JavaScript scripts)
 rem         |       sleep.jar       (Required for Sleep scripts)
 rem         |       programE.jar    (Your java program)
 rem         |
@@ -271,7 +271,7 @@ for %%s in (%SCRIPT_SEARCH_PATH%) do (
     if exist "!TARGET!" (
         set JAR_HAS_BEEN_FOUND=false
         for %%j in (%JAR_SEARCH_PATH%) do (
-            set JAR=%%~j\js.jar
+            set JAR=%%~j\rhino.jar
             if exist "!JAR!" (
                 set JAR_HAS_BEEN_FOUND=true
                 %JAVA% -jar "!JAR!" "!TARGET!" %*
@@ -279,7 +279,7 @@ for %%s in (%SCRIPT_SEARCH_PATH%) do (
             )
         )
         if !JAR_HAS_BEEN_FOUND!==false (
-            echo Found JavaScript script "!TARGET!" but not its interpreter: js.jar
+            echo Found JavaScript script "!TARGET!" but not its interpreter: rhino.jar
         )
     )
 

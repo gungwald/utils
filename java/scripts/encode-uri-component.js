@@ -1,4 +1,5 @@
-#!/usr/bin/env rhino
+// Name: escape.js
+// Should be run with: rhino escape.js [args ...]
 
 // Desc:URI encodes all arguments or stdin (rhino impl)
 

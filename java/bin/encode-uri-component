@@ -13,6 +13,7 @@ getAbsolutePath()
 THIS_SCRIPT_ABS_PATH=`getAbsolutePath "$0"`
 THIS_SCRIPT_ABS_DIR=`dirname "$THIS_SCRIPT_ABS_PATH"`
 TOP_DIR=`dirname "$THIS_SCRIPT_ABS_DIR"`
-LIB_DIR="$TOP_DIR"/lib
+SCRIPT_DIR="$TOP_DIR"/scripts
+SCRIPT_NAME=`basename "$0"`
 
-exec java -jar "$LIB_DIR"/rhino.jar "$@"
+exec "$THIS_SCRIPT_ABS_DIR"/rhino "$SCRIPT_DIR"/"$SCRIPT_NAME".js "$@"
