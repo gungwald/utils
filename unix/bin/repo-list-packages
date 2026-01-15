@@ -1,0 +1,3 @@
+#!/bin/sh
+#dnf list available --repo="$1"
+dnf repoquery --repo="$1"
