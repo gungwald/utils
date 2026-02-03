@@ -1,0 +1,9 @@
+#!/bin/sh
+
+MY_SIMPLE_FILE_NAME=`basename "$0" .sh`
+MY_RELATIVE_DIR_NAME=`dirname "$0"`
+BIN_DIR=`(cd "$MY_RELATIVE_DIR_NAME" ; pwd)`
+TOP_DIR=`dirname "$BIN_DIR"`
+LIB_DIR="$TOP_DIR"/lib
+
+java -jar "$LIB_DIR"/"$MY_SIMPLE_FILE_NAME"-standalone-2.7.0.jar "$@"

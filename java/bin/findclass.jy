@@ -43,14 +43,15 @@ def findClass(f, classToFind):
 #
 ####################
 
-if len(sys.argv) > 0:
-    firstArg = File(sys.argv[0])
-    if firstArg.isDirectory():
-        for arg in sys.argv[1:]:
-            findClass(firstArg, arg)
+# The first argument, index 0, is the name of this script.
+if len(sys.argv) > 1:
+    dirArg = File(sys.argv[1])
+    if dirArg.isDirectory():
+        for arg in sys.argv[2:]:
+            findClass(dirArg, arg)
     else:
-        for arg in sys.argv:
+        for arg in sys.argv[1:]:
             findClass(cwd, arg)
 else:
-    print "Find what, dumb-ass?
+    print "Find what, dumb-ass?"
 

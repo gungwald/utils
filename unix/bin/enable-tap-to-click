@@ -1,6 +1,21 @@
 #!/bin/sh
-# Requires xorg-x11-drv-synaptics and probably xorg.conf for synaptics
-synclient TapButton1=1
+
+# Requires packages to be installed:
+#
+#   Fedora-based:
+#       sudo dnf install xorg-x11-drv-synaptics
+#
+#   Debian-based:
+#       sudo apt install xserver-xorg-input-synaptics
+#
+#   Then restart the X server
+#
+# Apparently nothing else is required. Simplying installing the driver and restarting the X server
+# will cause the driver to get loaded and the defaults will include tap-to-click. The rest of the
+# text in this file is only for reference.
+# ------------------------------------------------------------------------------------------------
+
+#synclient TapButton1=1
 
 # The other option is libinput, configured like this in xorg.conf.d/40-touchpad.conf
 # Section "InputClass"
@@ -12,3 +27,4 @@ synclient TapButton1=1
 #   Option "ClickMethod" "clickfinger"
 # EndSection
 
+xinput set-prop "SynPS/2 Synaptics TouchPad" 
