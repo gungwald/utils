@@ -13,6 +13,10 @@
 " set nocompatible
 " source $VIMRUNTIME/vimrc_example.vim
 " behave xterm
+"
+" To reload .vimrc:
+"   :source $MYVIMRC
+"   :so %
 
 " Prefix 	Meaning
 " g: varname 	The variable is global
@@ -346,4 +350,13 @@ au BufNewFile,BufRead *.asm set filetype=asm65816
 au BufNewFile,BufRead *.s set filetype=asm65816
 
 au BufRead,BufNewFile *.baz set filetype=virtualbasic
+
+
+" ------------------------------------------------------ 
+" 
+"   Enable full-screen capability with F11. This 
+"   requires wmctrl to be installed.
+"
+" ------------------------------------------------------
+map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscreen")<CR>
 
