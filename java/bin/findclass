@@ -1,0 +1,7 @@
+#!/bin/sh
+
+MY_SIMPLE_FILE_NAME=`basename "$0" .sh`
+MY_RELATIVE_DIR_NAME=`dirname "$0"`
+BIN_DIR=`(cd "$MY_RELATIVE_DIR_NAME" ; pwd)`
+
+"$BIN_DIR"/"$MY_SIMPLE_FILE_NAME".bsh

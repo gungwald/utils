@@ -2,3 +2,9 @@
 isSupported() {
   true
 }
+
+if [ -n "$subDir" ]
+then
+    . "$subDir"/bin/dot-profile
+else
+    echo Variable subDir is not set

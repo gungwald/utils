@@ -13,15 +13,17 @@ getAbsolutePath()
 {
 	if [ -d "$1" ]
 	then
+		# shellcheck disable=SC2164
+		# shellcheck disable=SC2092
 		( cd "$1" ; `pwd` )
 	else
+		# shellcheck disable=SC2164
 		( cd `dirname "$1"` ; echo `pwd`/`basename "$1"` )
 	fi
 }
 
 myName=`getAbsolutePath "$0"`
 MY_DIR=`dirname "$myName"`
-topDir=`dirname "$myName"`
 
 if [ -e ~/.vimrc ]
 then
@@ -35,23 +37,3 @@ then
 fi
 
 ln -s "$MY_DIR"/unix/bin/dot-vimrc ~/.vimrc
-
-# Both profiles need to be checked since different systems use
-# different profiles. Ksh uses .profile, bash uses .bash_profile.
-dotProfile="$topDir"/unix/bin/dot-profile
-for profileBasename in .bash_profile .profile
-do
-  profile="$HOME"/"$profileBasename"
-  if grep "^\. $dotProfile" "$profile" > /dev/null
-  then
-    echo Already setup in "$profile". To update, first manually delete lines in
-    echo "$profile that source $topDir/profile and then rerun $0."
-  else
-    {
-      echo
-      echo "# Added by $myName on `date`"
-      echo . "$dotProfile"
-    } >>"$profile"
-    echo "$dotProfile added to $profile."
-  fi
-done
