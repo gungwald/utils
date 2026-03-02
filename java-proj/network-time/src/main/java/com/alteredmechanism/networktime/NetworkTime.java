@@ -1,4 +1,4 @@
-package com.alteredmechanism;
+package com.alteredmechanism.networktime;
 
 import java.net.InetAddress;
 import org.apache.commons.net.ntp.NTPUDPClient;
@@ -20,7 +20,7 @@ class NetworkTime {
             Date ntpTime = transmitTime.getDate();
             Date now = new Date();
             System.out.printf("NTP Time: %s\n", ntpTime.toString());
-            System.out.printf("System Time: %s\n", now.toString());
+            System.out.printf("Sys Time: %s\n", now.toString());
         }
         catch (Exception e) {
             e.printStackTrace();

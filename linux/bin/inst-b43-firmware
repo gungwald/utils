@@ -48,6 +48,6 @@ sudo b43-fwcutter -w "$TARGET_DIR" "$FW_OBJ_FILE_CONTAINER" || exit
 sudo chmod o+rx "$TARGET_DIR"/b43
 
 # Reload the driver into the kernel so it can find the new firmware
-sync && sync || exit
-sudo modprobe -r b43
-sudo modprobe b43
+#sync && sync || exit
+#sudo modprobe -r b43
+#sudo modprobe b43
