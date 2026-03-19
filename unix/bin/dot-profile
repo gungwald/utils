@@ -74,7 +74,7 @@ fixKornShell()
 	if isKornShell
 	then
 		echo Identified Korn Shell. Adding pushd, popd, and dirs commands.
-		. "$HOME"/utils/unix/bin/dirstack.ksh
+		. "$HOME"/git/utils/unix/bin/dirstack.ksh
 	fi
 }
 	
