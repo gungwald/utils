@@ -1,0 +1,2 @@
+#!/bin/sh
+astyle --style="k&r" --indent=spaces=4 --add-braces "$@"

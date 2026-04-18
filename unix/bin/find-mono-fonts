@@ -1,0 +1,6 @@
+#!/bin/sh
+# iMac G3 Slot Loading is 96x96 DPI at 1024-768. So, the 100-100 fonts are
+# closer than the 75-75 fonts.
+# iso8859 is ISO Latin Western-European
+# iso10646 is Unicode in UTF-8 format, I think. It might be UTF-16.
+xlsfonts | grep '\-r-.*-100-100-m-.*-iso8859-' | more 

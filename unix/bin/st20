@@ -1,0 +1,7 @@
+#!/bin/sh
+#st -f '-adobe-courier-bold-o-normal--14-140-75-75-m-90-iso10646-1' &
+#st -f "-adobe-courier-bold-r-normal--18-180-75-75-m-110-iso8859-1" &
+#st -f "-adobe-courier-medium-r-normal--17-120-100-100-m-100-iso10646-1" &
+st -f '-adobe-courier-medium-r-normal--20-140-100-100-m-110-iso8859-1' -t 'st20 - Simple Terminal 20 Font' &
+#st -f '-adobe-courier-medium-r-normal--25-180-100-100-m-150-iso8859-1' \
+	-g '60x25' -t 'st25 - Simple Terminal 25 Font' &
