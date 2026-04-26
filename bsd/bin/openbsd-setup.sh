@@ -11,7 +11,8 @@ EOF
 cp /etc/examples/doas.conf /etc
 # Then add 'nopass' as argument to permit command in /etc/doas.conf
 
-pkg_add icewm firefox vim roxterm git avahi
+# egcc is the gcc for OpenBSD
+pkg_add icewm firefox vim roxterm git avahi egcc
 
 doas rcctl start messagebus
 doas rcctl start avahi_daemon

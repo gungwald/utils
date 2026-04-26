@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Inhibits standby mode when logging in remotely to a Linux system with
+# systemd, the accursed. Needs to be put in .profile or .bashrc
+
+if [ "$SSH_CLIENT" ] &&
+     ! pstree -ps $$ |
+       grep -q -- '-systemd-inhibit(' >/dev/null; then
+
+  echo "Inhibit automatic standby"
+  exec /usr/bin/systemd-inhibit \
+    --what=idle --why='Interactive SSH Session' -- \
+    "$SHELL" "$@"
+
+fi
