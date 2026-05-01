@@ -1,3 +1,5 @@
+#!/usr/bin/perl -w
+
 # Process all commmand line arguments.
 for $file (@ARGV) {
     my @lines;
