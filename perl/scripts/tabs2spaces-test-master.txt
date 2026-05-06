@@ -1,0 +1,6 @@
+# Don't modify tabs2spaces-test-master.txt
+# Copy to tabs2spaces-test.txt and test with that one.
+
+		2 tabs
+	1 tab
+			3 tabs
