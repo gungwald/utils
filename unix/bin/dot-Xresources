@@ -8,18 +8,27 @@
 ! If this file is updated, run the following command to activate the changes
 ! for the current session: xrdb -merge ~/.Xresources
 
+! application.Class.resourceName: value 
+! application*resourceName: value
+! Object names - lowercase letter
+! Class names - uppercase letter 
+! * - multiple components
+! ? - a single component
+! . - immediately adjacent components
+
 ! Increase the double-click and triple-click time from the default 200 to 400.
 ! The 200 value is almost humanly impossible for triple clicks and very hard
 ! for double clicks. It shows a lack of understanding of human interfaces and
 ! a lack of acceptance testing.
-! Unfortunately this does not seem to be working in nedit. Maybe xinput has to
-! be used...
-XmMultiClickTime: 400
+! Unfortunately this does not seem to be working in nedit.
+!XmMultiClickTime: 400
+! This one works
+*multiClickTime: 400
 
 /* The default blue of old Motif */
 *.background: rgb:72/9f/ff
 *.foreground: Black
-*.highlightColor: Black
+*.highlightColor: Yellow
 
 Vim*useSchemes:			all
 Vim*sgiMode:			true
@@ -33,6 +42,9 @@ Vim*scrollBackground:		LightBlue
 Vim*scrollForeground:		Blue
 
 /*
+
+! I think these are all Vim properties
+
     reverseVideo	Boolean: should reverse video be used?
     background		Color of background.
     foreground		Color of normal text.
