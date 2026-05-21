@@ -1,2 +1,5 @@
 #!/bin/sh
-astyle --style="k&r" --indent=spaces=4 --add-braces "$@"
+#astyle --style="k&r" --indent=spaces=4 --add-braces "$@"
+astyle --mode=c --style="k&r" \
+    --indent=spaces=2 --convert-tabs --remove-braces "$@" > /dev/null
+

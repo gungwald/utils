@@ -147,24 +147,24 @@ OS=$(uname -s)
 
 case $OS in
 
-	Darwin)
-		if which port
-		then
-			port contents "$@"
-		elif which brew
-		then
-			brew list "$@"
-		else
-			echo Stupid Mac. It has no standard package manager. Jobs is not as smart as you thought, huh? Maybe you should install Linux.
-		fi
-		;;
+  Darwin)
+    if which port
+    then
+      port contents "$@"
+    elif which brew
+    then
+      brew list "$@"
+    else
+      echo Stupid Mac. It has no standard package manager. Jobs is not as smart as you thought, huh? Maybe you should install Linux.
+    fi
+    ;;
 
-	Linux)
-		. /etc/os-release
-		case $ID in
-			fedora | rhel | centos)
-			  # If listing the contents of the packages given on the command line fails...
-				if ! rpm -q -l "$@"
+  Linux)
+    . /etc/os-release
+    case $ID in
+      fedora | rhel | centos)
+        # If listing the contents of the packages given on the command line fails...
+        if ! rpm -q -l "$@"
         then
           # Rpm prints its own error message
           printf "Search remote repositories? (Y/n): "
@@ -174,26 +174,26 @@ case $OS in
             dnf repoquery --list "$@"
           fi
         fi
-				;;
-			debian | ubuntu)
-			  listFilesInDebianPackages "$@"
-				;;
-			*)
-				echo Add code for $ID Leenukes
-				;;
-		esac
-		;;
+        ;;
+      debian | ubuntu)
+        listFilesInDebianPackages "$@"
+        ;;
+      *)
+        echo Add code for $ID Leenukes
+        ;;
+    esac
+    ;;
 
-	*BSD*)
-		echo $OS is cool, but I don\'t know how to display package contents
-		;;
+  *BSD*)
+    echo $OS is cool, but I don\'t know how to display package contents
+    ;;
 
-	*Win* | *win*)
-		# Scoop could be used here.
-		echo $OS? Stop being a looser. Go to http://getfedora.org.
-		;;
+  *Win* | *win*)
+    # Scoop could be used here.
+    echo $OS? Stop being a looser. Go to http://getfedora.org.
+    ;;
 
-	*)
-		echo Unknown OS: $OS
-		;;
+  *)
+    echo Unknown OS: $OS
+    ;;
 esac
