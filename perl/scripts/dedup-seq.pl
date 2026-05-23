@@ -1,10 +1,3 @@
-use strict;
-use warnings;
+#!/usr/bin/perl
 
-my $currentLine;
-my $nextLine;
-
-$_ = <>;
-while <> {
-
-}
+print "Use uniq\n";
