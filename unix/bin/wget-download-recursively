@@ -1,0 +1,4 @@
+#!/bin/sh
+
+wget -rkpl 100 --no-check-certificate "$@"
+
