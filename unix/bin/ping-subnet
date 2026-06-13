@@ -1,8 +1,12 @@
 #!/bin/sh
 
-for i in $(seq 1 254)
+# After running this to load the arp cache, "arp -a" can be run to print out
+# the cache which includes ethernet (mac) addresses, hopefully.
+
+# Starting from 50 because my DHCP server doesn't allocated anything below that.
+for i in $(seq 50 254)
 do
-    ping -c 1 192.168.1.$i
-done \
-    | grep "bytes from"
+  echo Pinging 192.168.1.$i
+  ping -c 1 -w 1 192.168.1.$i | grep "bytes from"
+done
     
