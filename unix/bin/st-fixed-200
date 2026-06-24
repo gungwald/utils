@@ -2,5 +2,9 @@
 #st -f '-adobe-courier-bold-o-normal--14-140-75-75-m-90-iso10646-1' &
 #st -f "-adobe-courier-bold-r-normal--18-180-75-75-m-110-iso8859-1" &
 #st -f "-adobe-courier-medium-r-normal--17-120-100-100-m-100-iso10646-1" &
-st -f '-adobe-courier-medium-r-normal--20-140-100-100-m-110-iso8859-1' \
-        -t 'Simple Terminal - 20 Point Font' &
+st -f '-misc-fixed-medium-*-*-*-20-140-*-*-*-*-*-*' \
+        -g '80x25' \
+        -t 'SimpleTerm - Fixed Font - 200 Point' &
+
+
+

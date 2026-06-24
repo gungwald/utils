@@ -1,0 +1,2 @@
+#!/bin/sh
+xdpyinfo | grep 'dots per inch' | grep -Eo '[[:digit:]]+' | head -1
