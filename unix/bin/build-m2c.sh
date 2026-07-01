@@ -13,7 +13,7 @@ MAKE_TMPL="$SRC"/Makefile.tmpl
 CONF_DIR="$SRC"/config
 INSTALL_PREFIX=/opt/gnu
 CC=egcc
-REMOTE_URL='https://mirror.cedia.org.ec/nongnu/m2c/0.7/$NAME.tar.gz'
+REMOTE_URL='https://download.savannah.nongnu.org/releases/m2c/0.7/m2c-0.7.tar.gz'
 DOWNLOADED_ARCHIVE="$HOME/Downloads/$NAME.tar.gz"
 
 if [ "$1" = 'clean' ]
@@ -32,12 +32,13 @@ fi
 # Download tar
 if [ ! -f "$DOWNLOADED_ARCHIVE" ]
 then
-  curl -o "$DOWNLOADED_ARCHIVE" "$REMOTE_URL"
+  curl --location -o "$DOWNLOADED_ARCHIVE" "$REMOTE_URL"
 fi
 
 # Unzip
 if [ ! -f "$SRC/configure" ]
 then
+  mkdir -p "$ALL_SRC"
   cd "$ALL_SRC"
   tar -xvzf "$DOWNLOADED_ARCHIVE"
 fi
