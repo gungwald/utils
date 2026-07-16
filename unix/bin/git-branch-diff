@@ -1,2 +1,2 @@
 #!/bin/sh
-git diff master... --stat
+git diff main... --stat
