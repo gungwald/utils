@@ -94,8 +94,8 @@ setPermissions()
     local TYPE=$1
     local PERMS=$2
     local FILE=$3
-    write $FILE \($TYPE\)
     chmod $PERMS "$FILE"
+    write $FILE: \($TYPE\) set to $PERMS
 }
 
 #
