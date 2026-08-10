@@ -1,0 +1,8 @@
+#!/bin/sh
+
+for svc in lightdm lxdm kdm; do
+    if sudo systemctl is-enabled $svc; then
+        sudo systemctl disable $svc
+    fi
+done
+sudo systemctl enable gdm.service

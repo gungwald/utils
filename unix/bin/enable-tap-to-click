@@ -1,5 +1,8 @@
 #!/bin/sh
 
+echo Read the contents of this file for instructions.
+
+# This might be required for Dell Precision M6300, not sure.
 # Requires packages to be installed:
 #
 #   Fedora-based:
@@ -10,14 +13,12 @@
 #
 #   Then restart the X server
 #
-# Apparently nothing else is required. Simplying installing the driver and restarting the X server
-# will cause the driver to get loaded and the defaults will include tap-to-click. The rest of the
-# text in this file is only for reference.
-# ------------------------------------------------------------------------------------------------
 
+# This doesn't work for Dell Precision M6300, but apparently does for something.
 #synclient TapButton1=1
 
 # The other option is libinput, configured like this in xorg.conf.d/40-touchpad.conf
+# This is the only option that works for the Dell Precision M6300.
 # Section "InputClass"
 #   Identifier "touchpad"
 #   Driver "libinput"
@@ -27,4 +28,5 @@
 #   Option "ClickMethod" "clickfinger"
 # EndSection
 
-xinput set-prop "SynPS/2 Synaptics TouchPad" 
+# This is not needed for Dell Precision M6300, but apparently was for something.
+#xinput set-prop "SynPS/2 Synaptics TouchPad" 

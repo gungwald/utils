@@ -1,0 +1,9 @@
+#!/bin/sh
+
+for svc in lightdm gdm lxdm kdm; do
+    if [ -e /usr/sbin/$svc ]; then
+        if systemctl --quiet is-enabled ${svc}.service; then
+            echo $svc
+        fi 
+    fi
+done
