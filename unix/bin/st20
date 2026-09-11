@@ -3,4 +3,5 @@
 #st -f "-adobe-courier-bold-r-normal--18-180-75-75-m-110-iso8859-1" &
 #st -f "-adobe-courier-medium-r-normal--17-120-100-100-m-100-iso10646-1" &
 st -f '-adobe-courier-medium-r-normal--20-140-100-100-m-110-iso8859-1' \
-        -t 'Simple Terminal - 20 Point Font' &
+        -t 'Simple Term' &
+
